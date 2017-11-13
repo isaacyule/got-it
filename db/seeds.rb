@@ -9,6 +9,9 @@ require 'json'
 require 'open-uri'
 require 'faker'
 
+puts "cleaning database..."
+User.destroy_all
+puts "seeding"
 
 # create 100 random users
 100.times do {
@@ -28,6 +31,9 @@ require 'faker'
   country           = user['results'][0]['nat']
   phone             = user['results'][0]['phone']
   registration_date = user['results'][0]['registered']
-
-  user.new(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registration_date: registration_date)
+  puts "writing #{first_name.capitalize} #{last_name.capitalize}..."
+  User.create!(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registration_date: registration_date)
 }
+
+puts "*** Seeding Complete ***"
+puts "*** Seeded #{User.count} users ***"
