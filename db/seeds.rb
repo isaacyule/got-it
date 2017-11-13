@@ -16,19 +16,18 @@ require 'faker'
   user_serialized = open(url).read
   user            = JSON.parse(user_serialized)
 
-  first_name    = user['results'][0]['name']['first']
-  last_name     = user['results'][0]['name']['last']
-  password      = user['results'][0]['login']['password']
-  email         = user['results'][0]['email']
-  profile_photo = user['results'][0]['picture']["large"]
-  profile_text  = Faker::MostInterestingManInTheWorld.quote
-  street        = user['results'][0]['location']['street']
-  town          = user['results'][0]['location']['city']
-  state         = user['results'][0]['location']['county']
-  postcode      = user['results'][0]['location']['postcode']
-  country       = user['results'][0]['nat']
-  phone         = user['results'][0]['phone']
-  registered    = user['results'][0]['registered']
+  first_name        = user['results'][0]['name']['first']
+  last_name         = user['results'][0]['name']['last']
+  password          = user['results'][0]['login']['password']
+  email             = user['results'][0]['email']
+  profile_photo     = user['results'][0]['picture']["large"]
+  profile_text      = Faker::MostInterestingManInTheWorld.quote
+  street            = user['results'][0]['location']['street']
+  town              = user['results'][0]['location']['city']
+  postcode          = user['results'][0]['location']['postcode']
+  country           = user['results'][0]['nat']
+  phone             = user['results'][0]['phone']
+  registration_date = user['results'][0]['registered']
 
-  user.new(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registered: registered)
+  user.new(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registration_date: registration_date)
 }
