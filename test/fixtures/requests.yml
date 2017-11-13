@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  product: one
+  status: MyString
+  start_date: MyString
+  end_date: MyString
+  description: MyText
+
+two:
+  user: two
+  product: two
+  status: MyString
+  start_date: MyString
+  end_date: MyString
+  description: MyText
