@@ -5,3 +5,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'json'
+require 'open-uri'
+
+
+# create 100 random users
+100.times do {
+  url             = 'https://randomuser.me/api/'
+  user_serialized = open(url).read
+  user            = JSON.parse(user_serialized)
+
+  name          = "#{user['results'][0]['name']['first']} #{user['results'][0]['name']['last']} "
+  username      = user['results'][0]['login']['username']
+  password      = user['results'][0]['login']['password']
+  email         = user['results'][0]['email']
+  profile_photo = user['results'][0]['picture']["large"]
+  street        = user['results'][0]['location']['street']
+  town          = user['results'][0]['location']['city']
+  state         = user['results'][0]['location']['county']
+  postcode      = user['results'][0]['location']['postcode']
+  country       = user['results'][0]['nat']
+  phone         = user['results'][0]['phone']
+  registered    = user['results'][0]['registered']
+
+  user.new(name: name, username: username, password: password, email: email, profile_photo: profile_photo, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registered: registed)
+}
