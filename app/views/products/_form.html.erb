@@ -1,0 +1,44 @@
+<%= simple_form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+      <div class="errors-container">
+        <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :description %>
+  </div>
+
+    <div class="form-inputs">
+    <%= f.input :price_per_day %>
+  </div>
+
+    <div class="form-inputs">
+    <%= f.input :deposit %>
+  </div>
+
+    <div class="form-inputs">
+    <%= f.input :minimum_fee %>
+  </div>
+
+  <div class="photo-inputs">
+    <%= f.input :photo %>
+  <%= f.input :photo_cache, as: :hidden %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
