@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'json'
 require 'open-uri'
+require 'faker'
 
 
 # create 100 random users
@@ -21,6 +22,7 @@ require 'open-uri'
   password      = user['results'][0]['login']['password']
   email         = user['results'][0]['email']
   profile_photo = user['results'][0]['picture']["large"]
+  profile_text  = Faker::MostInterestingManInTheWorld.quote
   street        = user['results'][0]['location']['street']
   town          = user['results'][0]['location']['city']
   state         = user['results'][0]['location']['county']
@@ -29,5 +31,5 @@ require 'open-uri'
   phone         = user['results'][0]['phone']
   registered    = user['results'][0]['registered']
 
-  user.new(first_name: first_name, last_name: last_name, username: username, password: password, email: email, profile_photo: profile_photo, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registered: registed)
+  user.new(first_name: first_name, last_name: last_name, username: username, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registered: registed)
 }
