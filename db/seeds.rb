@@ -15,7 +15,8 @@ require 'open-uri'
   user_serialized = open(url).read
   user            = JSON.parse(user_serialized)
 
-  name          = "#{user['results'][0]['name']['first']} #{user['results'][0]['name']['last']} "
+  first_name    = user['results'][0]['name']['first']
+  last_name     = user['results'][0]['name']['last']
   username      = user['results'][0]['login']['username']
   password      = user['results'][0]['login']['password']
   email         = user['results'][0]['email']
@@ -28,5 +29,5 @@ require 'open-uri'
   phone         = user['results'][0]['phone']
   registered    = user['results'][0]['registered']
 
-  user.new(name: name, username: username, password: password, email: email, profile_photo: profile_photo, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registered: registed)
+  user.new(first_name: first_name, last_name: last_name, username: username, password: password, email: email, profile_photo: profile_photo, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registered: registed)
 }
