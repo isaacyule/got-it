@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create, :show]
 
   def show
-    @user = User.new
+    @user = User.find(params[:id])
   end
 
   def new
