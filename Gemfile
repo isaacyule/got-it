@@ -7,6 +7,7 @@ gem 'pg'
 gem 'puma'
 gem 'rails', '5.1.4'
 gem 'redis'
+gem 'faker',  :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
