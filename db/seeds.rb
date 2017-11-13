@@ -14,14 +14,14 @@ User.destroy_all
 puts "seeding"
 
 # create 100 random users
-100.times do {
+20.times do
   url             = 'https://randomuser.me/api/'
   user_serialized = open(url).read
   user            = JSON.parse(user_serialized)
 
   first_name        = user['results'][0]['name']['first']
   last_name         = user['results'][0]['name']['last']
-  password          = user['results'][0]['login']['password']
+  password          = "#{user['results'][0]['login']['password']}12345"
   email             = user['results'][0]['email']
   profile_photo     = user['results'][0]['picture']["large"]
   profile_text      = Faker::MostInterestingManInTheWorld.quote
@@ -32,8 +32,8 @@ puts "seeding"
   phone             = user['results'][0]['phone']
   registration_date = user['results'][0]['registered']
   puts "writing #{first_name.capitalize} #{last_name.capitalize}..."
-  User.create!(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, state: state, postcode: postcode, country: country, phone: phone, registration_date: registration_date)
-}
+  User.create!(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, postcode: postcode, country: country, phone: phone, registration_date: registration_date)
+end
 
 puts "*** Seeding Complete ***"
 puts "*** Seeded #{User.count} users ***"
