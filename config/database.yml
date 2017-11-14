@@ -83,3 +83,5 @@ production:
   database: got-it_production
   username: got-it
   password: <%= ENV['GOT-IT_DATABASE_PASSWORD'] %>
+
+  CLOUDINARY_URL: "cloudinary://778955898525172:GXXBhmphdlsoqBWyILQrInMZPfg@vaivav11"
