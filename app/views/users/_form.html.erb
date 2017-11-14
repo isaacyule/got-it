@@ -12,61 +12,16 @@
           </div>
         <% end %>
 
-        <div class="form-group">
-          <%= f.label :first_name %>
-          <%= f.text_field :first_name, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :last_name %>
-          <%= f.text_field :last_name, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.text_field :email, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :profile_text %>
-          <%= f.text_field :profile_text, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :profile_photo %>
-          <%= f.text_field :profile_photo, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :street %>
-          <%= f.text_field :street, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :house_number %>
-          <%= f.text_field :house_number, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :town %>
-          <%= f.text_field :town, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :postcode %>
-          <%= f.text_field :postcode, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :country %>
-          <%= f.text_field :country, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :phone %>
-          <%= f.text_field :phone, class: 'form-control' %>
-        </div>
-
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email %>
+        <%= f.input :profile_text %>
+        <%= f.input :profile_photo %>
+        <%= f.input :street %>
+        <%= f.input :house_number %>
+        <%= f.input :town %>
+        <%= f.input :postcode %>
+        <%= f.input :phone %>
         <%= f.submit class: 'btn btn-primary' %>
       <% end %>
     </div>

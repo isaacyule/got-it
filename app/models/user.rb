@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :products
   has_many :reviews
   has_many :requests
+
+  mount_uploader :profile_photo, PhotoUploader
   # validates :first_name, :last_name, :email, :password, presence: true
   # TO DO: mount_uploader :photo, PhotoUploader
 
