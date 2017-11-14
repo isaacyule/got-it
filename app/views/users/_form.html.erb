@@ -33,8 +33,10 @@
         </div>
 
         <div class="form-group">
-          <%= f.label :profile_photo %>
-          <%= f.text_field :profile_photo, class: 'form-control' %>
+          <div class="photo-inputs">
+            <%= f.input :profile_photo %>
+          <%= f.input :photo_cache, as: :hidden %>
+          </div>
         </div>
 
         <div class="form-group">
