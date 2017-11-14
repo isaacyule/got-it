@@ -1,7 +1,5 @@
 <h1>product show page</h1>
 
-<!-- To list everything, and to check controller and to figure out how everything will look, and to figure out how to test everything -->
-
 <h3><%= @product.name %></h3>
 
 <p><%= @product.description %></p>
@@ -13,6 +11,7 @@
 <p><%= @product.deposit %></p>
 
 <p><%= @product.minimum_fee %></p>
+<%= cl_image_tag @product.photo %>
 
-<%= cl_image_tag @product.photo, height: 300, width: 400, crop: :fill %>
 
+<%= link_to "back to product list", products_path, class: 'btn btn-primary'%>
