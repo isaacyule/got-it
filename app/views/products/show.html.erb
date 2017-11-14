@@ -25,4 +25,5 @@
 
 
 
-<%= link_to "back to product list", products_path, class: 'btn btn-primary'%>
+<%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
+<%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
