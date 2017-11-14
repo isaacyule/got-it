@@ -11,8 +11,12 @@
 <p><%= @product.deposit %></p>
 
 <p><%= @product.minimum_fee %></p>
-<!--  <%= cl_image_tag @product.photo %> -->
 
+<% if @product.photo? %>
+<%= cl_image_tag @product.photo %>
+<% else %>
+<img src=<%= asset_path"no_image.png" %>>
+<% end %>
 
 <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
 
