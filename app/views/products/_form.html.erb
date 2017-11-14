@@ -32,7 +32,7 @@
   <div class="photo-inputs">
     <%= f.input :photo %>
   <%= f.input :photo_cache, as: :hidden %>
-  <% Cloudinary::Uploader.upload("san_francisco.jpg") %>
+  <% Cloudinary::Uploader.upload(:photo) %>
 
   </div>
 
