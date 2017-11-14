@@ -47,6 +47,7 @@ user_id = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 photo = 'sample.jpg'
 # created_at = '2001-02-03T04:05:06+00:00'
 # updated_at = '2001-02-03T04:05:06+00:00'
+photo = 'sample.jpg'
 
 50.times do |iteration|
   Product.create!(name: name.sample, description: description, price_per_day: price_per_day.sample, deposit: price_per_day.sample/10, minimum_fee: minimum_fee.sample, user_id: user_id.sample, photo: photo)
@@ -56,4 +57,3 @@ end
 puts "*** Seeding Complete ***"
 puts "*** Seeded #{Product.count} products ***"
 puts "*** Seeded #{User.count} users ***"
-
