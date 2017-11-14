@@ -2,20 +2,28 @@
 
 <h3><%= @product.name %></h3>
 
-<p><%= @product.description %></p>
+<p>Description: <%= @product.description %></p>
 
-<!-- <p><%# @product.user.name %></p> -->
+<p>
+  Owner: <%= @product.user["first_name"] %>
+  <%= @product.user["last_name"] %>
+</p>
 
-<p><%= @product.price_per_day %></p>
+<p>Price: <%= @product.price_per_day %></p>
 
-<p><%= @product.deposit %></p>
+<p>Deposit: <%= @product.deposit %></p>
 
-<p><%= @product.minimum_fee %></p>
-<!--  <%= cl_image_tag @product.photo %> -->
+<p>Minimum fee: <%= @product.minimum_fee %></p>
 
+<% if @product.photo? %>
+<%= cl_image_tag @product.photo %>
+<% else %>
+<img src=<%= asset_path"no_image.png" %>>
+<% end %>
 
 <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
 
 
 
-<%= link_to "back to product list", products_path, class: 'btn btn-primary'%>
+<%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
+<%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
