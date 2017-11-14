@@ -5,7 +5,10 @@
 <h4>My Listed Products</h4>
 <div class="container">
   <div class="row">
+    <% (Product.where(user_id: 15)).each do |product|%>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <%= product.name %>
     </div>
+    <% end %>
   </div>
 </div>
