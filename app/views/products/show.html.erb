@@ -4,7 +4,9 @@
 
 <p><%= @product.description %></p>
 
-<!-- <p><%# @product.user.name %></p> -->
+<p><%= @product.user["first_name"] %></p>
+
+<p><%= @product.user["last_name"] %></p>
 
 <p><%= @product.price_per_day %></p>
 
