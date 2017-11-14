@@ -8,8 +8,11 @@
 
 <p><%= @product.user.name %></p>
 
-<!-- uh, two more files to figure out -->
-<!-- app/views/articles/show.html.erb -->
-<%= cl_image_tag @article.photo, height: 300, width: 400, crop: :fill %>
+<p><%= @product.price_per_day %></p>
 
+<p><%= @product.deposit %></p>
+
+<p><%= @product.minimum_fee %></p>
+
+<%= cl_image_tag @product.photo, height: 300, width: 400, crop: :fill %>
 
