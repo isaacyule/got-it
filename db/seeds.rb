@@ -44,9 +44,6 @@ description = "A useful product that you can rent"
 price_per_day = [5, 10, 15, 20, 7, 8, 9, 11, 12, 13, 14]
 minimum_fee = [5, 10, 15, 20]
 user_id = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
-# photo = 'sample.jpg'
-# created_at = '2001-02-03T04:05:06+00:00'
-# updated_at = '2001-02-03T04:05:06+00:00'
 
 
 50.times do |iteration|
