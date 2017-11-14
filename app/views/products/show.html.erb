@@ -2,17 +2,18 @@
 
 <h3><%= @product.name %></h3>
 
-<p><%= @product.description %></p>
+<p>Description: <%= @product.description %></p>
 
-<p><%= @product.user["first_name"] %></p>
+<p>
+  Owner: <%= @product.user["first_name"] %>
+  <%= @product.user["last_name"] %>
+</p>
 
-<p><%= @product.user["last_name"] %></p>
+<p>Price: <%= @product.price_per_day %></p>
 
-<p><%= @product.price_per_day %></p>
+<p>Deposit: <%= @product.deposit %></p>
 
-<p><%= @product.deposit %></p>
-
-<p><%= @product.minimum_fee %></p>
+<p>Minimum fee: <%= @product.minimum_fee %></p>
 
 <% if @product.photo? %>
 <%= cl_image_tag @product.photo %>
