@@ -37,3 +37,9 @@ end
 
 puts "*** Seeding Complete ***"
 puts "*** Seeded #{User.count} users ***"
+
+
+url = "http://static.giantbomb.com/uploads/original/9/99864/2419866-nes_console_set.png"
+product = Product.new(title: 'NES', body: "A great console")
+product.remote_photo_url = url
+product.save
