@@ -16,7 +16,9 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user_id = current_user.id
     if @product.save
-      Cloudinary::Uploader.upload(params["product"]["photo"])
+      if @product.photo?
+        Cloudinary::Uploader.upload(params["product"]["photo"])
+      end
       redirect_to product_path(@product)
     else
       render :new
