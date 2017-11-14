@@ -1,5 +1,5 @@
 /* Main navbar */
-.navbar-wagon {
+.navbar-got-it {
   box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
   background: white;
   transition: all 0.3s ease;
@@ -8,39 +8,41 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: gray !important;
+  text-decoration: none;
 }
 
 /* Logo */
-.navbar-wagon-brand img {
+.navbar-got-it-brand img {
   height: 50px;
 }
 
 /* User Avatar */
-.navbar-wagon .avatar {
+.navbar-got-it .avatar {
   height: 35px;
   width: 35px;
   border-radius: 50%;
 }
 
 /* Right section */
-.navbar-wagon-right {
+.navbar-got-it-right {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 /* Basic navbar item */
-.navbar-wagon-item {
+.navbar-got-it-item {
   cursor: pointer;
   padding: 0 20px;
 }
 
 /* Navbar link */
-.navbar-wagon-link {
+.navbar-got-it-link {
   color: #616668;
   font-size: 14px;
 }
-.navbar-wagon-link:hover {
+.navbar-got-it-link:hover {
   color: #da552f;
   text-decoration: none;
 }
