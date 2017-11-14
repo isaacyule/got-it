@@ -18,8 +18,11 @@ class ProductsController < ApplicationController
     if @product.save
       if @product.photo?
         Cloudinary::Uploader.upload(params["product"]["photo"])
+      # else
+      #   @product.photo = "https://static.pexels.com/photos/316466/pexels-photo-316466.jpeg"
       end
       redirect_to product_path(@product)
+
     else
       render :new
     end
@@ -49,6 +52,6 @@ class ProductsController < ApplicationController
 
 
   def product_params
-    params.require(:product).permit(:name, :description, :price_per_day, :deposit, :minimum_fee)
+    params.require(:product).permit(:name, :description, :price_per_day, :deposit, :minimum_fee, :photo)
   end
 end
