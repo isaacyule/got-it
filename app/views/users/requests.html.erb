@@ -4,5 +4,7 @@
 
 <% @requests.each do |request| %>
   <p><%= request.user.first_name %> wants to rent <%= request.product.name %></p>
+  <p>From <%= request.start_date %> until <%= request.end_date %></p>
+  <p>You will earn: £50</p>
 <% end %>
 
