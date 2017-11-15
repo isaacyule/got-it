@@ -2,7 +2,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = policy_scope(Product)
-    @products = Product.all
+
+    if params['search'].nil?
+      @products = Product.all
+    else
+      search = params['search'].parameterize
+      @products = Product.where("name iLIKE ?", "%#{search}%")
+    end
   end
 
   def show
@@ -13,6 +19,8 @@ class ProductsController < ApplicationController
     @product = Product.new
     authorize(@product)
   end
+
+
 
   def create
     @product = Product.new(product_params)
