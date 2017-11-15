@@ -19,6 +19,10 @@ gem 'webpacker'
 gem 'devise'
 gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
+
+gem 'geocoder'
+gem "coffee-rails"
+gem "gmaps4rails"
 gem "pundit"
 
 group :development, :test do
@@ -28,4 +32,8 @@ group :development, :test do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+source 'https://rails-assets.org' do
+  gem "rails-assets-underscore"
 end

@@ -20,11 +20,14 @@ ActiveRecord::Schema.define(version: 20171115122517) do
     t.text "description"
     t.integer "price_per_day"
     t.string "deposit"
+    t.string "address"
     t.integer "minimum_fee"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -58,15 +61,14 @@ ActiveRecord::Schema.define(version: 20171115122517) do
     t.string "last_name"
     t.string "profile_photo"
     t.string "profile_text"
-    t.string "street"
-    t.string "town"
-    t.string "postcode"
-    t.string "country"
     t.string "phone"
     t.string "registration_date"
+
+    t.string "address"
     t.integer "house_number"
     t.integer "stars", default: 0
     t.boolean "admin"
+    
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

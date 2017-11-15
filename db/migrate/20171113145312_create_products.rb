@@ -5,6 +5,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.text :description
       t.integer :price_per_day
       t.string :deposit
+      t.string :address
       t.integer :minimum_fee
       t.references :user, foreign_key: true
 
