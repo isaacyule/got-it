@@ -6,12 +6,12 @@
 }
 
 .card {
-  border: 1px solid $gray;
+  border: 1px solid $feignt-gray;
   border-radius: 2px;
   height: 300px;
   margin: 10px 0px;
   padding: 0px;
-  // box-shadow: 5px 5px 5px $feignt-gray;
+  box-shadow: 5px 5px 5px $feignt-gray;
   position: relative;
   background-size: cover;
 }
@@ -26,9 +26,10 @@
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 5px 20px;
-  border-top: 1px solid $gray;
+  border-top: 1px solid $feignt-gray;
   span {
     flex: 0 0 auto;
     font-weight: bold;
@@ -36,12 +37,14 @@
 }
 
 .description {
+  font-weight: bold;
   font-size: 1em;
 }
 
 .price {
-  font-size: 4em;
+  font-size: 2em;
   color: $green;
+
 }
 
 .link-to-product {
@@ -54,4 +57,12 @@
   bottom: 0px;
   left: 0px;
   z-index: 2px;
+}
+
+.gold-star {
+  color: $yellow;
+}
+
+.price-container {
+  vertical-align: middle;
 }

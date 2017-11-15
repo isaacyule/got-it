@@ -1,7 +1,7 @@
-<h1>PRODUCT PAGE!!!</h1>
-<%= link_to 'home', root_path, class: 'btn btn-primary' %>
-<%= link_to 'list product', new_product_path, class: 'btn btn-primary' %>
 <div class="container card-container">
+  <h1><%= @products.count %> Search results in your area...</h1>
+  <%= link_to 'home', root_path, class: 'btn btn-primary' %>
+  <%= link_to 'add new product', new_product_path, class: 'btn btn-primary' %>
   <div class="row">
     <% @products.each do |product| %>
     <div class="col-xs-12 col-sm-6">
@@ -10,8 +10,22 @@
         <div class="card-body">
         </div>
         <div class="card-footer">
-          <span class="description"><%= product.name %></span>
-          <span class="price">£<%= product.price_per_day %></span>
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <span class="description"><%= product.name %></span>
+              </div>
+              <div class="col-xs-12">
+                <% product.user[:stars].times do %>
+                  <i class="fa fa-star gold-star" aria-hidden="true"></i>
+                <% end %>
+                <% (5-product.user[:stars]).times do %>
+                  <i class="fa fa-star gray-star" aria-hidden="true"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <span class="price">£<%= product.price_per_day %>/day</span>
         </div>
       </div>
     </div>

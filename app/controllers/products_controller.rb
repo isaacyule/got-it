@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
     if params['search'].nil?
       @products = Product.all
     else
-      search = params['search'].parameterize
+      search = params['search']
       @products = Product.where("name iLIKE ?", "%#{search}%")
     end
   end
