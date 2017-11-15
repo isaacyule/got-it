@@ -6,11 +6,6 @@
   <li> Profile Text: <%= current_user.profile_text %> </li>
   <li> Address: <%= current_user.address %> </li>
   <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
-  <li> Street: <%= current_user.street %> </li>
-  <li> House number: <%= current_user.house_number %> </li>
-  <li> Town: <%= current_user.town %> </li>
-  <li> Postcode: <%= current_user.postcode %> </li>
-  <li> Country: <%= current_user.country %> </li>
   <li> Phone: <%= current_user.phone %> </li>
 
   <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>

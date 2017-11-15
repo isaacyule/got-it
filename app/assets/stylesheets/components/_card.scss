@@ -5,6 +5,16 @@
   padding-left: 150px;
 }
 
+.card-body {
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .card {
   border: 1px solid $feignt-gray;
   border-radius: 2px;
