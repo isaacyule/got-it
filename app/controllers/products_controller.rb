@@ -8,6 +8,11 @@ class ProductsController < ApplicationController
       search = params['search'].parameterize
       @products = Product.where("name iLIKE ?", "%#{search}%")
     end
+    @hash = Gmaps4rails.build_markers(@products) do |product, marker|
+      marker.lat product.latitude
+      marker.lng product.longitude
+      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+    end
   end
 
   def show
