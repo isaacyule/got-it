@@ -4,10 +4,10 @@
      <h1>Get it on got it!
      <p>Borrow things when and where you need them</p>
 
-    <%= form_tag products_path, :method => 'get' do %>
+    <%= form_tag products_path, class: "form-group", :method => 'get' do %>
       <p>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "Search", :name => nil %>
+        <%= text_field_tag :search, params[:search], class: "form-control" %>
+        <%= submit_tag "Search", :name => nil, class: 'btn btn-primary'%>
       </p>
     <% end %>
 
