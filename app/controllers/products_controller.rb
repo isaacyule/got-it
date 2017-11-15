@@ -3,8 +3,9 @@ class ProductsController < ApplicationController
 
   def index
 
-    search = params['search'].parameterize
+
     if params['search'].empty?
+      search = params['search'].parameterize
       @products = Product.all
     else
       @products = Product.where("name iLIKE ?", "%#{search}%")
