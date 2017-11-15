@@ -1,0 +1,29 @@
+<h2>Request <%= @product.name %> from <%= @owner.first_name %></h2>
+
+<%= simple_form_for([@product, @request]) do |f| %>
+  <% if @request.errors.any? %>
+      <div class="errors-container">
+        <ul>
+          <% @request.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :description %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :start_date %>
+  </div>
+
+  <div class="form-inputs">
+    <%= f.input :end_date %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
