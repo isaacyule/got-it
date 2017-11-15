@@ -10,6 +10,7 @@
   <li> Postcode: <%= current_user.postcode %> </li>
   <li> Country: <%= current_user.country %> </li>
   <li> Phone: <%= current_user.phone %> </li>
+  <li> Pending Requests: <%= @requests.count %> (<%= link_to "Pending Requests", user_requests_path(@user) %>) </li>
   <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
 </ul>
 
