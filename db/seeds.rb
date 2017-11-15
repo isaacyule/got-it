@@ -33,8 +33,9 @@ puts "seeding"
   country           = user['results'][0]['nat']
   phone             = user['results'][0]['phone']
   registration_date = user['results'][0]['registered']
+  stars             = [0, 1, 2, 3, 4, 5].sample
   puts "writing #{first_name.capitalize} #{last_name.capitalize}..."
-  User.create!(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, postcode: postcode, country: country, phone: phone, registration_date: registration_date)
+  User.create!(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, street: street, town: town, postcode: postcode, country: country, phone: phone, registration_date: registration_date, stars: stars)
 end
 
 # Seed Products

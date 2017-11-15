@@ -10,8 +10,11 @@
   <li> Postcode: <%= current_user.postcode %> </li>
   <li> Country: <%= current_user.country %> </li>
   <li> Phone: <%= current_user.phone %> </li>
+
+  <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
+  <li> <%= image_tag avatar, id: "profile_photo" %> </li>
   <li> Pending Requests: <%= @requests.count %> (<%= link_to "Pending Requests", user_requests_path(@user) %>) </li>
-  <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
+
 </ul>
 
 <p> <%= link_to "Edit", edit_user_path %> </p>
