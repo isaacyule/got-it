@@ -3,7 +3,6 @@ class RequestsController < ApplicationController
   before_action :set_product, only: [:new, :create]
 
   def new
-
     @request = Request.new
   end
 

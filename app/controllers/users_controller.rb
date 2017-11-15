@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:show, :requests]
+  before_action :set_requests, only: [:show, :requests]
 
   def show
     authorize(@user)
@@ -23,9 +24,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def requests
+
+  end
+
   private
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_requests
+     requests = []
+    @user.products.each do |product|
+      product.requests.each { |request| requests << request }
+    end
+
+    @requests = requests
   end
 
   def user_params
