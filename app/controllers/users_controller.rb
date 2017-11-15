@@ -4,16 +4,18 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def show
-
+    authorize(@user)
   end
 
   def edit
     @user = current_user
+    authorize(@user)
   end
 
   def update
     @user = current_user
     @user.update(user_params)
+    authorize(@user)
     if @user.save
       redirect_to user_path(@user)
     else
