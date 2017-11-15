@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def requests
-
+    authorize(@user)
   end
 
   private

@@ -4,12 +4,15 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @request.product = @product
+    authorize(@request)
   end
 
   def create
     @request = Request.new(request_params)
     @request.user = User.find(current_user.id)
     @request.product = Product.find(params[:product_id])
+    authorize(@request)
     if @request.save
       redirect_to product_path(@product)
     else

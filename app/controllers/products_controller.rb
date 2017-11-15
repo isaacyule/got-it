@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @request = Request.new
+    @request.product = @product
     authorize(@product)
   end
 

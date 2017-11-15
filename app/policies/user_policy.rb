@@ -21,6 +21,10 @@ class UserPolicy < ApplicationPolicy
     record == user
   end
 
+  def requests?
+    record == user
+  end
+
 #   private
 
 #   def user_is_owner_or_admin?
