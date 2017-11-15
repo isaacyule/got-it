@@ -4,18 +4,18 @@
   <li> Last Name: <%= current_user.last_name %> </li>
   <li> Mail: <%= current_user.email %> </li>
   <li> Profile Text: <%= current_user.profile_text %> </li>
-  <li> Address: <%= current_user.address %> </li>
-  <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
-  <li> Street: <%= current_user.street %> </li>
-  <li> House number: <%= current_user.house_number %> </li>
-  <li> Town: <%= current_user.town %> </li>
-  <li> Postcode: <%= current_user.postcode %> </li>
-  <li> Country: <%= current_user.country %> </li>
+  <li> Adress: <%= current_user.address %> </li>
   <li> Phone: <%= current_user.phone %> </li>
 
   <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
-  <li> <%= image_tag avatar, id: "profile_photo" %> </li>
+  <% if current_user.profile_photo? %>
+    <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
+  <% else %>
+    <li> <%= image_tag avatar, id: "profile_photo" %> </li>
+  <% end %>
+
   <li> Pending Requests: <%= @requests.count %> (<%= link_to "Pending Requests", user_requests_path(@user) %>) </li>
+
 
 </ul>
 
