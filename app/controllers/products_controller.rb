@@ -2,7 +2,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+
+    search = params['search'].parameterize
+    if params['search'].empty?
+      @products = Product.all
+    else
+      @products = Product.where("name iLIKE ?", "%#{search}%")
+    end
   end
 
   def show
@@ -11,6 +17,8 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
   end
+
+
 
   def create
     @product = Product.new(product_params)
