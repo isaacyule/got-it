@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :edit, :update]
 
+  get 'users/:id/requests', to: 'users#requests', as: 'user_requests'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

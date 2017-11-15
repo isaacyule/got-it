@@ -19,9 +19,11 @@ gem 'webpacker'
 gem 'devise'
 gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
+
 gem 'geocoder'
 gem "coffee-rails"
 gem "gmaps4rails"
+gem "pundit"
 
 group :development, :test do
   gem 'pry-byebug'
