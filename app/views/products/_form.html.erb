@@ -1,3 +1,4 @@
+
 <%= simple_form_for(@product) do |f| %>
   <% if @product.errors.any? %>
       <div class="errors-container">
@@ -9,36 +10,12 @@
       </div>
     <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-  </div>
-
-  <div class="form-inputs">
-    <%= f.input :description %>
-  </div>
-
-    <div class="form-inputs">
-    <%= f.input :price_per_day %>
-  </div>
-
-    <div class="form-inputs">
-    <%= f.input :deposit %>
-  </div>
-
-  <div class="form-inputs">
-    <%= f.input :address %>
-  </div>
-
-
-    <div class="form-inputs">
-    <%= f.input :minimum_fee %>
-  </div>
-
-  <div class="photo-inputs">
-    <%= f.input :photo %>
-    <%= f.input :photo_cache, as: :hidden %>
-  </div>
-  <div class="form-actions">
-    <%= f.submit class: 'btn btn-primary' %>
-  </div>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :price_per_day %>
+  <%= f.input :deposit %>
+  <%= f.input :minimum_fee %>
+  <%= f.input :photo %>
+  <%= f.input :address, input_html: {value: f.object.address || current_user.address } %>
+  <%= f.submit class: 'btn btn-primary' %>
 <% end %>
