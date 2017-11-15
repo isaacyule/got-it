@@ -21,11 +21,14 @@
 <img src=<%= asset_path"no_image.png" %>>
 <% end %>
 
-<%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
+<% if policy(@product).destroy? %>
+  <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
+ <% end %>
 
 <%= link_to "Request product", new_product_request_path(@product), class: 'btn btn-primary' %>
 
 
-
-<%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
-<%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
+   <%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
+  <% if policy(@product).edit? %>
+    <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
+  <% end %>
