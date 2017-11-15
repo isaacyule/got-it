@@ -6,8 +6,13 @@ class ProductsController < ApplicationController
     if params['search'].nil?
       @products = Product.all
     else
-      search = params['search'].parameterize
+      search = params['search']
       @products = Product.where("name iLIKE ?", "%#{search}%")
+    end
+    @hash = Gmaps4rails.build_markers(@products) do |product, marker|
+      marker.lat product.latitude
+      marker.lng product.longitude
+      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
   end
 
@@ -68,6 +73,6 @@ class ProductsController < ApplicationController
 
 
   def product_params
-    params.require(:product).permit(:name, :description, :price_per_day, :deposit, :minimum_fee, :photo)
+    params.require(:product).permit(:name, :description, :price_per_day, :deposit, :minimum_fee, :photo, :address)
   end
 end

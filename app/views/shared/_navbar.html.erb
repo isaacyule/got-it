@@ -18,7 +18,8 @@
       <!-- Avatar with dropdown menu -->
       <div class="navbar-got-it-item">
         <div class="dropdown">
-          <%= image_tag current_user.profile_photo, class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
+          <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
+          <%= image_tag avatar, class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
           <ul class="dropdown-menu dropdown-menu-right navbar-got-it-dropdown-menu">
             <li>
               <%= link_to user_path(current_user) do %>
