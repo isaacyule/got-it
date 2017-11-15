@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
   def index
+    @products = policy_scope(Product)
+
     if params['search'].nil?
       @products = Product.all
     else
@@ -11,10 +12,14 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @request = Request.new
+    @request.product = @product
+    authorize(@product)
   end
 
   def new
     @product = Product.new
+    authorize(@product)
   end
 
 
@@ -22,11 +27,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.user_id = current_user.id
+    authorize(@product)
     if @product.save
       if @product.photo?
         Cloudinary::Uploader.upload(params["product"]["photo"])
-      # else
-      #   @product.photo = "https://static.pexels.com/photos/316466/pexels-photo-316466.jpeg"
       end
       redirect_to product_path(@product)
 
@@ -36,15 +40,20 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    authorize(@product)
   end
 
   def update
-    @product.update(product_params)
-
-    redirect_to product_path(@product)
+    authorize(@product)
+    if @product.update(product_params)
+      redirect_to @product, notice: "Product was successfully updates."
+    else
+      render :edit
+    end
   end
 
   def destroy
+    authorize(@product)
     @product.destroy
     redirect_to products_path
   end
