@@ -2,12 +2,10 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-
-
-    if params['search'].empty?
-      search = params['search'].parameterize
+    if params['search'].nil?
       @products = Product.all
     else
+      search = params['search'].parameterize
       @products = Product.where("name iLIKE ?", "%#{search}%")
     end
   end
