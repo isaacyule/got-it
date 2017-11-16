@@ -1,12 +1,11 @@
-
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
       <h1>Pending Requests</h1>
 
-      <h2><%= @requests.count %></h2>
+      <h2><%= @pending_requests.count %></h2>
 
-      <% @requests.each do |request| %>
+      <% @pending_requests.each do |request| %>
         <div class="request">
           <div class="request-user-details">
             <% avatar = request.user.profile_photo? ? request.user.profile_photo : asset_path('default_avatar.png') %>
@@ -26,15 +25,15 @@
             <p class="request-description">"<%= request.description %>"</p>
             <p></p>
             <p class="request-earnings">You will earn: <strong>£<%= (request.end_date - request.start_date).ceil * request.product.price_per_day %></strong></p>
+            <p>Status: <strong> <%= request.status %></strong></p>
           </div>
           <div class="request-confirm">
-            <%= link_to "Accept", root_path, class: "request-button accept"  %>
-            <%= link_to "Decline", root_path, class: "request-button decline" %>
+            <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+            <%= link_to "Decline", product_request_path(request.product, request, status: "Declined"), method: :patch, class: "request-button decline" %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
 </div>
-
 
