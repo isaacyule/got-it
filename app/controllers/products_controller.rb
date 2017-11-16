@@ -26,6 +26,12 @@ class ProductsController < ApplicationController
     @request = Request.new
     @request.product = @product
     authorize(@product)
+    if (@product.latitude? && @product.longitude?)
+      @hash = Gmaps4rails.build_markers(@product) do |product, marker|
+        marker.lat product.latitude
+        marker.lng product.longitude
+      end
+    end
   end
 
   def new
