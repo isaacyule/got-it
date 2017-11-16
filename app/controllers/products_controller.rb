@@ -13,6 +13,8 @@ class ProductsController < ApplicationController
 
     @products_in_map = Product.where.not(latitude: nil, longitude: nil)
 
+
+
     @hash = Gmaps4rails.build_markers(@products_in_map) do |product, marker|
       marker.lat product.latitude
       marker.lng product.longitude
