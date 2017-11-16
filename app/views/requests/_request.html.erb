@@ -20,7 +20,9 @@
     <p>Status: <strong> <%= request.status %></strong></p>
   </div>
   <div class="request-confirm">
-    <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+  <% if policy(request.product).update? %>
+      <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
     <%= link_to "Decline", product_request_path(request.product, request, status: "Declined"), method: :patch, class: "request-button decline" %>
+  <% end %>
   </div>
 </div>
