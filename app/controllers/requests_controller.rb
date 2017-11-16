@@ -20,6 +20,13 @@ class RequestsController < ApplicationController
     end
   end
 
+  def update
+    @request = Request.find(params[:id])
+    authorize @request
+    @request.update(status: params[:status])
+    redirect_to root_path
+  end
+
   private
 
   def set_product

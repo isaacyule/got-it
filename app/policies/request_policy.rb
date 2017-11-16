@@ -8,4 +8,8 @@ class RequestPolicy < ApplicationPolicy
   def create?
     !user.products.include?(record.product)
   end
+
+  def update?
+    user.products.include?(record.product)
+  end
 end

@@ -1,11 +1,30 @@
 class UsersController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :requests]
-  before_action :set_requests, only: [:show, :requests]
+  before_action :set_user, only: [:show]
+  before_action :set_requests, only: [:show]
 
   def show
     authorize(@user)
+    @user = current_user
+    authorize(@user)
+
+    @pending_requests = []
+    @accepted_requests = []
+    @declined_requests = []
+
+    @user.products.each do |product|
+      product.requests.each do |request|
+        if request.status == "Pending"
+          @pending_requests << request
+        elsif request.status == "Accepted"
+          @accepted_requests << request
+        elsif request.status == "Declined"
+          @declined_requests << request
+        else
+        end
+      end
+    end
   end
 
   def edit
@@ -25,7 +44,25 @@ class UsersController < ApplicationController
   end
 
   def requests
+    @user = current_user
     authorize(@user)
+
+    @pending_requests = []
+    @accepted_requests = []
+    @declined_requests = []
+
+    @user.products.each do |product|
+      product.requests.each do |request|
+        if request.status == "Pending"
+          @pending_requests << request
+        elsif request.status == "Accepted"
+          @accepted_requests << request
+        elsif request.status == "Declined"
+          @declined_requests << request
+        else
+        end
+      end
+    end
   end
 
   private
@@ -34,15 +71,16 @@ class UsersController < ApplicationController
   end
 
   def set_requests
-     requests = []
-    @user.products.each do |product|
-      product.requests.each { |request| requests << request }
-    end
+    # #  requests = []
+    # # @user.products.each do |product|
+    # #   product.requests.each { |request| requests << request }
+    # end
 
-    @requests = requests
+    # @requests = requests
   end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :profile_text, :profile_photo, :address, :phone)
   end
+
 end

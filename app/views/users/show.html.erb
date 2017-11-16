@@ -14,7 +14,9 @@
     <li> <%= image_tag avatar, id: "profile_photo" %> </li>
   <% end %>
 
-  <li> Pending Requests: <%= @requests.count %> (<%= link_to "Pending Requests", user_requests_path(@user) %>) </li>
+  <li> Pending Requests: <%= @pending_requests.count %> (<%= link_to "Pending Requests", user_requests_path(@user) %>) </li>
+  <li> Accepted Requests: <%= @accepted_requests.count %> (<%= link_to "Accepted Requests", user_requests_path(@user) %>) </li>
+  <li> Declined Requests: <%= @declined_requests.count %> (<%= link_to "Declined Requests", user_requests_path(@user) %>) </li>
 
 
 </ul>
