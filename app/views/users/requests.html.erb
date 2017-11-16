@@ -15,17 +15,21 @@
             <% else %>
               <%= image_tag avatar, class: "request-profile-photo" %>
             <% end %>
-            <div class="request-user-rating"></div>
+            <p class="request-user-name"><%= request.user.first_name %> <%= request.user.last_name %></p>
+            <div class="request-user-rating">
+              <p>Rating: 4.6</p>
+            </div>
           </div>
           <div class="request-details">
             <p class="request-info"><strong><%= request.user.first_name %></strong> wants to rent <strong><%= request.product.name %></strong> </p>
-            <p class="request-date">From <%= request.start_date %> until <%= request.end_date %></p>
+            <p class="request-date">From <strong><%= request.start_date %></strong> until <strong><%= request.end_date %></strong></p>
             <p class="request-description">"<%= request.description %>"</p>
-            <p class="request-earnings">You will earn: £50</p>
+            <p></p>
+            <p class="request-earnings">You will earn: £<%= (request.end_date - request.start_date).ceil * request.product.price_per_day %></p>
           </div>
           <div class="request-confirm">
-            <%= link_to "Accept", class: "request-accept btn btn-primary"  %>
-            <%= link_to "Decline", class: "request-decline btn btn-primary" %>
+            <%= link_to "Accept", root_path, class: "request-button accept"  %>
+            <%= link_to "Decline", root_path, class: "request-button decline" %>
           </div>
         </div>
       <% end %>
