@@ -8,12 +8,6 @@
         <%= text_field_tag :search, params[:search], class: "form-control home-form-child", placeholder: 'Borrow something...' %>
         <%= submit_tag "Search", :name => nil, class: 'btn btn-primary home-form-child'%>
     <% end %>
-    <script>
-      form = document.getElementById('product-search');
-      form.addEventListener('submit', (event) => {
-        search();
-      });
-    </script>
    </div>
  </div>
 
