@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20171115140326) do
     t.text "description"
     t.integer "price_per_day"
     t.string "deposit"
-    t.string "address"
     t.integer "minimum_fee"
     t.bigint "user_id"
     t.datetime "created_at", null: false
