@@ -1,7 +1,7 @@
 class RequestPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope
+      scope.all
     end
   end
 
@@ -12,4 +12,5 @@ class RequestPolicy < ApplicationPolicy
   def update?
     user.products.include?(record.product)
   end
+
 end
