@@ -1,53 +1,55 @@
-<div class="container-product-page">
-  <div class="product-photo">
-    <% if @product.photo? %>
-    <%= cl_image_tag @product.photo %>
-    <% else %>
-    <img src=<%= asset_path"no_image.png" %>>
-    <% end %>
+<div class="content">
+  <div class="container-product-page">
+    <div class="product-photo">
+      <% if @product.photo? %>
+      <%= cl_image_tag @product.photo %>
+      <% else %>
+      <img src=<%= asset_path"no_image.png" %>>
+      <% end %>
+    </div>
+
+    <div class="product-info">
+      <h3><%= @product.name %></h3>
+      <p><strong>Description:</strong> <%= @product.description %></p>
+      <p>
+        <strong>Owner:</strong> <%= @product.user["first_name"] %>
+        <%= @product.user["last_name"] %>
+      </p>
+    </div>
+
+    <div class="request-form">
+      <h4> £<%= @product.price_per_day%> </h4>
+      <% (5-@product.user[:stars]).times do %>
+        <i class="fa fa-star gray-star" aria-hidden="true"></i>
+      <% end %>
+      <!-- ToDo: Calculate and display "Total rental fee" instead of "Rental fee" -->
+      <p><strong>Rental fee:</strong> <%= @product.price_per_day %></p>
+      <p><strong>Minimum fee:</strong> <%= @product.minimum_fee%></p>
+      <!-- ToDo: Add service fee -->
+      <p><strong>Service fee:</strong></p>
+      <!-- ToDo: Add service fee -->
+      <p><strong>Total:</strong></p>
+
+      <% if policy(@request).create? %>
+       <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary' %>
+      <% end %>
+      <p>You won't be charged yet</p>
+    </div>
   </div>
 
-  <div class="product-info">
-    <h3><%= @product.name %></h3>
-    <p><strong>Description:</strong> <%= @product.description %></p>
-    <p>
-      <strong>Owner:</strong> <%= @product.user["first_name"] %>
-      <%= @product.user["last_name"] %>
-    </p>
-  </div>
+  <div class="Product-Links">
+    <% if policy(@product).destroy? %>
+      <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
+     <% end %>
 
-  <div class="request-form">
-    <h4> £<%= @product.price_per_day%> </h4>
-    <% (5-@product.user[:stars]).times do %>
-      <i class="fa fa-star gray-star" aria-hidden="true"></i>
-    <% end %>
-    <!-- ToDo: Calculate and display "Total rental fee" instead of "Rental fee" -->
-    <p><strong>Rental fee:</strong> <%= @product.price_per_day %></p>
-    <p><strong>Minimum fee:</strong> <%= @product.minimum_fee%></p>
-    <!-- ToDo: Add service fee -->
-    <p><strong>Service fee:</strong></p>
-    <!-- ToDo: Add service fee -->
-    <p><strong>Total:</strong></p>
-
-    <% if policy(@request).create? %>
-     <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary' %>
-    <% end %>
-    <p>You won't be charged yet</p>
+       <%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
+      <% if policy(@product).edit? %>
+        <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
+      <% end %>
   </div>
+  <div id="show-map" style="width: 100%"></div>
 </div>
 
-<div class="Product-Links">
-  <% if policy(@product).destroy? %>
-    <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
-   <% end %>
-
-     <%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
-    <% if policy(@product).edit? %>
-      <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
-    <% end %>
-</div>
-
-  <div id="show-map" style="width: 40%"></div>
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
