@@ -1,65 +1,63 @@
-<div class="container card-container">
-  <h1><%= @products.count %> Search results in your area...</h1>
+<div class="content">
+
+    <div class="cards-container">
+      <h1><%= @products.count %> Search results in your area...</h1>
   <%= link_to 'home', root_path, class: 'btn btn-primary' %>
   <%= link_to 'add new product', new_product_path, class: 'btn btn-primary' %>
-  <div class="row">
-    <% @products.each do |product| %>
-    <div class="col-xs-12 col-sm-6">
-      <div class="card">
-        <% if product.photo? %>
-          <div class='card-body' style="background-image: url(<%= product.photo %>)">
-        <% else %>
-          <div class='card-body'>
-            <img src=<%= asset_path"no_image.png" %> alt="">
-        <% end %>
-        </div>
-        <div class="link-to-product"><%= link_to "", product_path(product), class: 'link-to-product' %></div>
-<!--         <div class="card-body">
-        </div> -->
-        <div class="card-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12">
-                <span class="description"><%= product.name %></span>
+      <div class="row">
+        <% @products.each do |product| %>
+        <div class="col-xs-12 col-sm-6">
+          <div class="card">
+            <% if product.photo? %>
+              <div class='card-body' style="background-image: url(<%= product.photo %>)"></div>
+            <% else %>
+              <div class='card-body'>
+                <img src=<%= asset_path"no_image.png" %> alt="">
               </div>
-              <div class="col-xs-12">
-                <% product.user[:stars].times do %>
-                  <i class="fa fa-star gold-star" aria-hidden="true"></i>
-                <% end %>
-                <% (5-product.user[:stars]).times do %>
-                  <i class="fa fa-star gray-star" aria-hidden="true"></i>
-                <% end %>
-              </div>
+            <% end %>
+            <div class="link-to-product"><%= link_to "", product_path(product), class: 'link-to-product' %></div>
+            <div class="card-footer">
+              <span class="description"><%= product.name %></span>
+              <% product.user[:stars].times do %>
+                <i class="fa fa-star gold-star" aria-hidden="true"></i>
+              <% end %>
+              <% (5-product.user[:stars]).times do %>
+                <i class="fa fa-star gray-star" aria-hidden="true"></i>
+              <% end %>
+              <span class="price">£<%= product.price_per_day %>/day</span>
+            </div>
             </div>
           </div>
-          <span class="price">£<%= product.price_per_day %>/day</span>
-        </div>
+        <% end %>
       </div>
     </div>
-    <% end %>
-    </div>
-  </div>
+
+  <div id="map" style="width: 40%"></div>
 </div>
 
-<!--   ************** MAP ***************-->
 
-  <div id="map" style="width: 100%; height: 600px;"></div>
+<!--   ************** JS for the MAP ***************-->
 
-  <% content_for(:after_js) do %>
-    <%= javascript_tag do %>
-      var handler = Gmaps.build('Google');
-      handler.buildMap({ internal: { id: 'map' } }, function() {
-        markers = handler.addMarkers(<%= raw @hash.to_json %>);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-        if (markers.length == 0) {
-          handler.getMap().setZoom(2);
-        } else if (markers.length == 1) {
-          handler.getMap().setZoom(14);
-        }
-      });
-    <% end %>
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    var handler = Gmaps.build('Google');
+    handler.buildMap({ internal: { id: 'map' } }, function() {
+      markers = handler.addMarkers(<%= raw @hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      if (markers.length == 0) {
+        handler.getMap().setZoom(2);
+      } else if (markers.length == 1) {
+        handler.getMap().setZoom(14);
+      }
+    });
   <% end %>
+<% end %>
+
+
+
+
+
 
 
 

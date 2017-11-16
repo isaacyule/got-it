@@ -9,6 +9,9 @@ class User < ApplicationRecord
   # validates :first_name, :last_name, :email, :password, presence: true
   # TO DO: mount_uploader :photo, PhotoUploader
 
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end
