@@ -6,7 +6,9 @@ class RequestPolicy < ApplicationPolicy
   end
 
   def create?
-    !user.products.include?(record.product)
+    if user
+      !user.products.include?(record.product)
+    end
   end
 
   def update?
