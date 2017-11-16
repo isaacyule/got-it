@@ -3,6 +3,8 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
+    "@types/algoliasearch": "^3.24.2",
+    "algoliasearch": "^3.24.5",
     "bootstrap": "3",
     "coffeescript": "1.12.7",
     "jquery": "^3.2.1"
