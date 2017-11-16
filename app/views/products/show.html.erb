@@ -36,8 +36,6 @@
   </div>
 </div>
 
-
-
 <div class="Product-Links">
   <% if policy(@product).destroy? %>
     <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
@@ -49,3 +47,20 @@
     <% end %>
 </div>
 
+  <div id="show-map" style="width: 40%"></div>
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    var handler = Gmaps.build('Google');
+    handler.buildMap({ internal: { id: 'show-map' } }, function() {
+      markers = handler.addMarkers(<%= raw @hash.to_json %>);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      if (markers.length == 0) {
+        handler.getMap().setZoom(2);
+      } else if (markers.length == 1) {
+        handler.getMap().setZoom(14);
+      }
+    });
+  <% end %>
+<% end %>

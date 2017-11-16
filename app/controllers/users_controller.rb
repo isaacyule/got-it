@@ -2,10 +2,40 @@ class UsersController < ApplicationController
   protect_from_forgery
   before_action :authenticate_user!
   before_action :set_user, only: [:show]
+  before_action :set_requests, only: [:show, :pending, :declined, :accepted]
 
 
   def show
+  end
+
+  def edit
+    @user = current_user
     authorize(@user)
+  end
+
+  def update
+    @user = current_user
+    @user.update(user_params)
+    authorize(@user)
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
+  end
+
+  def accepted
+  end
+
+  def declined
+  end
+
+  def pending
+  end
+
+  private
+
+  def set_requests
     @user = current_user
     authorize(@user)
 
@@ -27,68 +57,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = current_user
-    authorize(@user)
-  end
-
-  def update
-    @user = current_user
-    @user.update(user_params)
-    authorize(@user)
-    if @user.save
-      redirect_to user_path(@user)
-    else
-      render :new
-    end
-  end
-
-  def accepted
-    @user = current_user
-    authorize(@user)
-
-    @accepted_requests = []
-
-    @user.products.each do |product|
-      product.requests.each do |request|
-        if request.status == "Accepted"
-          @accepted_requests << request
-        end
-      end
-    end
-  end
-
-  def declined
-    @user = current_user
-    authorize(@user)
-
-    @declined_requests = []
-
-    @user.products.each do |product|
-      product.requests.each do |request|
-        if request.status == "Declined"
-          @declined_requests << request
-        end
-      end
-    end
-  end
-
-  def pending
-    @user = current_user
-    authorize(@user)
-
-    @pending_requests = []
-
-    @user.products.each do |product|
-      product.requests.each do |request|
-        if request.status == "Pending"
-          @pending_requests << request
-        end
-      end
-    end
-  end
-
-  private
   def set_user
     @user = User.find(params[:id])
   end

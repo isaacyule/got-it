@@ -20,11 +20,16 @@ class RequestsController < ApplicationController
     end
   end
 
+  def index
+    @requests = policy_scope(Request)
+    @allrequests = current_user.requests
+  end
+
   def update
     @request = Request.find(params[:id])
-    authorize @request
     @request.update(status: params[:status])
-    redirect_to root_path
+    authorize(@request)
+    redirect_to user_path
   end
 
   private
