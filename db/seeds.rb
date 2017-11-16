@@ -34,7 +34,7 @@ puts "seeding"
   phone             = user['results'][0]['phone']
   registration_date = user['results'][0]['registered']
 
-  address           = "#{street}, #{town}, #{postcode}"
+  address           = "138 Kigsland Road, London"
   puts "writing #{first_name.capitalize} #{last_name.capitalize}..."
   User.create!(first_name: first_name, last_name: last_name, password: password, email: email, profile_photo: profile_photo, profile_text: profile_text, address: address, phone: phone, registration_date: registration_date)
   stars             = [0, 1, 2, 3, 4, 5].sample
