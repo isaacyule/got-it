@@ -9,20 +9,26 @@
       <% @requests.each do |request| %>
         <div class="request">
           <div class="request-user-details">
-            <!-- image -->
+            <% avatar = request.user.profile_photo? ? request.user.profile_photo : asset_path('default_avatar.png') %>
+            <% if request.user.profile_photo? %>
+              <%= image_tag request.user.profile_photo, class: "request-profile-photo" %>
+            <% else %>
+              <%= image_tag avatar, class: "request-profile-photo" %>
+            <% end %>
             <div class="request-user-rating"></div>
           </div>
           <div class="request-details">
-            <p><%= request.user.first_name %> wants to rent <%= request.product.name %></p>
-            <p>From <%= request.start_date %> until <%= request.end_date %></p>
-            <p>You will earn: £50</p>
+            <p class="request-info"><strong><%= request.user.first_name %></strong> wants to rent <strong><%= request.product.name %></strong> </p>
+            <p class="request-date">From <%= request.start_date %> until <%= request.end_date %></p>
+            <p class="request-description">"<%= request.description %>"</p>
+            <p class="request-earnings">You will earn: £50</p>
           </div>
           <div class="request-confirm">
-            <%= link_to "Accept", class: "btn btn-primary"  %>
-            <%= link_to "Decline", class: "btn btn-primary"  %>
+            <%= link_to "Accept", class: "request-accept btn btn-primary"  %>
+            <%= link_to "Decline", class: "request-decline btn btn-primary" %>
           </div>
         </div>
-      <% end %>s
+      <% end %>
     </div>
   </div>
 </div>
