@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Your requests</h1>
+      <h4><%= current_user.requests.count %></h4>
+      <% @allrequests.each do |request|  %>
+        <%= render "request", request: request %>
+      <% end %>
+
+    </div>
+  </div>
+</div>

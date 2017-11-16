@@ -1,0 +1,9 @@
+#map {
+  flex: 0 0 40vw;
+  height: calc(100vh - 70px);
+  position: sticky !important;
+  top: 0 !important;
+}
+.content {
+  display: flex;
+}

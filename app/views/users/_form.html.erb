@@ -21,6 +21,13 @@
         <%= f.input :address %>
         <%= f.submit class: 'btn btn-primary' %>
       <% end %>
+
+      <%= content_for :after_js do %>
+        <script>
+          var userAddress = document.getElementById('user_address');
+          new google.maps.places.Autocomplete(userAddress);
+        </script>
+      <% end %>
     </div>
   </div>
 </div>

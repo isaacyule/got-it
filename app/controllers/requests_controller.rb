@@ -20,6 +20,18 @@ class RequestsController < ApplicationController
     end
   end
 
+  def index
+    @requests = policy_scope(Request)
+    @allrequests = current_user.requests
+  end
+
+  def update
+    @request = Request.find(params[:id])
+    @request.update(status: params[:status])
+    authorize(@request)
+    redirect_to user_path
+  end
+
   private
 
   def set_product

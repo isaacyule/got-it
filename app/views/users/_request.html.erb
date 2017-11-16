@@ -1,0 +1,26 @@
+<div class="request">
+  <div class="request-user-details">
+    <% avatar = request.user.profile_photo? ? request.user.profile_photo : asset_path('default_avatar.png') %>
+    <% if request.user.profile_photo? %>
+      <%= image_tag request.user.profile_photo, class: "request-profile-photo" %>
+    <% else %>
+      <%= image_tag avatar, class: "request-profile-photo" %>
+    <% end %>
+    <p class="request-user-name"><%= request.user.first_name %> <%= request.user.last_name %></p>
+    <div class="request-user-rating">
+      <p>Rating: 4.6</p>
+    </div>
+  </div>
+  <div class="request-details">
+    <p class="request-info"><strong><%= request.user.first_name %></strong> wants to rent <strong><%= request.product.name %></strong> </p>
+    <p class="request-date">From <strong><%= request.start_date %></strong> until <strong><%= request.end_date %></strong></p>
+    <p class="request-description">"<%= request.description %>"</p>
+    <p></p>
+    <p class="request-earnings">You will earn: <strong>£<%= (request.end_date - request.start_date).ceil * request.product.price_per_day %></strong></p>
+    <p>Status: <strong> <%= request.status %></strong></p>
+  </div>
+  <div class="request-confirm">
+    <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+    <%= link_to "Decline", product_request_path(request.product, request, status: "Declined"), method: :patch, class: "request-button decline" %>
+  </div>
+</div>

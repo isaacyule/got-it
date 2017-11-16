@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Declined Requests</h1>
+
+      <h2><%= @user.requests.count %></h2>
+
+      <% @declined_requests.each do |request| %>
+        <%= render "request", request: request  %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

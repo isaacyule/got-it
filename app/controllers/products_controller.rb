@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = policy_scope(Product)
@@ -9,7 +10,12 @@ class ProductsController < ApplicationController
       search = params['search']
       @products = Product.where("name iLIKE ?", "%#{search}%")
     end
-    @hash = Gmaps4rails.build_markers(@products) do |product, marker|
+
+    @products_in_map = Product.where.not(latitude: nil, longitude: nil)
+
+
+
+    @hash = Gmaps4rails.build_markers(@products_in_map) do |product, marker|
       marker.lat product.latitude
       marker.lng product.longitude
       # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
@@ -20,6 +26,12 @@ class ProductsController < ApplicationController
     @request = Request.new
     @request.product = @product
     authorize(@product)
+    if (@product.latitude? && @product.longitude?)
+      @hash = Gmaps4rails.build_markers(@product) do |product, marker|
+        marker.lat product.latitude
+        marker.lng product.longitude
+      end
+    end
   end
 
   def new
