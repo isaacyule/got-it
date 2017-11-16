@@ -24,7 +24,7 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     authorize @request
     @request.update(status: params[:status])
-    redirect_to root_path
+    redirect_to user_path
   end
 
   private
