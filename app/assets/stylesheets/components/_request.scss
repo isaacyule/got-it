@@ -4,9 +4,10 @@
   align-items: center;
   background-color: white;
   width: 100%;
-  height: 200px;
+  height: 180px;
   box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   color: rgba(0,0,0,0.7);
+  margin: 20px 0;
 }
 
 .request-user-details {
@@ -20,8 +21,8 @@
 
 .request-profile-photo {
   border-radius: 50%;
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
 }
 
 .request-details {
@@ -44,7 +45,7 @@
   padding: 5px;
   color: white;
   background-color: #279B93;
-  margin: 5px 0px;
+  margin: 10px 0px;
   border-radius: 2px;
   box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
@@ -54,6 +55,6 @@
 }
 
 .decline {
-  background-color: red;
+  background-color: #CE5750;
 }
 
