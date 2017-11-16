@@ -43,28 +43,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def requests
-    @user = current_user
-    authorize(@user)
-
-    @pending_requests = []
-    @accepted_requests = []
-    @declined_requests = []
-
-    @user.products.each do |product|
-      product.requests.each do |request|
-        if request.status == "Pending"
-          @pending_requests << request
-        elsif request.status == "Accepted"
-          @accepted_requests << request
-        elsif request.status == "Declined"
-          @declined_requests << request
-        else
-        end
-      end
-    end
-  end
-
   def accepted
     @user = current_user
     authorize(@user)
@@ -113,15 +91,6 @@ class UsersController < ApplicationController
   private
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def set_requests
-    # #  requests = []
-    # # @user.products.each do |product|
-    # #   product.requests.each { |request| requests << request }
-    # end
-
-    # @requests = requests
   end
 
   def user_params
