@@ -16,7 +16,7 @@
     <p class="request-date">From <strong><%= request.start_date %></strong> until <strong><%= request.end_date %></strong></p>
     <p class="request-description">"<%= request.description %>"</p>
     <p></p>
-    <p class="request-earnings">You will earn: <strong>£<%= (request.end_date - request.start_date).ceil * request.product.price_per_day %></strong></p>
+    <p class="request-earnings">You will pay: <strong>£<%= (request.end_date - request.start_date).ceil * request.product.price_per_day %></strong></p>
     <p>Status: <strong> <%= request.status %></strong></p>
   </div>
   <div class="request-confirm">
