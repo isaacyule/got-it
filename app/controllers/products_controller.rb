@@ -10,6 +10,9 @@ class ProductsController < ApplicationController
       search = params['search']
       @products = Product.where("name iLIKE ?", "%#{search}%")
     end
+
+    @products_in_map = Product.where.not(latitude: nil, longitude: nil)
+
     @hash = Gmaps4rails.build_markers(@products) do |product, marker|
       marker.lat product.latitude
       marker.lng product.longitude
