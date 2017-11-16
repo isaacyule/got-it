@@ -24,6 +24,7 @@ gem 'geocoder'
 gem "coffee-rails"
 gem "gmaps4rails"
 gem "pundit"
+gem "algoliasearch-rails"
 
 group :development, :test do
   gem 'pry-byebug'

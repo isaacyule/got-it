@@ -1,6 +1,9 @@
 <div class="content">
 
     <div class="cards-container">
+      <%= form_tag products_path, :method => 'get' do %>
+        <%= text_field_tag :search, params[:search], placeholder: 'Borrow something...' %>
+      <% end %>
       <h1><%= @products.count %> Search results in your area...</h1>
   <%= link_to 'home', root_path, class: 'btn btn-primary' %>
   <%= link_to 'add new product', new_product_path, class: 'btn btn-primary' %>
@@ -35,10 +38,10 @@
   <div id="map" style="width: 40%"></div>
 </div>
 
-
 <!--   ************** JS for the MAP ***************-->
 
 <% content_for(:after_js) do %>
+  <%= javascript_pack_tag 'algolia' %>
   <%= javascript_tag do %>
     var handler = Gmaps.build('Google');
     handler.buildMap({ internal: { id: 'map' } }, function() {
@@ -53,12 +56,6 @@
     });
   <% end %>
 <% end %>
-
-
-
-
-
-
 
 
 
