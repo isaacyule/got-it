@@ -25,6 +25,18 @@ class UserPolicy < ApplicationPolicy
     record == user
   end
 
+  def accepted?
+    record == user
+  end
+
+  def pending?
+    record == user
+  end
+
+  def declined?
+    record == user
+  end
+
 #   private
 
 #   def user_is_owner_or_admin?

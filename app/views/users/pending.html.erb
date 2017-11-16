@@ -1,10 +1,9 @@
-
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
       <h1>Pending Requests</h1>
 
-      <h2><%= @user.requests.count %></h2>
+      <h2><%= @pending_requests.count %></h2>
 
       <% @pending_requests.each do |request| %>
         <div class="request">
@@ -26,6 +25,7 @@
             <p class="request-description">"<%= request.description %>"</p>
             <p></p>
             <p class="request-earnings">You will earn: <strong>£<%= (request.end_date - request.start_date).ceil * request.product.price_per_day %></strong></p>
+            <p>Status: <strong> <%= request.status %></strong></p>
           </div>
           <div class="request-confirm">
             <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
