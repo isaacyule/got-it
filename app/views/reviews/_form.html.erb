@@ -1,5 +1,5 @@
 <%= simple_form_for([@product, @review]) do |f| %>
-  <% if @product.review.errors.any? %>
+  <% if @product.errors.any? %>
       <div class="errors-container">
         <ul>
           <% @product.errors.full_messages.each do |message| %>
