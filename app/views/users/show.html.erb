@@ -7,12 +7,9 @@
   <li> Adress: <%= current_user.address %> </li>
   <li> Phone: <%= current_user.phone %> </li>
 
-  <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
-  <% if current_user.profile_photo? %>
-    <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
-  <% else %>
-    <li> <%= image_tag avatar, id: "profile_photo" %> </li>
-  <% end %>
+
+
+    <li>  </li>
 
   <li>You've requested <%= current_user.requests.count %> items: <%= link_to "Click to see more", product_requests_path(@user)  %> </li>
 
@@ -33,5 +30,38 @@
       <%= link_to product.name, product_path(product) %>
     </div>
     <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="profile-page">
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="profile-left">
+              <div class="profile-photo">
+                <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
+                <% if current_user.profile_photo? %>
+                  <%= image_tag current_user.profile_photo, id: "profile_photo" %>
+                <% else %>
+                  <%= image_tag avatar, id: "profile_photo" %>
+                <% end %>
+              </div>
+              <div class="profile-details">
+                <p>Product Library: 7</p>
+                <p>Email: isaac.k.yule@gmail.com</p>
+                <p>Address: 13 boscastle road</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-8">
+            <div class="profile-right">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
