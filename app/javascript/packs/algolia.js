@@ -35,7 +35,7 @@ const algoliaSearch = () => {
         container.insertAdjacentHTML('beforeend', `
           <div class="col-xs-12 col-sm-6">
             <div class="card">
-              <a class='link-to-product' href='http://localhost:3000/products/${product.objectID}/'>
+              <a class='link-to-product' href='https://got-it-wagon.herokuapp.com/products/${product.objectID}/'>
                 <div class='card-body' style='background-image: url(${product['photo']})'></div>
                 <div class="card-footer">
                   <div class="container">
