@@ -1,6 +1,6 @@
-<div class="content">
-  <div class="container-product-page">
-    <div class="product-photo">
+<div class="main-container">
+  <div class="wrapper profile">
+    <div class="product-photo fillwidth">
       <% if @product.photo? %>
       <%= cl_image_tag @product.photo %>
       <% else %>
@@ -11,10 +11,16 @@
     <div class="product-info">
       <h3><%= @product.name %></h3>
       <p><strong>Description:</strong> <%= @product.description %></p>
-      <p>
-        <strong>Owner:</strong> <%= @product.user["first_name"] %>
-        <%= @product.user["last_name"] %>
-      </p>
+      <div class="owner_card">
+        <p><strong>Owner:</strong></p>
+        <p><%= @product.user["first_name"] %>
+        <%= @product.user["last_name"] %></p>
+        <%= cl_image_tag @product.user.profile_photo, :transformation=>[
+          {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
+          {:width=>100, :crop=>"scale"}
+          ], class: "owner_card_photo" %>
+        </div>
+
     </div>
 
     <div class="request-form">
@@ -32,20 +38,27 @@
 
       <% if policy(@request).create? %>
        <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary' %>
+      <% else %>
+        <p class="own-product">This is your own product</p>
       <% end %>
       <p>You won't be charged yet</p>
     </div>
   </div>
 
-  <div class="Product-Links">
+  <div class="owner_links">
+    <% if policy(@product).destroy? || policy(@product).edit?%>
+      <p>As you are the owner you can...</p>
+    <% end %>
     <% if policy(@product).destroy? %>
-      <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
+      <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-primary'%>
      <% end %>
-
- <!--       <%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%> -->
-      <% if policy(@product).edit? %>
-        <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
-      <% end %>
+     <% if policy(@product).edit? %>
+       <%= link_to "Edit", edit_product_path, class: 'btn btn-primary' %>
+     <% end %>
+  </div>
+  <div id="show-map" style="width: 68%; height: 400px"></div>
+  <div class="product-reviews">
+    <h3>Reviews</h3>
   </div>
 
   <div class="reviews">
@@ -54,10 +67,7 @@
       <%= render 'reviews/review', review: review %>
     <% end %>
   </div>
-
-  <div id="show-map" style="width: 100%"></div>
-
-
+  
 </div>
 
 
