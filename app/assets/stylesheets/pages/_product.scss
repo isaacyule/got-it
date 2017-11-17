@@ -1,5 +1,39 @@
-.container-product-page {
-  display: flex;
-  text-align: space-around;
-  flex-wrap: wrap;
+.main-container{
+  padding: 50px;
+}
+
+.product-photo {
+  height: 300px;
+  width: 300px;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  padding: 10px;
+  border: 1px solid #e4e4e4 !important;
+}
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 940px) {
+  .profile {
+    display: block;
+  }
+}
+
+.product-info {
+ margin: 0 30px;
+ min-width: 300px;
+}
+
+.owner_links {
+  position: fixed;
+  top: 100px;
+  right: 70px;
+  width: 376px;
+  text-align: center;
+  line-height: 10px
 }
