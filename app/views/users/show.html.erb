@@ -24,20 +24,21 @@
           <div class="col-xs-9">
             <div class="profile-right">
               <div class="profile-title">
-                <h1>Isaac Yule</h1>
-                <p>joined october 2017</p>
+                <% if @user.first_name %>
+                  <h1><%= @user.first_name%> <%= @user.last_name %></h1>
+                <% else %>
+                  <h1><%= @user.email %></h1>
+                <% end %>
               </div>
               <div class="profile-about">
-                <h3>About me</h3>
-                <p>
-                   My name is Trevor and I shall be your host for the duration of your stay in the Airstream. We are situated 3 kilometres outside of a small Spanish white pueblo named Alozaina, just 2000 souls, its a taste of real Spain, quiet and honest and our living location on the mountain is idyllic, peaceful and restful and far away from the humdrum world of distractions and confusion.
-                </p>
+
               </div>
               <div class="profile-requests">
                 <h3>Requests</h3>
-                <%= link_to "Pending Requests:", user_pe_requests_path(@user) %>
-                <%= link_to "Accepted Requests", user_ac_requests_path(@user) %>
-                <%= link_to "Requests you've made", product_requests_path(@user)  %>
+                <p>Manage your product requests here!</p>
+                <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user) %>
+                <%= link_to "Accepted Requests: #{@accepted_requests.count}", user_ac_requests_path(@user) %>
+                <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user)  %>
               </div>
             </div>
           </div>

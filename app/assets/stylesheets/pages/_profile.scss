@@ -1,5 +1,28 @@
 #profile_photo {
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
+  height: 250px;
+  width: 250px;
+}
+
+.profile-page {
+  padding-top: 20px;
+}
+
+.profile-left {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profile-details {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  align-items: center;
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 5px;
+}
+
+.profile-requests {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 }
