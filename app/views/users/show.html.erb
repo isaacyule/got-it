@@ -1,44 +1,9 @@
-<h1>Profile page</h1>
-<ul>
-  <li> First Name: <%= current_user.first_name %> </li>
-  <li> Last Name: <%= current_user.last_name %> </li>
-  <li> Mail: <%= current_user.email %> </li>
-  <li> Profile Text: <%= current_user.profile_text %> </li>
-  <li> Adress: <%= current_user.address %> </li>
-  <li> Phone: <%= current_user.phone %> </li>
-
-
-
-    <li>  </li>
-
-  <li>You've requested <%= current_user.requests.count %> items: <%= link_to "Click to see more", product_requests_path(@user)  %> </li>
-
-  <li> Pending Requests: <%= @pending_requests.count %> (<%= link_to "Pending Requests:", user_pe_requests_path(@user) %>) </li>
-  <li> Accepted Requests: <%= @accepted_requests.count %> (<%= link_to "Accepted Requests", user_ac_requests_path(@user) %>) </li>
-  <li> Declined Requests: <%= @declined_requests.count %> (<%= link_to "Declined Requests", user_de_requests_path(@user) %>) </li>
-
-
-</ul>
-
-<p> <%= link_to "Edit", edit_user_path %> </p>
-
-<h4>My Listed Products</h4>
-<div class="container">
-  <div class="row">
-    <% (Product.where(user_id: current_user.id)).each do |product|%>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <%= link_to product.name, product_path(product) %>
-    </div>
-    <% end %>
-  </div>
-</div>
-
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
       <div class="profile-page">
         <div class="row">
-          <div class="col-xs-4">
+          <div class="col-xs-3">
             <div class="profile-left">
               <div class="profile-photo">
                 <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
@@ -52,16 +17,33 @@
                 <p>Product Library: 7</p>
                 <p>Email: isaac.k.yule@gmail.com</p>
                 <p>Address: 13 boscastle road</p>
+                <p>Product Library: 6</p>
               </div>
             </div>
           </div>
-          <div class="col-xs-8">
+          <div class="col-xs-9">
             <div class="profile-right">
-
+              <div class="profile-title">
+                <h1>Isaac Yule</h1>
+                <p>joined october 2017</p>
+              </div>
+              <div class="profile-about">
+                <h3>About me</h3>
+                <p>
+                   My name is Trevor and I shall be your host for the duration of your stay in the Airstream. We are situated 3 kilometres outside of a small Spanish white pueblo named Alozaina, just 2000 souls, its a taste of real Spain, quiet and honest and our living location on the mountain is idyllic, peaceful and restful and far away from the humdrum world of distractions and confusion.
+                </p>
+              </div>
+              <div class="profile-requests">
+                <h3>Requests</h3>
+                <%= link_to "Pending Requests:", user_pe_requests_path(@user) %>
+                <%= link_to "Accepted Requests", user_ac_requests_path(@user) %>
+                <%= link_to "Requests you've made", product_requests_path(@user)  %>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <%= link_to "Edit", edit_user_path %>
 </div>
