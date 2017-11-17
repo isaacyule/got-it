@@ -3,17 +3,11 @@ class ReviewsController < ApplicationController
 
   def create
     @product = Product.find(params[:product_id])
-<<<<<<< HEAD
     @request = Request.where(product: @product, user: current_user).first
     @review = Review.new(review_params)
-    @review.user = current_user
-    @review.request = @request
-=======
-    @request = Request.where(product: @product, user: current_user, status: "Accepted").first
-    @review = Review.new(review_params)
     @review.request = @request
     @review.user = current_user
->>>>>>> a7946678d18b282812da8896fd611327770ccaa2
+    authorize(@review)
     if @review.save
       redirect_to product_path(@product)
     else
