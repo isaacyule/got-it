@@ -60,6 +60,14 @@
   <div class="product-reviews">
     <h3>Reviews</h3>
   </div>
+
+  <div class="reviews">
+    <%= render 'reviews/form', review: Review.new %>
+    <% @product.reviews.each do |review| %>
+      <%= render 'reviews/review', review: review %>
+    <% end %>
+  </div>
+  
 </div>
 
 
