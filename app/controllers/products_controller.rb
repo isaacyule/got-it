@@ -32,6 +32,7 @@ class ProductsController < ApplicationController
         marker.lng product.longitude
       end
     end
+    @review = Review.new
   end
 
   def new

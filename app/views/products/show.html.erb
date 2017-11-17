@@ -50,6 +50,7 @@
   <div id="show-map" style="width: 100%"></div>
 
   <div class="reviews">
+    <%= render 'reviews/form', review: Review.new %>
     <% @product.reviews.each do |review| %>
       <%= render 'review/form', review: review %>
     <% end %>
