@@ -51,7 +51,7 @@
 
   <div class="reviews">
     <% @product.reviews.each do |review| %>
-      <%= render 'review', review: review %>
+      <%= render 'review/form', review: review %>
     <% end %>
   </div>
 
