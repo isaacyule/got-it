@@ -14,10 +14,9 @@
                 <% end %>
               </div>
               <div class="profile-details">
-                <p>Product Library: 7</p>
-                <p>Email: isaac.k.yule@gmail.com</p>
-                <p>Address: 13 boscastle road</p>
-                <p>Product Library: 6</p>
+                <p>Product Library: <%= @user.products.count %></p>
+                <p>Email: <%= @user.email %></p>
+                <p>Address: <%= @user.address %></p>
               </div>
             </div>
           </div>
