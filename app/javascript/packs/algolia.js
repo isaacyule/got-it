@@ -3,13 +3,27 @@ const index = client.initIndex('Product');
 const container = document.getElementById('card-row');
 const form = document.getElementById('search');
 
-form.addEventListener('keyup', (event) => {
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+$(document).ready(()=> {
+  const params = getParameterByName('search')
+  form.value = params;
+  algoliaSearch();
+});
+
+const algoliaSearch = () => {
   container.innerHTML = "";
   query = form.value;
-
   // query the algolia api for search results
   index.search(query, function searchDone(err, content) {
-
     if (err) {
       console.error(err);
       return;
@@ -43,5 +57,9 @@ form.addEventListener('keyup', (event) => {
         </div>`);
     });
   });
+};
+
+form.addEventListener('keyup', (event) => {
+  algoliaSearch();
 })
 
