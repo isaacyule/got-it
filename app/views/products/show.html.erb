@@ -17,6 +17,12 @@
       </p>
     </div>
 
+    <div class="reviews">
+    <%= render 'reviews/form', review: Review.new %>
+    <% @product.reviews.each do |review| %>
+      <%= render 'review/form', review: review %>
+    <% end %>
+  </div>
     <div class="request-form">
       <h4> £<%= @product.price_per_day%> </h4>
       <% (5-@product.user[:stars]).times do %>
@@ -49,7 +55,7 @@
       <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
      <% end %>
 
-       <%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%>
+ <!--       <%= link_to "back to your dashboard", user_path(@product.user_id), class: 'btn btn-primary'%> -->
       <% if policy(@product).edit? %>
         <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
       <% end %>
