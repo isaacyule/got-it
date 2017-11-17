@@ -48,6 +48,13 @@
       <% end %>
   </div>
   <div id="show-map" style="width: 100%"></div>
+
+  <div class="reviews">
+    <% @product.reviews.each do |review| %>
+      <%= render 'review', review: review %>
+    <% end %>
+  </div>
+
 </div>
 
 

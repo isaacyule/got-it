@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :products do
     resources :requests, only: [:new, :create, :update, :index]
-    resources :requests, only: [:create]
+    resources :reviews, only: [:create]
   end
 
   resources :users, only: [:show, :edit, :update]
