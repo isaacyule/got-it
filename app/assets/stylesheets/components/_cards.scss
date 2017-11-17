@@ -1,12 +1,14 @@
 .card {
   background-size: cover;
   height: 250px;
-  width: 350px;
+  // width: 350px;
   border-radius: 1px;
-  margin: 15px 10px;
+  // margin: 15px 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   font-size: 18px;
   font-weight: bolder;
+  padding: 0;
+  position:relative;
 }
 
 .card-body {
@@ -19,6 +21,9 @@
   }
 }
 
+.row {
+  width: 100%;
+}
 .cards-container{
   width: 60%;
   padding: 20px;
