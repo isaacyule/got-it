@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   include AlgoliaSearch
   belongs_to :user
   has_many :requests
+  has_many :reviews, through: :requests, dependent: :destroy
 
 
   # --- Google Maps api ---
