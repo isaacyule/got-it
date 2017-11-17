@@ -10,8 +10,8 @@
 # require 'faker'
 
 # puts "cleaning database..."
-# User.destroy_all
-# Product.destroy_all
+User.destroy_all
+Product.destroy_all
 # puts "seeding"
 
 # # Seed Users
