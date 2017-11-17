@@ -4,12 +4,12 @@ class ProductsController < ApplicationController
   def index
     @products = policy_scope(Product)
 
-    if params['search'].nil?
-      @products = Product.all
-    else
-      search = params['search']
-      @products = Product.where("name iLIKE ?", "%#{search}%")
-    end
+    # if params['search'].nil?
+    #   @products = Product.all
+    # else
+    #   search = params['search']
+    #   @products = Product.where("name @@ ?", "%#{search}%")
+    # end
 
     @products_in_map = Product.where.not(latitude: nil, longitude: nil)
 
