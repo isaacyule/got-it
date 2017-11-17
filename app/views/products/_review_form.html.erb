@@ -1,0 +1,14 @@
+<%= simple_form_for([@product, @review]) do |f| %>
+  <% if @product.review.errors.any? %>
+      <div class="errors-container">
+        <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <%= f.input :content %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
