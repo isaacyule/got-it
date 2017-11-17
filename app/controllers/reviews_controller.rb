@@ -10,11 +10,18 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     authorize(@review)
     if @review.save
-      redirect_to product_path(@product)
+      respond_to do |format|
+        format.html { redirect_to product_path(@product) }
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+      end
     else
-      render 'products/show'
+      respond_to do |format|
+        format.html { render 'products/show' }
+        format.js  # <-- idem
+      end
     end
   end
+
 
   private
 

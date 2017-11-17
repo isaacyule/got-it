@@ -48,11 +48,16 @@
       <% end %>
   </div>
 
-  <div class="reviews">
-    <%= render 'reviews/form', review: Review.new %>
-    <% @product.reviews.each do |review| %>
-      <%= render 'reviews/review', review: review %>
+<div id="reviews-count">
+  <%= pluralize @product.reviews.size, "review" %>
+</div>
+
+<div>  <%= render 'reviews/form', product: @product, review: @review %>
+  <div id="reviews">
+    <% @product.reviews.order("id desc").each do |review| %>
+      <%= render 'reviews/show', review: review %>
     <% end %>
+  </div>
   </div>
 
   <div id="show-map" style="width: 100%"></div>
