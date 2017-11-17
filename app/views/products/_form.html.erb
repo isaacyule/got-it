@@ -1,21 +1,26 @@
-
-<%= simple_form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-      <div class="errors-container">
-        <ul>
-          <% @product.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6 col-sm-offset-3">
+      <%= simple_form_for(@product) do |f| %>
+        <% if @product.errors.any? %>
+            <div class="errors-container">
+              <ul>
+                <% @product.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
 
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :price_per_day %>
-  <%= f.input :deposit %>
-  <%= f.input :minimum_fee %>
-  <%= f.input :photo %>
-  <%= f.input :address, input_html: {value: f.object.address || current_user.address } %>
-  <%= f.submit class: 'btn btn-primary' %>
-<% end %>
+        <%= f.input :name %>
+        <%= f.input :description %>
+        <%= f.input :price_per_day %>
+        <%= f.input :deposit %>
+        <%= f.input :minimum_fee %>
+        <%= f.input :photo %>
+        <%= f.input :address, input_html: {value: f.object.address || current_user.address } %>
+        <%= f.submit class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
