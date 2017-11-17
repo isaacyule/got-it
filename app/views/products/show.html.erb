@@ -47,12 +47,6 @@
         <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
       <% end %>
   </div>
-    <div class="reviews">
-      <%= render 'reviews/form', review: Review.new %>
-      <% @product.reviews.each do |review| %>
-        <%= render 'reviews/review', review: review %>
-    <% end %>
-    </div>
 
   <div class="reviews">
     <%= render 'reviews/form', review: Review.new %>
