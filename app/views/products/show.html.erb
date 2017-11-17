@@ -17,12 +17,6 @@
       </p>
     </div>
 
-    <div class="reviews">
-    <%= render 'reviews/form', review: Review.new %>
-    <% @product.reviews.each do |review| %>
-      <%= render 'review/form', review: review %>
-    <% end %>
-  </div>
     <div class="request-form">
       <h4> £<%= @product.price_per_day%> </h4>
       <% (5-@product.user[:stars]).times do %>
@@ -52,6 +46,13 @@
       <% if policy(@product).edit? %>
         <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
       <% end %>
+  </div>
+
+  <div class="reviews">
+    <%= render 'reviewss/form', review: Review.new %>
+    <% @product.reviews.each do |review| %>
+      <%= render 'reviews/review', review: review %>
+    <% end %>
   </div>
 
   <div id="show-map" style="width: 100%"></div>
