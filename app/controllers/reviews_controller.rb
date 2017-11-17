@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  protect_from_forgery
   before_action :review_params, only: [:create]
 
   def create
