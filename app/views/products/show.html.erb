@@ -37,6 +37,13 @@
     </div>
   </div>
 
+  <div class="reviews">
+    <%= render 'reviews/form', review: Review.new %>
+    <% @product.reviews.each do |review| %>
+      <%= render 'review', review: review %>
+    <% end %>
+  </div>
+
   <div class="Product-Links">
     <% if policy(@product).destroy? %>
       <%= link_to "delete the product", product_path(@product), method: :delete, class: 'btn btn-primary'%>
@@ -47,14 +54,9 @@
         <%= link_to "edit", edit_product_path, class: 'btn btn-primary' %>
       <% end %>
   </div>
+
   <div id="show-map" style="width: 100%"></div>
 
-  <div class="reviews">
-    <%= render 'reviews/form', review: Review.new %>
-    <% @product.reviews.each do |review| %>
-      <%= render 'review', review: review %>
-    <% end %>
-  </div>
 
 </div>
 
