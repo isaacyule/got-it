@@ -1,37 +1,50 @@
-<h1>Profile page</h1>
-<ul>
-  <li> First Name: <%= current_user.first_name %> </li>
-  <li> Last Name: <%= current_user.last_name %> </li>
-  <li> Mail: <%= current_user.email %> </li>
-  <li> Profile Text: <%= current_user.profile_text %> </li>
-  <li> Adress: <%= current_user.address %> </li>
-  <li> Phone: <%= current_user.phone %> </li>
-
-  <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
-  <% if current_user.profile_photo? %>
-    <li> <%= image_tag current_user.profile_photo, id: "profile_photo" %> </li>
-  <% else %>
-    <li> <%= image_tag avatar, id: "profile_photo" %> </li>
-  <% end %>
-
-  <li>You've requested <%= current_user.requests.count %> items: <%= link_to "Click to see more", product_requests_path(@user)  %> </li>
-
-  <li> Pending Requests: <%= @pending_requests.count %> (<%= link_to "Pending Requests:", user_pe_requests_path(@user) %>) </li>
-  <li> Accepted Requests: <%= @accepted_requests.count %> (<%= link_to "Accepted Requests", user_ac_requests_path(@user) %>) </li>
-  <li> Declined Requests: <%= @declined_requests.count %> (<%= link_to "Declined Requests", user_de_requests_path(@user) %>) </li>
-
-
-</ul>
-
-<p> <%= link_to "Edit", edit_user_path %> </p>
-
-<h4>My Listed Products</h4>
 <div class="container">
   <div class="row">
-    <% (Product.where(user_id: current_user.id)).each do |product|%>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <%= link_to product.name, product_path(product) %>
+    <div class="col-xs-12">
+      <div class="profile-page">
+        <div class="row">
+          <div class="col-xs-3">
+            <div class="profile-left">
+              <div class="profile-photo">
+                <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
+                <% if current_user.profile_photo? %>
+                  <%= image_tag current_user.profile_photo, id: "profile_photo" %>
+                <% else %>
+                  <%= image_tag avatar, id: "profile_photo" %>
+                <% end %>
+              </div>
+              <div class="profile-details">
+                <p>Product Library: 7</p>
+                <p>Email: isaac.k.yule@gmail.com</p>
+                <p>Address: 13 boscastle road</p>
+                <p>Product Library: 6</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-9">
+            <div class="profile-right">
+              <div class="profile-title">
+                <% if @user.first_name %>
+                  <h1><%= @user.first_name%> <%= @user.last_name %></h1>
+                <% else %>
+                  <h1><%= @user.email %></h1>
+                <% end %>
+              </div>
+              <div class="profile-about">
+
+              </div>
+              <div class="profile-requests">
+                <h3>Requests</h3>
+                <p>Manage your product requests here!</p>
+                <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user) %>
+                <%= link_to "Accepted Requests: #{@accepted_requests.count}", user_ac_requests_path(@user) %>
+                <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user)  %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <% end %>
   </div>
+  <%= link_to "Edit", edit_user_path %>
 </div>
