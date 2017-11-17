@@ -8,3 +8,25 @@
   flex: 0 1 auto;
   margin: 0px 5px;
  }
+
+.inspiration {
+  display: flex;
+ h1 {
+  color: $green;
+  }
+  margin-bottom: 30px;
+}
+
+.popular-items {
+  width: 40vw;
+  text-align: center;
+}
+
+.recent-transactions {
+  width: 40vw;
+  text-align: center;
+}
+
+.fit-image {
+  width: 100%;
+}
