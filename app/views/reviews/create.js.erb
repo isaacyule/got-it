@@ -1,0 +1,18 @@
+var reviewForm = document.getElementById('new_review')
+
+<% if @review.persisted? %>
+// 1. create the html for the review
+var newReview = "<%= j render 'reviews/show', review: @review %>";
+// 2. append the new review to the list
+var reviews = document.getElementById('reviews');
+reviews.insertAdjacentHTML('afterbegin', newReview);
+// 3. empty out the input box
+reviewForm.innerHTML = "<%= j render 'reviews/form', product: @product, review: Review.new %>";
+var count = document.getElementById('reviews-count');
+count.replaceWith("<%= pluralize @product.reviews.size, "review" %>")
+
+
+<% else %>
+// 1. rerender the form partial with the new @review
+reviewForm.innerHTML = "<%= j render 'reviews/form', product: @product, review: @review %>";
+<% end %>
