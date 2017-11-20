@@ -56,23 +56,30 @@
        <%= link_to "Edit", edit_product_path, class: 'btn btn-primary' %>
      <% end %>
   </div>
-  <div id="show-map" style="width: 68%; height: 400px"></div>
-  <div class="product-reviews">
-    <h3>Reviews</h3>
+  <div class="row">
+    <div class="col-md-8">
+      <div id="show-map" style= "height: 400px"></div>
+      <div id="calendar"></div>
+
+      <div class="product-reviews">
+        <h3>Reviews</h3>
+      </div>
+
+      <div id="reviews-count">
+        <%= pluralize @product.reviews.size, "review" %>
+      </div>
+
+      <div>
+        <%= render 'reviews/form', product: @product, review: @review %>
+        <div id="reviews">
+          <% @product.reviews.order("id desc").each do |review| %>
+            <%= render 'reviews/show', review: review %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-<div id="reviews-count">
-  <%= pluralize @product.reviews.size, "review" %>
 </div>
-
-<div>  <%= render 'reviews/form', product: @product, review: @review %>
-  <div id="reviews">
-    <% @product.reviews.order("id desc").each do |review| %>
-      <%= render 'reviews/show', review: review %>
-    <% end %>
-  </div>
-</div>
-
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
