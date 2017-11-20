@@ -1,42 +1,18 @@
 <div class="content">
     <div class="cards-container">
-      <%= form_tag products_path, class: "form-group", :method => 'get' do %>
-        <%= text_field_tag :search, params[:search], class: "form-control",  placeholder: 'Borrow something...' %>
-      <% end %>
-      <h1 id='counter'><%= @products.count %> Search results in your area...</h1>
       <div class="row" id='card-row'>
-
-        <!-- I dont think we need any of this code anymore... -->
-
-        <%# @products.each do |product| %>
-        <!-- <div class="col-xs-12 col-sm-6">
-          <div class="card">
-            <%# if product.photo? %>
-              <div class='card-body' style="background-image: url(<%# product.photo %>)"></div>
-            <%# else %>
-              <div class='card-body'>
-                <img src=<%# asset_path"no_image.png" %> alt="">
-              </div>
-            <%# end %>
-            <div class="link-to-product"><%# link_to "", product_path(product), class: 'link-to-product' %></div>
-            <div class="card-footer">
-              <span class="description"><%# product.name %></span>
-              <%# product.user[:stars].times do %>
-                <i class="fa fa-star gold-star" aria-hidden="true"></i>
-              <%# end %>
-              <%# (5-product.user[:stars]).times do %>
-                <i class="fa fa-star gray-star" aria-hidden="true"></i>
-              <%# end %>
-              <span class="price">£<%# product.price_per_day %>/day</span>
-            </div>
-            </div>
-          </div>
-        <%# end %> -->
+        <div class="col-xs-12">
+          <div id="searchBox" class="form-control" placeholder='Borrow something...'></div>
+          <h1 id='counter'><%= @products.count %> Search results in your area...</h1>
+        </div>
+        <div id="hits"></div>
+        <!-- JS cards from app/javascrpit/packs/algolia are built here -->
       </div>
     </div>
-
-  <div id="map" style="width: 40%"></div>
+    <div id="map"></div>
 </div>
+
+
 
 <!--   ************** JS for the MAP and Algolia ***************-->
 
