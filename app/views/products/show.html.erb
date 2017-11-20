@@ -36,7 +36,7 @@
       <!-- ToDo: Add service fee -->
       <p><strong>Total:</strong></p>
 
-      <% if policy(@request).create? || !current_user %>
+      <% if policy(@request).create? %>
        <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary' %>
       <% else %>
         <p class="own-product">This is your own product</p>
