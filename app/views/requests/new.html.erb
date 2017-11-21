@@ -4,7 +4,7 @@
 <script type="text/javascript">
   var disableDates = <%= @dates.to_json.html_safe %>;
 
-  $('.datepicker').datepicker({
+  $('.datepicker').daterangepicker({
     clearBtn: true,
     todayHighlight: true,
     startDate: new Date() + 1,
