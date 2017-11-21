@@ -18,7 +18,7 @@ class Product < ApplicationRecord
 
   # --- Algolia Search ---
   algoliasearch do
-    attribute :name, :description, :price_per_day, :deposit, :address, :minimum_fee, :user_id, :photo
+    attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id, :photo
     geoloc :latitude, :longitude
     searchableAttributes ['name', 'description']
   end

@@ -45,7 +45,7 @@ end
 names = ['Electronics Repair Kit', 'Mountain Bike', 'Electric Guitar', 'Home Barbeque', 'Six Person Tent', 'Golf clubs', 'Go-Pro', 'High-End Digital Camera', 'Gardening Equipment', 'Cement Mixer', 'Fancy Dress Costume', 'Tuxedo', 'Sewing Machine', 'Plumbing Equipment', 'Flatbed Trailer', 'Car Jack']
 description = "A useful product that you can rent"
 price_per_day = [5, 10, 15, 20, 7, 8, 9, 11, 12, 13, 14]
-minimum_fee = [5, 10, 15, 20]
+handover_fee = [5, 10, 15, 20]
 user_id = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 # IMG = {
 #   electronics_repair_kit: '../app/assets/images/electronic_repair_kit.jpg',
@@ -75,7 +75,7 @@ user_id = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
   # image = name.downcase.gsub(/\s/, '_').to_sym
   # puts "creating #{name} with image #{image} which can be found at #{IMG[image]}"
   # photo = '../app/assets/images/electronic_repair_kit.jpg'
-  Product.create!(name: name, description: description, price_per_day: price_per_day.sample, deposit: price_per_day.sample/10, minimum_fee: minimum_fee.sample, user_id: products_user_id, address: address)
+  Product.create!(name: name, description: description, price_per_day: price_per_day.sample, deposit: price_per_day.sample/10, handover_fee: handover_fee.sample, user_id: products_user_id, address: address)
   puts "added product #{iteration}"
 end
 
