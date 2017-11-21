@@ -27,11 +27,10 @@
           </div>
       </div>
     </div>
-    <div id="calendar"></div>
     <div class="product-map hidden-xs">
       <div id="show-map" style="width: 100%; height: 400px"></div>
     </div>
-
+    <div id="calendar"></div>
     <div class="product-reviews">
       <h3>Reviews</h3>
       <div id="reviews-count">
@@ -99,17 +98,27 @@
 </div>
 
 <% content_for(:after_js) do %>
-  <%= javascript_tag do %>
-    var handler = Gmaps.build('Google');
-    handler.buildMap({ internal: { id: 'show-map' } }, function() {
-      markers = handler.addMarkers(<%= raw @hash.to_json %>);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      if (markers.length == 0) {
-        handler.getMap().setZoom(2);
-      } else if (markers.length == 1) {
-        handler.getMap().setZoom(14);
-      }
-    });
-  <% end %>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'show-map' } }, function() {
+        markers = handler.addMarkers(<%= raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        if (markers.length == 0) {
+          handler.getMap().setZoom(2);
+        } else if (markers.length == 1) {
+          handler.getMap().setZoom(14);
+        }
+      });
+
+      let pathName = window.location.pathname;
+      let productID = pathName.match(/[\W{1}products\W{1}]\d+/)[0].substring(1)
+      $('#calendar').fullCalendar({
+        events: "/products/" + productID + ".json"
+      });
+    })
+
+  </script>
 <% end %>

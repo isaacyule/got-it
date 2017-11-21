@@ -41,8 +41,6 @@ class ProductsController < ApplicationController
     authorize(@product)
   end
 
-
-
   def create
     @product = Product.new(product_params)
     @product.user_id = current_user.id
