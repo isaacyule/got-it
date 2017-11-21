@@ -6,6 +6,12 @@ class RequestsController < ApplicationController
     @request = Request.new
     @request.product = @product
     authorize(@request)
+    @dates = []
+    @product.requests.where(status: 'Accepted').each do |request|
+      (Date.parse(request.start_date[0, 10])..Date.parse(request.end_date[0, 10])).each do |d|
+        @dates << d
+      end
+    end
   end
 
   def create

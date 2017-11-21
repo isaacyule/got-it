@@ -10,6 +10,10 @@ gem 'redis'
 gem 'faker',  :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 
 gem 'autoprefixer-rails'
+gem 'jquery-rails'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'sass-rails'
@@ -25,6 +29,7 @@ gem "coffee-rails"
 gem "gmaps4rails"
 gem "pundit"
 gem "algoliasearch-rails"
+
 
 group :development, :test do
   gem 'pry-byebug'

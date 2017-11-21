@@ -86,16 +86,50 @@
         <p><strong>Total:</strong></p> <p>£<%= rental_fee + service_fee + @product.price_per_day %> </p>
       </div>
 
-      <% if policy(@request).create? || !current_user %>
-        <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary', id: 'request-button' %>
-        <p>You won't be charged yet</p>
+      <% if policy(@request).create? %>
+       <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary', id: 'request-button' %>
+       <p>You won't be charged yet</p>
       <% else %>
         <p class="own-product">This is your own product</p>
       <% end %>
     </div>
   </div>
-</div>
 
+  <div class="owner_links">
+    <% if policy(@product).destroy? || policy(@product).edit?%>
+      <p>As you are the owner you can...</p>
+    <% end %>
+    <% if policy(@product).destroy? %>
+      <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-primary'%>
+     <% end %>
+     <% if policy(@product).edit? %>
+       <%= link_to "Edit", edit_product_path, class: 'btn btn-primary' %>
+     <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div id="show-map" style= "height: 400px"></div>
+      <div id="calendar"></div>
+
+      <div class="product-reviews">
+        <h3>Reviews</h3>
+      </div>
+
+      <div id="reviews-count">
+        <%= pluralize @product.reviews.size, "review" %>
+      </div>
+
+      <div>
+        <%= render 'reviews/form', product: @product, review: @review %>
+        <div id="reviews">
+          <% @product.reviews.order("id desc").each do |review| %>
+            <%= render 'reviews/show', review: review %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
