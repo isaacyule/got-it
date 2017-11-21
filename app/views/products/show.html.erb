@@ -11,12 +11,15 @@
       <div class="product-description">
         <h3><%= @product.name %></h3>
         <p class="title"><strong>Description:</strong></p>
-        <p><%= @product.description %></p>
+        <p class="margin-bottom"><%= @product.description %></p>
+        <p class="title"><strong>Condition:</strong></p>
+        <p class="margin-bottom"><%= @product.condition %></p>
 
         <p class="title"><strong>Owner:</strong></p>
         <div class="owner_card">
           <p ><%= @product.user["first_name"] %>
           <%= @product.user["last_name"] %></p>
+          <p class="profile-text"> <%= @product.user.profile_text %></p>
           <%= cl_image_tag @product.user.profile_photo, :transformation=>[
             {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
             {:width=>100, :crop=>"scale"}
@@ -60,34 +63,35 @@
       </div>
       <div class="stars border-bottom">
         <% (5-@product.user[:stars]).times do %>
-          <i class="fa fa-star gray-star" aria-hidden="true"></i>
+          <i class="fa fa-star grey-star" aria-hidden="true"></i>
           <!-- ToDo: Add review count -->
         <% end %>
       </div>
 
 
       <div class="border-bottom price-split">
-        <!-- ToDo: Calculate and display "Total rental fee" instead of "Rental fee" -->
-        <p>Rental fee:</p> <p>£<%= @product.price_per_day %></p>
+        <!-- ToDo: set days equal to picker -->
+        <% days = 1 %>
+        <% rental_fee = @product.price_per_day * days %>
+        <p>Rental fee:</p> <p>£<%= rental_fee %></p>
       </div>
       <div class="border-bottom price-split">
-        <p>Minimum fee:</p> <p>£<%= @product.minimum_fee%></p>
+        <p>Handover fee:</p> <p>£<%= @product.handover_fee%></p>
       </div>
       <div class="border-bottom price-split">
-        <!-- ToDo: Add service fee -->
-        <p>Service fee:</p>
+        <% service_fee = (rental_fee + @product.handover_fee) * 0.1 %>
+        <p>Service fee:</p> <p>£<%= service_fee %> </p>
       </div>
       <div class="price-split">
-        <!-- ToDo: Add service fee -->
-        <p><strong>Total:</strong></p>
+        <p><strong>Total:</strong></p> <p>£<%= rental_fee + service_fee + @product.price_per_day %> </p>
       </div>
 
       <% if policy(@request).create? || !current_user %>
-       <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary', id: 'request-button' %>
+        <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary', id: 'request-button' %>
+        <p>You won't be charged yet</p>
       <% else %>
         <p class="own-product">This is your own product</p>
       <% end %>
-      <p>You won't be charged yet</p>
     </div>
   </div>
 </div>
