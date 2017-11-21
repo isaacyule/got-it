@@ -160,7 +160,7 @@ var mapSearchHits = instantsearch.widgets.hits({
          `
           <div class="col-xs-12 col-sm-6">
             <div class="card">
-              <a class='link-to-product' href='https://got-it-wagon.herokuapp.com/products/{{objectID}}}/'>
+              <a class='link-to-product' href='http://localhost:3000/products/${product.objectID}/'>
                 <div class='card-body' style='background-image: url(https://proxy.spigotmc.org/4b123d1a0ba53e5a0ee9982d40de07819a793530?url=http%3A%2F%2Fdazedimg.dazedgroup.netdna-cdn.com%2F786%2Fazure%2Fdazed-prod%2F1150%2F0%2F1150228.jpg)'></div>
                 <div class="card-footer">
                   <div class="container">
