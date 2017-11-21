@@ -1,9 +1,8 @@
 .card {
   background-size: cover;
   height: 250px;
-  // width: 350px;
   border-radius: 1px;
-  // margin: 15px 10px;
+  margin: 20px 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   font-size: 18px;
   font-weight: bolder;
@@ -72,4 +71,27 @@
 
 .price-container {
   vertical-align: middle;
+}
+
+#map {
+  display: block;
+}
+
+@media (max-width: 640px)
+{
+  #map
+  {
+    display: none;
+  }
+}
+
+#searchBox {
+  padding: 0;
+  border-color: $gray;
+  input {
+    border: none;
+  }
+  span, div {
+    display: none;
+  }
 }
