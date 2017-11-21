@@ -17,12 +17,19 @@
 // but in the AMD modules of the page
 
 $('document').ready(function(){
-      $('.datepicker').datepicker({
-        clearBtn: true,
-        todayHighlight: true,
-        startDate: new Date() + 1,
-        autoclose: true,
-        // datesdisabled : <%= @unavailabledates %>
-      });
-      $('#calendar').fullCalendar({});
-    });
+  // use this to allow certain dates only
+  $('.datepicker').datepicker({
+    clearBtn: true,
+    todayHighlight: true,
+    startDate: new Date() + 1,
+    autoclose: true,
+    format: "yyyy-mm-dd",
+    datesDisabled: disableDates,
+  });
+
+  let pathName = window.location.pathname;
+  let productID = pathName.match(/[\W{1}products\W{1}]\d+/)[0].substring(1)
+  $('#calendar').fullCalendar({
+    events: "/products/" + productID + ".json"
+  });
+});
