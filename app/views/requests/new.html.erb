@@ -1,6 +1,16 @@
 <%= render 'form' %>
 
+<%= content_for(:after_js) do %>
 <script type="text/javascript">
   var disableDates = <%= @dates.to_json.html_safe %>;
-</script>
 
+  $('.datepicker').daterangepicker({
+    clearBtn: true,
+    todayHighlight: true,
+    startDate: new Date() + 1,
+    autoclose: true,
+    format: "yyyy-mm-dd",
+    datesDisabled: disableDates,
+  });
+</script>
+<% end %>
