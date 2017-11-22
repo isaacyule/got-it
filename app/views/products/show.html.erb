@@ -50,12 +50,10 @@
             <div id="reviews-count">
               <%= pluralize @product.reviews.size, "review" %>
             </div>
-            <div>  <%= render 'reviews/form', product: @product, review: @review %>
-              <div id="reviews">
-                <% @product.reviews.order("id desc").each do |review| %>
-                  <%= render 'reviews/show', review: review %>
-                <% end %>
-              </div>
+            <div id="reviews">
+              <% @product.reviews.order("id desc").each do |review| %>
+                <%= render 'reviews/show', review: review %>
+              <% end %>
             </div>
           </div>
         </div>
