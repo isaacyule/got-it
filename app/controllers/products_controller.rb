@@ -4,23 +4,6 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = policy_scope(Product)
-
-    # if params['search'].nil?
-    #   @products = Product.all
-    # else
-    #   search = params['search']
-    #   @products = Product.where("name @@ ?", "%#{search}%")
-    # end
-
-    @products_in_map = Product.where.not(latitude: nil, longitude: nil)
-
-
-
-    @hash = Gmaps4rails.build_markers(@products_in_map) do |product, marker|
-      marker.lat product.latitude
-      marker.lng product.longitude
-      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
-    end
   end
 
   def show
@@ -63,7 +46,7 @@ class ProductsController < ApplicationController
   def update
     authorize(@product)
     if @product.update(product_params)
-      redirect_to @product, notice: "Product was successfully updates."
+      redirect_to @product, notice: "Product was successfully updated."
     else
       render :edit
     end

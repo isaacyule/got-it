@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171121130551) do
+=======
+ActiveRecord::Schema.define(version: 20171122104046) do
+>>>>>>> bfa4a476bb997c71dea9a99ab51e31a81d7bca61
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +54,11 @@ ActiveRecord::Schema.define(version: 20171121130551) do
     t.bigint "request_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "handover"
+    t.integer "accuracy"
+    t.integer "quality"
+    t.integer "overall"
+    t.string "photo"
     t.index ["request_id"], name: "index_reviews_on_request_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end

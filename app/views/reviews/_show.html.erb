@@ -1,1 +1,16 @@
-<p><%= review.content %> - <strong><%= review.user.email %></strong></p>
+<div class="review">
+  <div class="review-left">
+    <div class="profile-photo">
+      <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
+        <%= image_tag avatar, class: "review_photo" %>
+    </div>
+  </div>
+  <div class="review-right">
+    <% if review.user.first_name.present? %>
+      <h4><%= review.user.first_name %></h4>
+    <% else %>
+      <h4><%= review.user.email %></h4>
+    <% end %>
+    <p><%= review.content %></p>
+  </div>
+</div>

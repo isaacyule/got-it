@@ -5,6 +5,10 @@ class ReviewPolicy < ApplicationPolicy
     end
   end
 
+  def new?
+    user.requests.include?(record.request)
+  end
+
   def create?
     user.requests.include?(record.request)
   end

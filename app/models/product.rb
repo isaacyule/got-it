@@ -3,6 +3,9 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :requests
   has_many :reviews, through: :requests, dependent: :destroy
+  validates :photo, presence: true
+
+  # after_commit :index_in_algolia
 
 
   # --- Google Maps api ---
@@ -18,9 +21,18 @@ class Product < ApplicationRecord
 
   # --- Algolia Search ---
   algoliasearch do
-    attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id, :photo
+    attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id
+    attribute :photo do
+      self.photo.metadata['url']
+    end
     geoloc :latitude, :longitude
     searchableAttributes ['name', 'description']
   end
   # ----------------------
+
+  private
+
+  # def index_in_algolia
+  #   self.index!
+  # end
 end
