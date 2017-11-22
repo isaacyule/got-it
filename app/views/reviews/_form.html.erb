@@ -10,10 +10,10 @@
     <% end %>
 
   <%= f.input :content %>
-  <%= f.input :handover %>
-  <%= f.input :accuracy %>
-  <%= f.input :quality %>
-  <%= f.input :overall %>
+  <%= f.input :handover, collection: 1..5 %>
+  <%= f.input :accuracy, collection: 1..5 %>
+  <%= f.input :quality, collection: 1..5 %>
+  <%= f.input :overall, collection: 1..5 %>
   <%= f.input :photo %>
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>
