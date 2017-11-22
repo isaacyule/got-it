@@ -1,91 +1,144 @@
-<div class="main-container">
-  <div class="wrapper profile">
-    <div class="product-photo fillwidth">
-      <% if @product.photo? %>
-      <%= cl_image_tag @product.photo %>
-      <% else %>
-      <img src=<%= asset_path"no_image.png" %>>
-      <% end %>
-    </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-9">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="product-infos">
+            <div class="product-photos">
+              <% if @product.photo? %>
+                <%= cl_image_tag @product.photo %>
+              <% else %>
+                <img src=<%= asset_path"no_image.png" %>>
+              <% end %>
+            </div>
+            <div class="product-description">
+              <h3><%= @product.name %></h3>
+              <p class="title"><strong>Description:</strong></p>
+              <p class="margin-bottom"><%= @product.description %></p>
+              <p class="title"><strong>Condition:</strong></p>
+              <p class="margin-bottom"><%= @product.condition %></p>
 
-    <div class="product-info">
-      <h3><%= @product.name %></h3>
-      <p><strong>Description:</strong> <%= @product.description %></p>
-      <div class="owner_card">
-        <p><strong>Owner:</strong></p>
-        <p><%= @product.user["first_name"] %>
-        <%= @product.user["last_name"] %></p>
-        <%= cl_image_tag @product.user.profile_photo, :transformation=>[
-          {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
-          {:width=>100, :crop=>"scale"}
-          ], class: "owner_card_photo" %>
+              <p class="title"><strong>Owner:</strong></p>
+              <div class="owner_card">
+                <p ><%= @product.user["first_name"] %>
+                <%= @product.user["last_name"] %></p>
+                <p class="profile-text"> <%= @product.user.profile_text %></p>
+                <%= cl_image_tag @product.user.profile_photo, :transformation=>[
+                  {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
+                  {:width=>100, :crop=>"scale"}
+                  ], class: "owner_card_photo" %>
+                </div>
+            </div>
+          </div>
         </div>
-
+      </div>
+      <div class="row hidden-xs">
+        <div class="col-xs-12">
+          <div id="show-map" style="width: 100%; height: 400px"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div id="calendar"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="product-reviews">
+            <h3>Reviews</h3>
+            <div id="reviews-count">
+              <%= pluralize @product.reviews.size, "review" %>
+            </div>
+            <div>  <%= render 'reviews/form', product: @product, review: @review %>
+              <div id="reviews">
+                <% @product.reviews.order("id desc").each do |review| %>
+                  <%= render 'reviews/show', review: review %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="request-form">
-      <h4> £<%= @product.price_per_day%> </h4>
-      <% (5-@product.user[:stars]).times do %>
-        <i class="fa fa-star gray-star" aria-hidden="true"></i>
-      <% end %>
-      <!-- ToDo: Calculate and display "Total rental fee" instead of "Rental fee" -->
-      <p><strong>Rental fee:</strong> <%= @product.price_per_day %></p>
-      <p><strong>Minimum fee:</strong> <%= @product.minimum_fee%></p>
-      <!-- ToDo: Add service fee -->
-      <p><strong>Service fee:</strong></p>
-      <!-- ToDo: Add service fee -->
-      <p><strong>Total:</strong></p>
+    <div class="col-xs-12 col-md-3">
+      <div class="fixed-side">
+        <div class="owner_links">
+          <% if policy(@product).destroy? || policy(@product).edit?%>
+            <p>As you are the owner you can...</p>
+          <% end %>
+          <% if policy(@product).destroy? %>
+            <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-primary'%>
+           <% end %>
+           <% if policy(@product).edit? %>
+             <%= link_to "Edit", edit_product_path, class: 'btn btn-primary' %>
+           <% end %>
+        </div>
+        <div class="request-form">
+          <div class="price-per-day">
+            <h3> <strong>£<%= @product.price_per_day%></strong></h3>
+            <p> (per day)</p>
+          </div>
+          <div class="stars border-bottom">
+            <% (5-@product.user[:stars]).times do %>
+              <i class="fa fa-star grey-star" aria-hidden="true"></i>
+              <!-- ToDo: Add review count -->
+            <% end %>
+          </div>
 
-      <% if policy(@request).create? || !current_user %>
-       <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary' %>
-      <% else %>
-        <p class="own-product">This is your own product</p>
-      <% end %>
-      <p>You won't be charged yet</p>
+
+          <div class="border-bottom price-split">
+            <!-- ToDo: set days equal to picker -->
+            <% days = 1 %>
+            <% rental_fee = @product.price_per_day * days %>
+            <p>Rental fee:</p> <p>£<%= rental_fee %></p>
+          </div>
+          <div class="border-bottom price-split">
+            <p>Handover fee:</p> <p>£<%= @product.handover_fee%></p>
+          </div>
+          <div class="border-bottom price-split">
+            <% service_fee = (rental_fee + @product.handover_fee) * 0.1 %>
+            <p>Service fee:</p> <p>£<%= service_fee %> </p>
+          </div>
+          <div class="price-split">
+            <p><strong>Total:</strong></p> <p>£<%= rental_fee + service_fee + @product.price_per_day %> </p>
+          </div>
+
+          <% if policy(@request).create? %>
+           <%= link_to "Request", new_product_request_path(@product), class: 'btn btn-lg btn-primary', id: 'request-button' %>
+           <p>You won't be charged yet</p>
+          <% else %>
+            <p class="own-product">This is your own product</p>
+          <% end %>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="owner_links">
-    <% if policy(@product).destroy? || policy(@product).edit?%>
-      <p>As you are the owner you can...</p>
-    <% end %>
-    <% if policy(@product).destroy? %>
-      <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-primary'%>
-     <% end %>
-     <% if policy(@product).edit? %>
-       <%= link_to "Edit", edit_product_path, class: 'btn btn-primary' %>
-     <% end %>
-  </div>
-  <div id="show-map" style="width: 68%; height: 400px"></div>
-  <div class="product-reviews">
-    <h3>Reviews</h3>
-  </div>
-
-<div id="reviews-count">
-  <%= pluralize @product.reviews.size, "review" %>
-</div>
-
-<div>  <%= render 'reviews/form', product: @product, review: @review %>
-  <div id="reviews">
-    <% @product.reviews.order("id desc").each do |review| %>
-      <%= render 'reviews/show', review: review %>
-    <% end %>
   </div>
 </div>
 
 
 <% content_for(:after_js) do %>
-  <%= javascript_tag do %>
-    var handler = Gmaps.build('Google');
-    handler.buildMap({ internal: { id: 'show-map' } }, function() {
-      markers = handler.addMarkers(<%= raw @hash.to_json %>);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      if (markers.length == 0) {
-        handler.getMap().setZoom(2);
-      } else if (markers.length == 1) {
-        handler.getMap().setZoom(14);
-      }
-    });
-  <% end %>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'show-map' } }, function() {
+        markers = handler.addMarkers(<%= raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        if (markers.length == 0) {
+          handler.getMap().setZoom(2);
+        } else if (markers.length == 1) {
+          handler.getMap().setZoom(14);
+        }
+      });
+
+      let pathName = window.location.pathname;
+      let productID = pathName.match(/[\W{1}products\W{1}]\d+/)[0].substring(1)
+      $('#calendar').fullCalendar({
+        events: "/products/" + productID + ".json"
+      });
+    })
+
+  </script>
 <% end %>

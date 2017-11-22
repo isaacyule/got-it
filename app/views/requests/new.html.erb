@@ -1,1 +1,5 @@
 <%= render 'form' %>
+
+<script type="text/javascript">
+    var disableDates = <%= @dates.to_json.html_safe %>;
+</script>

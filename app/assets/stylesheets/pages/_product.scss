@@ -1,44 +1,213 @@
-.main-container{
-  padding: 50px;
+// -------- Request Form --------
+.request-form {
+    flex: 0 0 300px;
+    padding: 16px 30px !important;
+    text-align: center;
+    width: 350px;
+    margin: 10px
 }
 
-.product-photo {
-  height: 300px;
-  width: 400px;
+.price-per-day {
+  vertical-align: bottom;
+  text-align: left;
+  p {
+    margin: 0;
+    display: inline;
+  }
+  h3 {
+    display: inline;
+    color: $green;
+    margin: 0;
+  }
+}
+
+.stars {
+  padding-bottom: 10px;
+  text-align: left;
+  font-size: 10px;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.price-split {
+  display: flex;
+  justify-content: space-between;
+  p {
+    margin: 2px;
+    font-size: 15px;
+  }
+}
+
+#request-button {
+  margin: 10px;
+}
+
+// -------- Others --------
+.product-layout{
+  padding: 30px;
+}
+
+.product-content, .product-infos, .product-photos, .product-description {
+  flex: 1 0 auto;
+}
+
+.product-infos {
+  padding-left: 0;
+}
+
+.margin-bottom {
+  margin-bottom: 10px !important;
+}
+
+.request-form, .product-photos, .owner_card {
+    border: 1px solid #e4e4e4;
+}
+
+.product-photos {
+  display: flex;
+  max-width: 500px;
+  max-height: 400px;
+  min-width: 300px;
+  min-height: 300px;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
   img {
     max-width: 100%;
     max-height: 100%;
   }
-  padding: 10px;
-  border: 1px solid #e4e4e4 !important;
 }
 
-.profile {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-@media (max-width: 940px) {
-  .profile {
-    display: block;
+.product-description {
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 500px;
+  margin-left: 10px;
+  p {
+    margin: 0;
   }
 }
 
-.product-info {
- margin: 0 30px;
- min-width: 300px;
+.owner_card {
+  height: 100px;
+  background-position: center;
+  position: relative;
+  padding: 10px;
 }
 
-.owner_links {
-  position: fixed;
-  top: 100px;
-  right: 70px;
-  width: 376px;
-  text-align: center;
-  line-height: 10px
+.profile-text {
+  font-size: 15px;
 }
 
+.owner_card_photo {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  border-radius: 50%;
+}
 
 .own-product {
   color: red;
+  margin: 10px;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .product-layout{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .product-infos {
+    display: block;
+  }
+
+  .product-content {
+    flex: 1 0 auto;
+  }
+
+  .request-form {
+    position: fixed;
+    top: 160px;
+  }
+
+  .product-description {
+    max-width: 400px;
+    min-height: 300px;
+  }
+
+  .product-photos {
+    max-width: 400px
+  }
+
+  .fixed-side {
+    display: flex;
+    flex: 0 0 350px;
+    text-align: center;
+    padding: 10px;
+    justify-content: space-around;
+  }
+
+  .request-form {
+    width: 300px;
+  }
+
+  .owner_links {
+    position: fixed;
+    top: 100px;
+    width: 300px;
+    text-align: center;
+    line-height: 10px
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .product-layout{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .request-form {
+    position: fixed;
+    top: 160px;
+  }
+
+  .product-infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .product-content {
+    flex: 1 0 auto;
+  }
+
+  .request-form {
+    flex: 0 0 350px;
+  }
+
+  .product-description {
+    max-width: 400px;
+    min-height: 300px;
+  }
+
+  .fixed-side {
+    display: flex;
+    flex: 0 0 400px;
+    text-align: center;
+    padding: 10px;
+    justify-content: space-around;
+  }
+
+  .owner_links {
+    position: fixed;
+    top: 100px;
+    width: 300px;
+    text-align: center;
+    line-height: 10px
+  }
 }

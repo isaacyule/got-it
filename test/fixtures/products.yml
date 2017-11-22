@@ -5,7 +5,7 @@ one:
   description: MyText
   price_per_day: 1
   deposit: MyString
-  minimum_fee: 1
+  handover_fee: 1
   user: one
 
 two:
@@ -13,5 +13,5 @@ two:
   description: MyText
   price_per_day: 1
   deposit: MyString
-  minimum_fee: 1
+  handover_fee: 1
   user: two
