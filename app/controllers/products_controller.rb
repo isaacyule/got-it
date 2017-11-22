@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   def update
     authorize(@product)
     if @product.update(product_params)
-      redirect_to @product, notice: "Product was successfully updates."
+      redirect_to @product, notice: "Product was successfully updated."
     else
       render :edit
     end
