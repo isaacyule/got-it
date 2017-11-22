@@ -2,6 +2,15 @@ class ReviewsController < ApplicationController
   protect_from_forgery
   before_action :review_params, only: [:create]
 
+  def new
+    @product = Product.find(params[:product_id])
+    @request = Request.where(product: @product, user: current_user).first
+    @review = Review.new
+    @review.request = @request
+    @review.user = current_user
+    authorize(@review)
+  end
+
   def create
     @product = Product.find(params[:product_id])
     @request = Request.where(product: @product, user: current_user).first
