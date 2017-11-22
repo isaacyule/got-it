@@ -1,5 +1,3 @@
-<h2>Request <%= @product.name %> from <%= @owner.first_name %></h2>
-
 <%= simple_form_for([@product, @request]) do |f| %>
   <% if @request.errors.any? %>
       <div class="errors-container">
@@ -11,11 +9,11 @@
       </div>
     <% end %>
 
-    <%= f.input :description %>
+    <%= f.input :description, label: "Message" %>
     <%= f.hidden_field :start_date, value: @start %>
     <%= f.hidden_field :end_date, value: @end %>
 
-    <%= f.submit class: 'btn btn-primary' %>
+    <%= f.submit "Send request", class: 'btn btn-primary' %>
 <% end %>
 
 
