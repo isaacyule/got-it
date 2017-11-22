@@ -46,6 +46,7 @@
         <div class="col-xs-12">
           <div class="product-reviews">
             <h3>Reviews</h3>
+            <h4>Overall Rating: <%= @rating %></h4>
             <%= link_to "WIP review link", new_product_review_path(@product) %>
             <div id="reviews-count">
               <%= pluralize @product.reviews.size, "review" %>
