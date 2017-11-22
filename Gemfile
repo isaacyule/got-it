@@ -9,11 +9,14 @@ gem 'rails', '5.1.4'
 gem 'redis'
 gem 'faker', :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 
-gem 'autoprefixer-rails'
+# Datepicker and Calendar
 gem 'jquery-rails'
+gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'fullcalendar-rails'
-gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
 gem 'bootstrap-datepicker-rails'
+
+gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'sass-rails'
@@ -25,11 +28,10 @@ gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
 
 gem 'geocoder'
-gem "coffee-rails"
-gem "gmaps4rails"
-gem "pundit"
-gem "algoliasearch-rails"
-
+gem 'coffee-rails'
+gem 'gmaps4rails'
+gem 'pundit'
+gem 'algoliasearch-rails'
 
 group :development, :test do
   gem 'pry-byebug'
