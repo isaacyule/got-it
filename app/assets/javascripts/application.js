@@ -3,6 +3,7 @@
 //= require gmaps/google
 //= require algolia/v3/algoliasearch.min
 //= require jquery
+//= require moment
 //= require_tree .
 //= require fullcalendar
 //= require bootstrap-datepicker
