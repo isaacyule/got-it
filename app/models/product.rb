@@ -20,7 +20,7 @@ class Product < ApplicationRecord
 
   # --- Algolia Search ---
   algoliasearch do
-    attribute :name, :description, :price_per_day, :deposit, :address, :minimum_fee, :user_id
+    attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id
     attribute :photo do
       self.photo.metadata['url']
     end
