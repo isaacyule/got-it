@@ -4,6 +4,7 @@ class MessagesController < ApplicationController
   end
 
   def index
+   @messages = policy_scope(Message)
    @messages = @conversation.messages
    if @messages.last
     if @messages.last.user_id != current_user.id
@@ -14,10 +15,13 @@ class MessagesController < ApplicationController
    end
 
   def new
+   authorize(@message)
    @message = @conversation.messages.new
   end
+
   def create
    @message = @conversation.messages.new(message_params)
+   authorize(@message)
    if @message.save
     redirect_to conversation_messages_path(@conversation)
    end

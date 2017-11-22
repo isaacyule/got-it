@@ -2,6 +2,7 @@ class ConversationsController < ApplicationController
  before_action :authenticate_user!
 
   def index
+   @conversations= policy_scope(Conversation)
    @users = User.all
    @conversations = Conversation.all.where(:sender_id == :recipient_id)
    end
@@ -14,6 +15,7 @@ class ConversationsController < ApplicationController
    else
     @conversation = Conversation.create!(conversation_params)
    end
+   authorize(@conversation)
    redirect_to conversation_messages_path(@conversation)
   end
 
