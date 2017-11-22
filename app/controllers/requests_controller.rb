@@ -3,9 +3,9 @@ class RequestsController < ApplicationController
   before_action :set_product, only: [:new, :create]
 
   def new
-    match_data = params[:daterange].match(/([\d\/]+) - ([\d\/]+)/)
-    @start = match_data[1]
-    @end = match_data[2]
+    # match_data = params[:daterange].match(/([\d\-]+) - ([\d\-]+)/)
+    # @start = Date.parse(match_data[1])
+    # @end = Date.parse(match_data[2])
 
     @request = Request.new
     @request.product = @product

@@ -3,3 +3,12 @@
 <script type="text/javascript">
     var disableDates = <%= @dates.to_json.html_safe %>;
 </script>
+
+<% if @end != nil %>
+  <p>
+    <%= @start %>
+    <%= @end %>
+  </p>
+
+  <p> <%= @end - @start %></p>
+<% end %>

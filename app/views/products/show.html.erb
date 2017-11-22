@@ -17,6 +17,9 @@
               <p class="margin-bottom"><%= @product.description %></p>
               <p class="title"><strong>Condition:</strong></p>
               <p class="margin-bottom"><%= @product.condition %></p>
+              <% if @end != nil %>
+                <%= @end %>
+                <% end %>
 
               <p class="title"><strong>Owner:</strong></p>
               <div class="owner_card">
@@ -75,7 +78,7 @@
         </div>
         <div class="request-form">
           <div class="price-per-day">
-            <h3> <strong>£<%= @product.price_per_day%></strong></h3>
+            <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong></h3>
             <p> (per day)</p>
           </div>
           <div class="stars border-bottom">
@@ -88,24 +91,21 @@
           <!-- Daterantepicker -->
           <%= form_tag new_product_request_path(@product), method: :get do %>
 
-            <input type="text" class="form-control" name="daterange" value="11/22/2017 - 12/01/2017" />
+            <input type="text" class="form-control" name="daterange" id="daterangepicker-requestform"/>
 
           <!-- Cost-Split -->
             <div class="border-bottom price-split">
               <!-- ToDo: set days equal to picker -->
-              <% days = 1 %>
-              <% rental_fee = @product.price_per_day * days %>
-              <p>Rental fee:</p> <p>£<%= rental_fee %></p>
+              <p>Rental fee:</p> <p>£<span id="rental_fee"></span></p>
             </div>
             <div class="border-bottom price-split">
-              <p>Handover fee:</p> <p>£<%= @product.handover_fee.round(2)%></p>
+              <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
             </div>
             <div class="border-bottom price-split">
-              <% service_fee = (rental_fee + @product.handover_fee) * 0.1 %>
-              <p>Service fee:</p> <p>£<%= service_fee %> </p>
+              <p>Service fee:</p> <p>£<span id="service_fee"></span></p>
             </div>
             <div class="price-split">
-              <p><strong>Total:</strong></p> <p>£<%= rental_fee + service_fee + @product.price_per_day %> </p>
+              <p><strong>Total:</strong></p><p><strong>£<span id="total"></span></strong></p>
             </div>
 
             <% if policy(@request).create? %>
@@ -124,8 +124,12 @@
 
 <% content_for(:after_js) do %>
   <script>
+    var days = 1
     document.addEventListener('DOMContentLoaded', () => {
 
+      recalculatePrices();
+
+  // --------- Map ---------
       var handler = Gmaps.build('Google');
       handler.buildMap({ internal: { id: 'show-map' } }, function() {
         markers = handler.addMarkers(<%= raw @hash.to_json %>);
@@ -138,7 +142,20 @@
         }
       });
 
-      $('input[name="daterange"]').daterangepicker();
+  // --------- Daterangepicker ---------
+      $('input[name="daterange"]').daterangepicker(
+      {
+        locale: {
+          format: 'DD-MM-YYYY'
+        }
+      }).on('apply.daterangepicker', function(e, picker) {
+        console.log(e);
+        console.log(picker);
+        days = picker.endDate.diff(picker.startDate, 'days') + 1 ;
+        console.log(days);
+        recalculatePrices();
+        // `e` here contains the extra attributes
+    });;
 
       let pathName = window.location.pathname;
       let productID = pathName.match(/[\W{1}products\W{1}]\d+/)[0].substring(1)
@@ -147,8 +164,24 @@
       });
 
       var nextButton = document.getElementById('request-button');
-      nextButton.addEventListener
+      // nextButton.addEventListener
     })
+
+  // --------- Calcualtion of price ---------
+  function recalculatePrices() {
+    // TODO
+    var price_per_day = parseInt($("#price_per_day").text());
+    var rental_fee = price_per_day * days;
+    $("#rental_fee").text(rental_fee);
+
+    var handover_fee = parseInt($("#handover_fee").text());
+    var service_fee = (rental_fee + handover_fee) * 0.1
+    $("#service_fee").text(service_fee);
+
+    var total = rental_fee + handover_fee + service_fee
+    $("#total").text(total);
+  }
+
   </script>
 
 <% end %>
