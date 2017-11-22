@@ -3,6 +3,10 @@ class RequestsController < ApplicationController
   before_action :set_product, only: [:new, :create]
 
   def new
+    match_data = params[:daterange].match(/([\d\/]+) - ([\d\/]+)/)
+    @start = match_data[1]
+    @end = match_data[2]
+
     @request = Request.new
     @request.product = @product
     authorize(@request)
@@ -16,7 +20,7 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-    @request.user = User.find(current_user.id)
+    @request.user = current_user
     @request.product = Product.find(params[:product_id])
     authorize(@request)
     if @request.save
