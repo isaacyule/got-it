@@ -45,16 +45,15 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="product-reviews">
-            <h3>Reviews</h3>
+            <h3>Reviews SHALL BE DESTROYED</h3>
+            <%= link_to "WIP review link", new_product_review_path(@product) %>
             <div id="reviews-count">
               <%= pluralize @product.reviews.size, "review" %>
             </div>
-            <div>  <%= render 'reviews/form', product: @product, review: @review %>
-              <div id="reviews">
-                <% @product.reviews.order("id desc").each do |review| %>
-                  <%= render 'reviews/show', review: review %>
-                <% end %>
-              </div>
+            <div id="reviews">
+              <% @product.reviews.order("id desc").each do |review| %>
+                <%= render 'reviews/show', review: review %>
+              <% end %>
             </div>
           </div>
         </div>
