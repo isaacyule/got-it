@@ -1,9 +1,25 @@
 <div class="content">
     <div class="cards-container">
       <div class="row" id='card-row'>
-        <div class="col-xs-12">
+        <div class="col-xs-4">
           <div id="searchBox" class="form-control" placeholder='Borrow something...'></div>
-          <h1 id='counter'><%= @products.count %> Search results in your area...</h1>
+        </div>
+        <div class="col-xs-4">
+          <div class="btn-search-bundle">
+            <input id="addressSearch" class="form-control relative" placeholder='enter an town or postcode...'>
+            <div class="btn btn-primary over-search" id='address-over-search'>Set Search Location?</div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-container">
+            <div class="btn-search-bundle">
+              <input id="searchDistance" class="form-control relative" placeholder='enter a range in kilometers...'>
+              <div class="btn btn-primary over-search" id='distance-over-search'>Set Search Range?</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <h1 id='counter'>.</h1>
         </div>
         <div id="hits"></div>
         <!-- JS cards from app/javascrpit/packs/algolia are built here -->

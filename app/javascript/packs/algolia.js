@@ -1,3 +1,23 @@
+let userLat;
+let userLng;
+let productLat;
+let productLng;
+let products = [];
+let distanceInKm = [];
+let counter = 0;
+let defaultSearchRadius = 5000;
+let searchPrecision = {};
+
+const searchRadius = document.getElementById('searchDistance')
+searchRadius.addEventListener('keyup', throttle(function(){
+  if (searchRadius.value == 0){
+    defaultSearchRadius = 5000;
+  }else {
+    defaultSearchRadius = searchRadius.value*1000;
+  }
+}));
+
+
 const mapStyle = [
     {
         "featureType": "administrative",
@@ -88,6 +108,11 @@ const mapStyle = [
     }
 ];
 
+setProductCount = () => {
+  var counter = document.getElementById('counter');
+  counter.innerHTML = `${products.length} Search results in your area...`;
+}
+
 //calculates distance in km between locations
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   if (typeof lat2 == 'undefined'){
@@ -103,43 +128,13 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     ;
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c; // Distance in km
-  return d;
+  var rounded = Math.round( d * 10 ) / 10;
+  return rounded;
 };
 
 function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
-
-// delay the search function until nothing is added to search field for x milliseconds.
-// function throttle(f, delay){
-//     var timer = null;
-//     return function(){
-//         var context = this, args = arguments;
-//         clearTimeout(timer);
-//         timer = window.setTimeout(function(){
-//             f.apply(context, args);
-//         },
-//         delay || 500);
-//     };
-// }
-
-// When the page loads, search for the search param using algolia search
-// $(document).ready(()=> {
-//   const params = getParameterByName('search')
-//   form.value = params;
-//   algoliaSearch();
-//   // buildMap();
-// });
-
-// Perform algolia search on form after delay
-// $(form).keyup(throttle(function(){
-//     algoliaSearch();
-// }));
-
-
-
-//---------------------------------------
-
 
 const mapSearch = instantsearch({
   appId: '3QRXVE4VDT',
@@ -149,31 +144,31 @@ const mapSearch = instantsearch({
   searchParameters:
     {
       aroundLatLngViaIP: true,
-      aroundRadius: 5000
+      aroundRadius: defaultSearchRadius
     }
 });
 
 var mapSearchHits = instantsearch.widgets.hits({
   container: document.querySelector('#hits'),
-  hitsPerPage: 20,
+  hitsPerPage: 100,
   templates: {item:
          `
           <div class="col-xs-12 col-sm-6">
             <div class="card">
               <a class='link-to-product' href='https://got-it-wagon.herokuapp.com/products/{{objectID}}}/'>
-                <div class='card-body' style='background-image: url(https://proxy.spigotmc.org/4b123d1a0ba53e5a0ee9982d40de07819a793530?url=http%3A%2F%2Fdazedimg.dazedgroup.netdna-cdn.com%2F786%2Fazure%2Fdazed-prod%2F1150%2F0%2F1150228.jpg)'></div>
+                <div class='card-body' style='background-image: url({{photo}})'></div>
                 <div class="card-footer">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-xs-12 col-lg-6">
+                  <div class="container footer-container">
+                    <div class="row footer-row">
+                      <div class="col-xs-12">
                         <span class="description">{{name}}</span>
                       </div>
-                      <div class="col-xs-12 col-lg-6">
-                        <span class="price">£{{price_per_day}}/day</span>
+                      <div class="col-xs-12">
+                        <span class="distance">.</span>
                       </div>
-                      <div class="col-xs-12 col-lg-6">
-                        <span class="description"></span>
-                      </div>
+                    </div>
+                    <div class="price-per-day">
+                      <span class="price">£{{price_per_day}}/day</span>
                     </div>
                   </div>
                 </div>
@@ -185,6 +180,8 @@ var mapSearchHits = instantsearch.widgets.hits({
 
 var searchBox = instantsearch.widgets.searchBox({
   container: document.querySelector('#searchBox'),
+  placeholder: 'Search for products...',
+  searchOnEnterKeyPressOnly: false,
   wrapInput: false
 });
 
@@ -192,6 +189,8 @@ var customMapWidget = {
   markers: [],
   _mapContainer: document.querySelector('#map'),
   _hitToMarker: function(hit) {
+    console.log(hit);
+    products.push(hit);
     return new google.maps.Marker({
       position: {lat: hit._geoloc.lat, lng: hit._geoloc.lng},
       map: this._map,
@@ -213,10 +212,8 @@ var customMapWidget = {
       }
       return;
     }
-
     // see https://developers.google.com/maps/documentation/javascript/reference#PlaceResult
     var latlng = place.geometry.location.toUrlValue();
-
     // https://www.algolia.com/doc/guides/geo-search/geo-search-overview/#filter-and-sort-around-a-location
     this._helper
       .setQueryParameter('aroundLatLng', latlng)
@@ -224,7 +221,7 @@ var customMapWidget = {
   },
   init: function(params) {
     this._map = new google.maps.Map(this._mapContainer, {zoom: 1, center: new google.maps.LatLng(0, 0), styles: mapStyle});
-    this._map.setOptions({ maxZoom: 15, minZoom: 10 });
+    this._map.setOptions({ maxZoom: 15 });
   },
   render: function(params) {
     // Clear Markers
@@ -244,8 +241,122 @@ var customMapWidget = {
     this._map.fitBounds(bounds, 20);
   }
 };
+
 mapSearch.addWidget(searchBox);
 mapSearch.addWidget(mapSearchHits);
 mapSearch.addWidget(customMapWidget);
 mapSearch.start();
 
+// get user position via ip
+navigator.geolocation.getCurrentPosition(function(position) {
+  userLat = position.coords.latitude;
+  userLng = position.coords.longitude;
+  listDistancesOfProducts();
+  updateDistance();
+  setProductCount();
+});
+
+// get products distance and push to list of distances
+listDistancesOfProducts = () => {
+  products.forEach(function(product) {
+    distanceInKm.push(getDistance(product));
+  });
+  updateDistance();
+};
+
+getDistance = (product) => {
+  productLat = product._geoloc.lat;
+  productLng = product._geoloc.lng;
+  return (getDistanceFromLatLonInKm(userLat, userLng, productLat, productLng));
+}
+
+updateDistance = () => {
+var matches = document.querySelectorAll("span.distance");
+for (i=0; i<matches.length; i++){
+
+    if (distanceInKm[i] === 0){
+      matches[i].innerHTML = "";
+    } else {
+      matches[i].innerHTML = `${distanceInKm[i]}km away`;
+    }
+  }
+}
+
+//reset lists
+resetVars = () => {
+  products = [];
+  distanceInKm = [];
+}
+
+var searchBox = document.querySelector('#searchBox > input');
+
+searchBox.addEventListener('keyup', function() {
+  if (products.length === 0){
+    console.log('empty');
+  } else {
+    console.log(products);
+    listDistancesOfProducts();
+    updateDistance();
+    setProductCount();
+    resetVars();
+  }
+});
+
+// -----------------------------------------------------------------------------
+// --- search box style script ---
+
+var addressSearch = document.getElementById('addressSearch')
+var geocoder = new google.maps.Geocoder();
+var address;
+
+AddressOverSearch = document.getElementById('address-over-search');
+AddressOverSearch.addEventListener('click', function(){
+  this.remove();
+  focusMethodAddress();
+});
+
+DistanceOverSearch = document.getElementById('distance-over-search');
+DistanceOverSearch.addEventListener('click', function(){
+  this.remove();
+  focusMethodDistance();
+});
+
+focusMethodAddress = function getFocus() {
+  addressSearch.focus();
+}
+
+focusMethodDistance = function getFocus() {
+  searchDistance.focus();
+}
+
+// this is the geocoding for the search from address function
+addressSearch.addEventListener('keyup', throttle(function() {
+  getGeocodeLatLng();
+}));
+
+getGeocodeLatLng = () => {
+  searchPrecision = [];
+  address = addressSearch.value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+  if (status == google.maps.GeocoderStatus.OK) {
+      var latitude = results[0].geometry.location.lat();
+      var longitude = results[0].geometry.location.lng();
+      searchPrecision = {lat: latitude, lng: longitude};
+      console.log(searchPrecision);
+    }
+  });
+};
+
+// this slows down functions so that they catch up and don't call on keyups too quickly.
+function throttle(f, delay){
+    var timer = null;
+    console.log('hello');
+    return function(){
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = window.setTimeout(function(){
+            f.apply(context, args);
+        },
+        delay || 500);
+    };
+}
