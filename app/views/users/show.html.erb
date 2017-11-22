@@ -30,7 +30,8 @@
                 <% end %>
               </div>
               <div class="profile-about">
-
+                <h3>About Me</h3>
+                <p><%= @user.profile_text %></p>
               </div>
               <div class="profile-requests">
                 <h3>Requests</h3>
@@ -38,6 +39,16 @@
                 <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user) %>
                 <%= link_to "Accepted Requests: #{@accepted_requests.count}", user_ac_requests_path(@user) %>
                 <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user)  %>
+              </div>
+              <div class="product-library">
+                <h3>Product Library</h3>
+                <div class="row">
+                  <% @user.products.each do |product| %>
+                    <div class="product">
+                      <%= link_to product.name, product_path(product) %>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
