@@ -7,6 +7,8 @@ let distanceInKm = [];
 let counter = 0;
 let defaultSearchRadius = 5000;
 let searchPrecision = {};
+var client = algoliasearch("3QRXVE4VDT", "0448f9b83bca12989799aaf181b86677");
+var index = client.initIndex('Product');
 
 const searchRadius = document.getElementById('searchDistance')
 searchRadius.addEventListener('keyup', throttle(function(){
@@ -180,7 +182,7 @@ var mapSearchHits = instantsearch.widgets.hits({
 
 var searchBox = instantsearch.widgets.searchBox({
   container: document.querySelector('#searchBox'),
-  placeholder: 'Search for products...',
+  // placeholder: 'Search for products...',
   searchOnEnterKeyPressOnly: false,
   wrapInput: false
 });
@@ -189,7 +191,7 @@ var customMapWidget = {
   markers: [],
   _mapContainer: document.querySelector('#map'),
   _hitToMarker: function(hit) {
-    console.log(hit);
+
     products.push(hit);
     return new google.maps.Marker({
       position: {lat: hit._geoloc.lat, lng: hit._geoloc.lng},
@@ -288,20 +290,6 @@ resetVars = () => {
   distanceInKm = [];
 }
 
-var searchBox = document.querySelector('#searchBox > input');
-
-searchBox.addEventListener('keyup', function() {
-  if (products.length === 0){
-    console.log('empty');
-  } else {
-    console.log(products);
-    listDistancesOfProducts();
-    updateDistance();
-    setProductCount();
-    resetVars();
-  }
-});
-
 // -----------------------------------------------------------------------------
 // --- search box style script ---
 
@@ -342,7 +330,7 @@ getGeocodeLatLng = () => {
       var latitude = results[0].geometry.location.lat();
       var longitude = results[0].geometry.location.lng();
       searchPrecision = {lat: latitude, lng: longitude};
-      console.log(searchPrecision);
+
     }
   });
 };
@@ -350,7 +338,7 @@ getGeocodeLatLng = () => {
 // this slows down functions so that they catch up and don't call on keyups too quickly.
 function throttle(f, delay){
     var timer = null;
-    console.log('hello');
+
     return function(){
         var context = this, args = arguments;
         clearTimeout(timer);
@@ -360,3 +348,24 @@ function throttle(f, delay){
         delay || 500);
     };
 }
+
+
+// sets default value for search box
+var searchBoxElement = document.querySelector('#searchBox > input');
+searchBoxElement.value = 'blablabla';
+index.search({query: searchBoxElement.value}, function searchDone(err, content) {
+  console.log(content);
+});
+
+searchBoxElement.addEventListener('keyup', function() {
+  if (products.length === 0){
+
+  } else {
+
+    listDistancesOfProducts();
+    updateDistance();
+    setProductCount();
+    resetVars();
+  }
+});
+

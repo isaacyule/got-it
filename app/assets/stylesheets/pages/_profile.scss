@@ -1,6 +1,46 @@
+.container {
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.big-button {
+  width: 100%;
+  height: 100%;
+  line-height: 230px;
+  background-color: $charcoal;
+  border-radius: 10px;
+  &:hover {
+    background-color: $charcoal;
+  }
+}
+
+.product-library {
+  padding-left: 15px;
+}
+
+.add-new {
+  width: 50%;
+}
+
+.title-container {
+  padding: 0 15px;
+  display: flex;
+  h3, a {
+    flex: 1 0 auto;
+  }
+}
+
 #profile_photo {
   height: 250px;
   width: 250px;
+}
+
+.profile-photo {
+  text-align: center;
 }
 
 .profile-page {
