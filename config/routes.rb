@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  mount ActionCable.server => '/cable'
+
   devise_for :users
   resources :products do
     resources :requests, only: [:new, :create, :update, :index]

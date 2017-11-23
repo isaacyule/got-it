@@ -23,7 +23,10 @@ class MessagesController < ApplicationController
    @message = @conversation.messages.new(message_params)
    authorize(@message)
    if @message.save
-    redirect_to conversation_messages_path(@conversation)
+      ActionCable.server.broadcast "conversation_channel_#{params[:conversation_id]}",
+        message: @message.body,
+        user: @message.user.email
+      head :ok
    end
   end
 
