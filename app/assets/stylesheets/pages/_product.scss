@@ -172,7 +172,14 @@ div {
   padding: 0 15px;
 }
 
+.price-split{
+  display:flex;
+  justify-content: space-between;
+}
 
+p {
+  margin: 10px 0;
+}
 
 // @media screen and (min-width: 768px) and (max-width: 1024px) {
 //   .product-layout{
