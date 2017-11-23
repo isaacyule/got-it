@@ -6,7 +6,18 @@ class ProductsController < ApplicationController
     @products = policy_scope(Product)
   end
 
-#show is at the bottom
+  def show
+    set_rating
+    @request = Request.new
+    @request.product = @product
+    authorize(@product)
+    if (@product.latitude? && @product.longitude?)
+      @hash = Gmaps4rails.build_markers(@product) do |product, marker|
+        marker.lat product.latitude
+        marker.lng product.longitude
+      end
+    end
+  end
 
   def new
     @product = Product.new
@@ -54,26 +65,15 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+
   def product_params
     params.require(:product).permit(:name, :description, :price_per_day, :deposit, :handover_fee, :photo, :address)
   end
 
-  public
-
-  def show
-    @request = Request.new
-    @request.product = @product
-    authorize(@product)
-    if (@product.latitude? && @product.longitude?)
-      @hash = Gmaps4rails.build_markers(@product) do |product, marker|
-        marker.lat product.latitude
-        marker.lng product.longitude
-      end
-    end
+  def set_rating
     p_counter = 0
     @product.reviews.each { |review| p_counter += review.overall }
     rating = p_counter.to_f / @product.reviews.count.to_f
-    @rating = rating.round(2)
+    @product.rating = rating.round(2)
   end
-
 end
