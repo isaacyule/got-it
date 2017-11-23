@@ -45,8 +45,12 @@ class ProductsController < ApplicationController
 
   def update
     authorize(@product)
-    if @product.update(product_params)
-      redirect_to @product, notice: "Product was successfully updated."
+    if @product.save
+      if @product.photo?
+        Cloudinary::Uploader.upload(params["product"]["photo"])
+      end
+      redirect_to product_path(@product)
+
     else
       render :edit
     end

@@ -1,77 +1,78 @@
-<div class="container">
-  <div class="row">
-
-    <div class="col-xs-12 col-lg-3 fixed left">
-      <div class="profile-title">
-        <% if @user.first_name %>
-          <h1><%= @user.first_name%> <%= @user.last_name %></h1>
-        <% else %>
-          <h1><%= @user.email %></h1>
-        <% end %>
-      </div>
-      <div class="profile-about">
-        <h3>About Me</h3>
-        <p><%= @user.profile_text %></p>
-      </div>
-      <div class="profile-photo">
-        <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
-        <% if current_user.profile_photo? %>
-          <%= image_tag current_user.profile_photo, id: "profile_photo" %>
-        <% else %>
-          <%= image_tag avatar, id: "profile_photo" %>
-        <% end %>
-      </div>
-      <div class="profile-details">
-        <p>Product Library: <%= @user.products.count %> products</p>
-        <p>Email: <%= @user.email %></p>
-        <p>Address: <%= @user.address %></p>
-      </div>
-      <%= link_to "Edit", edit_user_path, class: "btn btn-primary" %>
-    </div>
-
-    <div class="col-xs-12 col-lg-6 product-library">
-      <div class="product-library">
-        <h3>Product Library</h3>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-lg-6">
-          <div class="card">
-            <%= link_to "Add item", new_product_path, class: "btn btn-primary big-button" %>
-          </div>
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-lg-3 fixed left">
+        <div class="profile-title">
+          <% if @user.first_name %>
+            <h1><%= @user.first_name%> <%= @user.last_name %></h1>
+          <% else %>
+            <h1><%= @user.email %></h1>
+          <% end %>
         </div>
-        <% @user.products.each do |product| %>
+        <div class="profile-about">
+          <h3>About Me</h3>
+          <p><%= @user.profile_text %></p>
+        </div>
+        <div class="profile-photo">
+          <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
+          <% if current_user.profile_photo? %>
+            <%= image_tag current_user.profile_photo, id: "profile_photo" %>
+          <% else %>
+            <%= image_tag avatar, id: "profile_photo" %>
+          <% end %>
+        </div>
+        <div class="profile-details">
+          <p>Product Library: <%= @user.products.count %> products</p>
+          <p>Email: <%= @user.email %></p>
+          <p>Address: <%= @user.address %></p>
+        </div>
+        <%= link_to "Edit", edit_user_path, class: "btn btn-primary" %>
+      </div>
+
+      <div class="col-xs-12 col-lg-6 product-library">
+        <div class="product-library">
+          <h3>Product Library</h3>
+        </div>
+        <div class="row">
           <div class="col-xs-12 col-lg-6">
             <div class="card">
-              <a class='link-to-product' href="https://got-it-wagon.herokuapp.com/products/<%= product.id %>/">
-                <div class='card-body' style="background-image: url(<%= product.photo %>)"></div>
-                <div class="card-footer">
-                  <div class="container footer-container">
-                    <div class="row footer-row">
-                      <div class="col-xs-12">
-                        <span class="description"><%= product.name  %></span>
-                      </div>
-                      <div class="col-xs-12">
-                        <span class="distance">.</span>
-                      </div>
-                    </div>
-                    <div class="price-per-day">
-                      <span class="price"><%= product.price_per_day %>/day</span>
-                    </div>
-                  </div>
-                </div>
-              </a>
+              <%= link_to "Add item", new_product_path, class: "btn btn-primary big-button" %>
             </div>
           </div>
-        <% end %>
+          <% @user.products.each do |product| %>
+            <div class="col-xs-12 col-lg-6 col-xl-4">
+              <div class="card">
+                <a class='link-to-product' href="https://got-it-wagon.herokuapp.com/products/<%= product.id %>/">
+                  <div class='card-body' style="background-image: url(<%= product.photo %>)"></div>
+                  <div class="card-footer">
+                    <div class="container footer-container">
+                      <div class="row footer-row">
+                        <div class="col-xs-12">
+                          <span class="description"><%= product.name  %></span>
+                        </div>
+                        <div class="col-xs-12">
+                          <span class="distance">.</span>
+                        </div>
+                      </div>
+                      <div class="price-per-day">
+                        <span class="price"><%= product.price_per_day %>/day</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
-  <div class="col-xs-12 col-lg-3 fixed right">
-    <div class="profile-requests">
-      <h3>Requests</h3>
-      <p>Manage your product requests here!</p>
-      <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user), class: "btn btn-primary button" %>
-      <%= link_to "Accepted Requests: #{@accepted_requests.count}", user_ac_requests_path(@user), class: "btn btn-primary button" %>
-      <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user), class: "btn btn-primary button"  %>
+    <div class="col-xs-12 col-lg-3 fixed right">
+      <div class="profile-requests">
+        <h3>Requests</h3>
+        <p>Manage your product requests here!</p>
+        <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user), class: "btn btn-primary button" %>
+        <%= link_to "Accepted Requests: #{@accepted_requests.count}", user_ac_requests_path(@user), class: "btn btn-primary button" %>
+        <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user), class: "btn btn-primary button"  %>
+      </div>
     </div>
   </div>
 </div>

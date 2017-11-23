@@ -352,7 +352,7 @@ function throttle(f, delay){
 
 // sets default value for search box
 var searchBoxElement = document.querySelector('#searchBox > input');
-searchBoxElement.value = 'blablabla';
+searchBoxElement.value = '';
 index.search({query: searchBoxElement.value}, function searchDone(err, content) {
   console.log(content);
 });
