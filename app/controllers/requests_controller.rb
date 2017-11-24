@@ -1,5 +1,3 @@
-require 'pry'
-
 class RequestsController < ApplicationController
   protect_from_forgery
   before_action :set_product, only: [:new, :create]
