@@ -65,6 +65,13 @@
               <div id="show-map" style="height: 400px"></div>
             </div>
 
+            <!-- calendar -->
+            <div class="col-xs-12 kill-padding">
+              <% if policy(@product).destroy? || policy(@product).edit?%>
+                <div id="calendar"></div>
+              <% end %>
+            </div>
+
             <!-- reviews -->
             <div class="col-xs-12 kill-padding buffer">
               <div class="product-reviews">
@@ -144,7 +151,7 @@
                <% end %>
                <% if policy(@product).destroy? %>
                 <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-danger button'%>
-               <% end %>
+              <% end %>
             </div>
           </div>
         </div>
@@ -178,21 +185,29 @@
       {
         locale: {
           format: 'DD-MM-YYYY'
+        },
+        minDate: new Date(),
+        isInvalidDate: function(date) {
+          let unavailable_dates = []
+          <% @unavailable_dates.each do |unavailable_date| %>
+            unavailable_dates.push(new Date("<%= unavailable_date %>").getTime())
+          <% end %>
+          return unavailable_dates.includes(date._d.getTime())
         }
-      // $('#calendar').fullCalendar({});
 
       }).on('apply.daterangepicker', function(e, picker) {
         days = picker.endDate.diff(picker.startDate, 'days') + 1 ;
-        console.log(days);
         recalculatePrices();
-        // `e` here contains the extra attributes
     });
 
       let pathName = window.location.pathname;
       let productID = pathName.match(/[\W{1}products\W{1}]\d+/)[0].substring(1)
+
+    // --------- Calendar ---------
       $('#calendar').fullCalendar({
         events: "/products/" + productID + ".json"
       });
+
 
       var nextButton = document.getElementById('request-button');
     })

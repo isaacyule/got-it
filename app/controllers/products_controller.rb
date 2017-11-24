@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+
     set_rating
     @request = Request.new
     @request.product = @product
@@ -17,6 +18,11 @@ class ProductsController < ApplicationController
         marker.lng product.longitude
       end
     end
+    unavailable_dates = []
+    Request.where(product_id: @product.id, status: "Accepted").each do |request|
+      unavailable_dates << (request.start_date..request.end_date).map(&:to_s)
+    end
+    @unavailable_dates = unavailable_dates.flatten
   end
 
   def new
