@@ -101,9 +101,13 @@
               <p> (per day)</p>
             </div>
             <div class="stars border-bottom">
-              <% (5-@product.user[:stars]).times do %>
+              <% if @product.rating.nan? %>
+                <p>no ratings yet</p>
+              <% else %>
+                <% @product.rating.round.to_i.times do %>
                 <i class="fa fa-star grey-star" aria-hidden="true"></i>
                 <!-- ToDo: Display products reviews and review-count -->
+                <% end %>
               <% end %>
             </div>
 
