@@ -25,14 +25,24 @@ class Product < ApplicationRecord
     attribute :photo do
       self.photo.metadata['url']
     end
+    attribute :owner_photo do
+      self.user.profile_photo.metadata['url']
+    end
+
+    attribute :rating do
+      total = 0;
+      counter = 0;
+      self.reviews.each do |review|
+        total += review.overall.to_i
+        counter += 1
+      end
+      rating = total/counter
+    end
+
     geoloc :latitude, :longitude
     searchableAttributes ['name', 'description']
   end
   # ----------------------
 
   private
-
-  # def index_in_algolia
-  #   self.index!
-  # end
 end

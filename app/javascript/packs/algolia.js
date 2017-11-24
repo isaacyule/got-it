@@ -17,6 +17,11 @@ searchRadius.addEventListener('keyup', throttle(function(){
   }else {
     defaultSearchRadius = searchRadius.value*1000;
   }
+// mapSearch.addWidget(searchBox);
+// mapSearch.addWidget(mapSearchHits);
+// mapSearch.addWidget(customMapWidget);
+// mapSearch.start();
+// console.log(defaultSearchRadius);
 }));
 
 
@@ -158,8 +163,10 @@ var mapSearchHits = instantsearch.widgets.hits({
           <div class="col-xs-12 col-sm-6">
             <div class="card">
               <a class='link-to-product' href='https://got-it-wagon.herokuapp.com/products/{{objectID}}}/'>
-                <div class='card-body' style='background-image: url({{photo}})'>
-                  <div class='card-avatar'></div>
+                <div class='card-body'>
+                  <div class='photo' style='background-image: url({{photo}})'>
+                    <div class='card-avatar' style='background-image: url({{owner_photo}})'></div>
+                  </div>
                 </div>
                 <div class="card-footer">
                   <div class="container footer-container">
@@ -169,7 +176,7 @@ var mapSearchHits = instantsearch.widgets.hits({
                       </div>
                       <div class="col-xs-12 col-md-4">
                         <span class="review-stars kill-padding">
-                          <i class="fa fa-star gold-star" aria-hidden="true"></i><span class='black'>( x )</span>
+                          {{rating}}<i class="fa fa-star gold-star" aria-hidden="true"></i><span class='black'></span>
                         </span>
                       </div>
                       <div class="col-xs-12 col-md-4">
