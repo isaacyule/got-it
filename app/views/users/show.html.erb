@@ -79,7 +79,12 @@
       <div class="profile-requests">
         <h3>Requests</h3>
         <p>Manage your product requests here!</p>
-        <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user), class: "btn btn-primary button" %>
+        <% if @pending_requests.count > 0 %>
+          <% add_class = "btn btn-danger button" %>
+        <% else %>
+          <% add_class = "btn btn-primary button" %>
+        <% end %>
+        <%= link_to "Pending Requests: #{@pending_requests.count}", user_pe_requests_path(@user), class: "btn button #{add_class}" %>
         <%= link_to "Accepted Requests: #{@accepted_requests.count}", user_ac_requests_path(@user), class: "btn btn-primary button" %>
         <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user), class: "btn btn-primary button"  %>
       </div>

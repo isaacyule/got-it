@@ -21,22 +21,16 @@ class Product < ApplicationRecord
 
   # --- Algolia Search ---
   algoliasearch do
-    attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id
+    attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id, :average_rating
     attribute :photo do
-      self.photo.metadata['url']
+      return nil if self.photo.nil?
+      return self.photo.metadata['url'] if self.photo.metadata.present?
+      self.photo.url
     end
     attribute :owner_photo do
-      self.user.profile_photo.metadata['url']
-    end
-
-    attribute :rating do
-      total = 0;
-      counter = 0;
-      self.reviews.each do |review|
-        total += review.overall.to_i
-        counter += 1
-      end
-      rating = total/counter
+      return nil if self.user.profile_photo.nil?
+      return self.user.profile_photo.metadata['url'] if self.user.profile_photo.metadata.present?
+      self.user.profile_photo.url
     end
 
     attribute :rating_count do
@@ -49,4 +43,8 @@ class Product < ApplicationRecord
   # ----------------------
 
   private
+
+  def average_rating
+    self.reviews.average(:overall)
+  end
 end
