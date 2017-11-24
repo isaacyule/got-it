@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
 
 
   def product_params
-    params.require(:product).permit(:name, :description, :price_per_day, :deposit, :handover_fee, :photo, :address)
+    params.require(:product).permit(:name, :description, :price_per_day, :condition, :deposit, :handover_fee, :photo, :address)
   end
 
   def set_rating
