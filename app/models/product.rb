@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :requests
   has_many :reviews, through: :requests, dependent: :destroy
-  # validates :photo, presence: true
+  validates :photo, presence: true
 
   # after_commit :index_in_algolia
 
