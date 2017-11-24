@@ -24,12 +24,12 @@ class Product < ApplicationRecord
     attribute :name, :description, :price_per_day, :deposit, :address, :handover_fee, :user_id, :average_rating
     attribute :photo do
       return nil if self.photo.nil?
-      return self.photo.metadata['url'] if self.photo.metadata.present?
+      # return self.photo.metadata['url'] if self.photo.metadata.present?
       self.photo.url
     end
     attribute :owner_photo do
       return nil if self.user.profile_photo.nil?
-      return self.user.profile_photo.metadata['url'] if self.user.profile_photo.metadata.present?
+      # return self.user.profile_photo.metadata['url'] if self.user.profile_photo.metadata.present?
       self.user.profile_photo.url
     end
 

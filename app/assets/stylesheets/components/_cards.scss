@@ -1,5 +1,4 @@
 .card {
-  background-size: cover;
   height: 350px;
   border-radius: 2px;
   margin: 20px 0;
@@ -20,8 +19,8 @@
   border-radius: 50%;
   height: 75px;
   width: 75px;
-  background-color: $light-gray;
-  background-image: cover;
+  // background-color: $light-gray;
+  background-size: cover;
 }
 
 .photo{
@@ -87,7 +86,6 @@
   border-top: 1px solid $feignt-gray;
   span {
     flex: 0 0 auto;
-    font-weight: bold;
   }
 }
 
@@ -120,7 +118,7 @@
 }
 
 .price {
-  font-size: 2.5em;
+  font-size: 1.5em;
   color: $green;
 }
 

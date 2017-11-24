@@ -155,6 +155,8 @@ const mapSearch = instantsearch({
     }
 });
 
+
+
 var mapSearchHits = instantsearch.widgets.hits({
   container: document.querySelector('#hits'),
   hitsPerPage: 100,
@@ -176,7 +178,7 @@ var mapSearchHits = instantsearch.widgets.hits({
                       </div>
                       <div class="col-xs-12 col-md-4">
                         <span class="review-stars kill-padding">
-                          {{rating}}<i class="fa fa-star gold-star" aria-hidden="true"></i><span class='black'></span>
+                          {{average_rating}}<i class="fa fa-star gold-star" aria-hidden="true"></i><i class="fa fa-star gold-star" aria-hidden="true"></i><i class="fa fa-star gold-star" aria-hidden="true"></i><span class='black'></span>
                         </span>
                       </div>
                       <div class="col-xs-12 col-md-4">
