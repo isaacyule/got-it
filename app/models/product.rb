@@ -39,6 +39,10 @@ class Product < ApplicationRecord
       rating = total/counter
     end
 
+    attribute :rating_count do
+      self.reviews.count
+    end
+
     geoloc :latitude, :longitude
     searchableAttributes ['name', 'description']
   end
