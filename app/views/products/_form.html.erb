@@ -18,7 +18,6 @@
         <%= f.input :price_per_day %>
         <%= f.input :deposit %>
         <%= f.input :handover_fee %>
-        <%= f.input :photo %>
         <%= f.input :address, input_html: {value: f.object.address || current_user.address } %>
         <%= f.submit class: 'btn btn-primary' %>
       <% end %>
