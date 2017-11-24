@@ -29,7 +29,7 @@
         <%= link_to "Edit", edit_user_path, class: "btn btn-primary button" %>
       </div>
 
-      <div class="col-xs-12 col-lg-6 product-library">
+      <div class="col-xs-12 col-lg-7 product-library">
         <div class="product-library">
           <h3>Product Library</h3>
         </div>
@@ -43,19 +43,29 @@
             <div class="col-xs-12 col-lg-6 col-xl-4">
               <div class="card">
                 <a class='link-to-product' href="https://got-it-wagon.herokuapp.com/products/<%= product.id %>/">
-                  <div class='card-body' style="background-image: url(<%= product.photo %>)"></div>
+                  <div class='card-body'>
+                    <div class='photo' style="background-image: url(<%= product.photo %>)"></div>
+                  </div>
                   <div class="card-footer">
                     <div class="container footer-container">
                       <div class="row footer-row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12 kill-padding">
                           <span class="description"><%= product.name  %></span>
                         </div>
-                        <div class="col-xs-12">
-                          <span class="distance">.</span>
+                        <div class="col-xs-12 col-md-6 kill-padding">
+                          <span class="review-stars kill-padding">
+                            <% 3.times do %>
+                              <i class="fa fa-star gold-star" aria-hidden="true"></i>
+                            <% end %>
+                            <% 2.times do %>
+                              <i class="fa fa-star" aria-hidden="true"></i>
+                            <% end %>
+                            <span class='black'>( x )</span>
+                          </span>
                         </div>
                       </div>
                       <div class="price-per-day">
-                        <span class="price"><%= product.price_per_day %>/day</span>
+                        <span class="price">£<%= product.price_per_day %>/day</span>
                       </div>
                     </div>
                   </div>
@@ -65,7 +75,7 @@
           <% end %>
         </div>
       </div>
-    <div class="col-xs-12 col-lg-3 fixed right">
+    <div class="col-xs-12 col-lg-2 fixed right">
       <div class="profile-requests">
         <h3>Requests</h3>
         <p>Manage your product requests here!</p>
