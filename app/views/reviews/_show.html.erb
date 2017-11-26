@@ -1,8 +1,8 @@
 <div class="review">
   <div class="review-left">
     <div class="profile-photo">
-      <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
-        <%= image_tag avatar, class: "review_photo" %>
+      <% avatar = review.user.profile_photo ? review.user.profile_photo : asset_path('default_avatar.png') %>
+      <%= image_tag avatar, class: "review_photo" %>
     </div>
   </div>
   <div class="review-right">

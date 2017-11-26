@@ -101,17 +101,15 @@
         <div class="fixed-side kill-padding">
           <div class="request-form">
             <div class="price-per-day">
-              <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong></h3>
-              <p> (per day)</p>
+              <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong><span class="inline"> (per day)</span></h3>
             </div>
             <div class="stars border-bottom">
               <% if @product.rating.nan? %>
                 <p>no ratings yet</p>
               <% else %>
                 <% @product.rating.round.to_i.times do %>
-                <i class="fa fa-star grey-star" aria-hidden="true"></i>
-                <!-- ToDo: Display products reviews and review-count -->
-                <% end %>
+                <i class="fa fa-star grey-star yellow-stars" aria-hidden="true"></i>
+                <% end %> <span>(<%= @product.reviews.count %>)</span>
               <% end %>
             </div>
 
@@ -140,17 +138,17 @@
                 <% else %>
                   <p class="own-product">This is your own product</p>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
             <div class="owner_links">
               <% if policy(@product).destroy? || policy(@product).edit?%>
                 <p>As you are the owner you can...</p>
               <% end %>
-               <% if policy(@product).edit? %>
-                 <%= link_to "Edit", edit_product_path, class: 'btn btn-primary button' %>
-               <% end %>
-               <% if policy(@product).destroy? %>
+              <% if policy(@product).edit? %>
+                <%= link_to "Edit", edit_product_path, class: 'btn btn-primary button' %>
+              <% end %>
+              <% if policy(@product).destroy? %>
                 <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-danger button'%>
+              <% end %>
               <% end %>
             </div>
           </div>
