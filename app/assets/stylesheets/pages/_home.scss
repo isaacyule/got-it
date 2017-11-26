@@ -69,8 +69,16 @@
   border-radius: 50%;
 }
 
-.card-text {
+.vertical-middle {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
+}
+
+.home-form {
+  position: relative;
+}
+
+.margin-top {
+  margin-top: 6px;
 }

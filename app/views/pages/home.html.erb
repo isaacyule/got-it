@@ -5,8 +5,8 @@
      <p>Borrow things when and where you need them</p>
 
     <%= form_tag products_path, class: 'home-form', id: 'product-search', :method => 'get' do %>
-        <%= text_field_tag :search, params[:search], class: "form-control home-form-child", placeholder: 'Borrow something...' %>
-        <%= submit_tag "Search", :name => nil, class: 'btn btn-primary home-form-child'%>
+        <%= text_field_tag :search, params[:search], class: "form-control home-form-child margin-top", placeholder: 'Borrow something...' %>
+        <%= submit_tag "Search", :name => nil, class: 'btn btn-lg btn-primary home-form-child'%>
     <% end %>
    </div>
  </div>
@@ -20,7 +20,7 @@
           <div class="transaction-card">
             <%= image_tag "Face1", class: "avatar-person"%>
             <%= image_tag "Projector2", class: "avatar-item"%>
-            <div class="card-text">
+            <div class="vertical-middle">
               <h4>Marcela borrowed Ricks projector for 10£.</h4>
               <p>“I wanted to do a movies night at my place and invite some friends over. I could pick up the projector in my street. Super easy!”</p>
             </div>
@@ -30,7 +30,7 @@
           <div class="transaction-card">
             <%= image_tag "Face2", class: "avatar-person"%>
             <%= image_tag "raklett", class: "avatar-item"%>
-            <div class="card-text">
+            <div class="vertical-middle">
               <h4>Dan borrowed Lucas’ raclett for 7£.</h4>
               <p>“I had friends coming over for dinner and wanted to do something different. We had a great time and the raclett set was amazing!”</p>
             </div>
@@ -41,7 +41,7 @@
           <div class="transaction-card">
             <%= image_tag "Face3", class: "avatar-person"%>
             <%= image_tag "Pram 2", class: "avatar-item"%>
-            <div class="card-text">
+            <div class="vertical-middle">
               <h4>Ed borrowed Sams pram  for 8£ per day</h4>
               <p>“I borrowed Enriques pram when I visited my parents in Italy  and could not bring my own pram. Great flexibility! Thanks”</p>
             </div>
