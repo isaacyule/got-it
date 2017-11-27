@@ -1,11 +1,15 @@
-class UreviewController < ApplicationController
+class UreviewsController < ApplicationController
   protect_from_forgery
-  before_action :user_review_params, only: [:create]
+  before_action :ureview_params, only: [:create]
 
   def new
+    @reviewee = User.find(params[:user_id])
+    @request = Request.where(product: @product)
   end
 
-  def private
-    params.require(:user_review).permit(:content, :overall)
+  private
+
+  def ureviews_params
+    params.require(:ureview).permit(:content, :overall)
   end
 end

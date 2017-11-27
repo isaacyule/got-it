@@ -1,4 +1,4 @@
-class CreateUserReviews < ActiveRecord::Migration[5.1]
+class CreateUreviews < ActiveRecord::Migration[5.1]
   def change
     create_table :ureviews do |t|
       t.text :content
