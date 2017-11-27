@@ -176,7 +176,6 @@ var mapSearchHits = instantsearch.widgets.hits({
                       {{name}}
                     </div>
                     <div class="distance">
-                      14km away
                     </div>
                   </div>
                   <div class="right">
@@ -291,7 +290,7 @@ getDistance = (product) => {
 }
 
 updateDistance = () => {
-var matches = document.querySelectorAll("span.distance");
+var matches = document.querySelectorAll(".distance");
 for (i=0; i<matches.length; i++){
 
     if (distanceInKm[i] === 0){
