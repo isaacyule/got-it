@@ -19,6 +19,11 @@
     <p class="request-earnings">You will earn: some money</p>
     <p>Status: <strong> <%= request.status %></strong></p>
   </div>
+  <div class="request-details-2">
+    <% if request.status == "Accepted" %>
+      <%= link_to "Review this user!", new_user_user_review_path(request.user) %>
+    <% end %>
+  </div>
   <div class="request-confirm">
     <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
     <%= link_to "Decline", product_request_path(request.product, request, status: "Declined"), method: :patch, class: "request-button decline" %>

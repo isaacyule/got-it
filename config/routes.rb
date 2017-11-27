@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :edit, :update] do
-    resources :user_reviews, only: [:new, :create]
+    resources :ureviews, only: [:new, :create]
   end
   resources :conversations do
   resources :messages
