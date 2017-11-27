@@ -6,10 +6,10 @@ class UreviewPolicy < ApplicationPolicy
   end
 
   def new?
-    user.requests.include?(record.request) && record.request.status == "Accepted"
+    true
   end
 
   def create?
-    user.requests.include?(record.request) && record.request.status == "Accepted"
+    true
   end
 end
