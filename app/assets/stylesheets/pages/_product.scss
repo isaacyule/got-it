@@ -194,6 +194,12 @@ p {
   color: #484848;
 }
 
+.container-show {
+  max-width: 1020px;
+  padding: 20px 0;
+  position: relative;
+}
+
 // @media screen and (min-width: 768px) and (max-width: 1024px) {
 //   .product-layout{
 //     justify-content: space-around;
