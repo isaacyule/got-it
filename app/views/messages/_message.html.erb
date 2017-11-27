@@ -1,0 +1,7 @@
+<div class="messages flex <%= user_is_author ? 'right-side' : 'left-side' %>">
+  <% avatar = message.user.profile_photo? ? message.user.profile_photo : asset_path('default_avatar.png') %>
+  <%= image_tag avatar, class: 'avatar-profile' %>
+  <div class="message-bubble">
+    <p><%= message.body %></p>
+  </div>
+</div>
