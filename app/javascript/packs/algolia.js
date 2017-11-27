@@ -188,6 +188,7 @@ var mapSearchHits = instantsearch.widgets.hits({
                         <i class="fa fa-star gold-star" aria-hidden="true"></i>
                         <i class="fa fa-star gold-star" aria-hidden="true"></i>
                         <i class="fa fa-star gold-star" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
