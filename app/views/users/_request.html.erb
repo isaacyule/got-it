@@ -21,7 +21,7 @@
   </div>
   <div class="request-details-2">
     <% if request.status == "Accepted" %>
-      <%= link_to "Review this user!", new_user_ureview_path(request.user) %>
+      <%= link_to "Review this user!", new_product_request_ureview_path(request.product, request.id ) %>
     <% end %>
   </div>
   <div class="request-confirm">

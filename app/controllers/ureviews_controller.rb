@@ -3,13 +3,16 @@ class UreviewsController < ApplicationController
   before_action :ureview_params, only: [:create]
 
   def new
-    @reviewee = User.find(params[:user_id])
-    @request = Request.where(product: @product)
+    @request = Request.find(params[:request_id])
+    @reviewee = @request.user
+    @product = @request.product
+    @ureview = Ureview.new
+    authorize(@ureview)
   end
 
   private
 
   def ureviews_params
-    params.require(:ureview).permit(:content, :overall)
+    params.require(:ureview).permit(:product_id, :request_id)
   end
 end
