@@ -25,6 +25,7 @@
           <p>Product Library: <%= @user.products.count %> products</p>
           <p>Email: <%= @user.email %></p>
           <p>Address: <%= @user.address %></p>
+          <p>User-Rating: <%= @user.rating %></p>
         </div>
         <%= link_to "Edit", edit_user_path, class: "btn btn-primary button" %>
       </div>
