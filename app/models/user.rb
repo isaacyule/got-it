@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :products
   has_many :reviews
+  has_many :user_reviews
   has_many :requests
   has_many :conversations
 
