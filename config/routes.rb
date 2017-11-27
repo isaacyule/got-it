@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    resources :user_reviews, only: [:new, :create]
+  end
   resources :conversations do
   resources :messages
  end
