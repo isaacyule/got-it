@@ -5,13 +5,13 @@ class MessagesController < ApplicationController
 
   def index
    @messages = policy_scope(Message)
-   @messages = @conversation.messages
+   @messages = @conversation.messages.order(:created_at)
    if @messages.last
     if @messages.last.user_id != current_user.id
      @messages.last.read = true;
     end
    end
-  @message = @conversation.messages.new
+    @message = Message.new
    end
 
   def new
@@ -23,10 +23,9 @@ class MessagesController < ApplicationController
    @message = @conversation.messages.new(message_params)
    authorize(@message)
    if @message.save
-      ActionCable.server.broadcast "conversation_channel_#{params[:conversation_id]}",
-        message: @message.body,
-        user: @message.user.email
-      head :ok
+    respond_to do |format|
+      format.js
+    end
    end
   end
 
