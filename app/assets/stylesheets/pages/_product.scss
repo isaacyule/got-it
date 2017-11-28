@@ -22,9 +22,6 @@
 .price-per-day {
   vertical-align: bottom;
   text-align: left;
-  p {
-    margin: 0;
-  }
   h3 {
     color: $green;
     margin: 0;
@@ -32,7 +29,7 @@
 }
 
 .stars {
-  padding-bottom: 10px;
+  padding: 10px 0 15px 0;
   text-align: left;
   font-size: 10px;
 }
@@ -46,7 +43,7 @@
 }
 
 #daterangepicker-requestform {
-  margin: 10px 0;
+  margin: 15px 0 10px 0;
 }
 
 // -------- Others --------
@@ -119,13 +116,14 @@
 }
 
 .review:first-child {
-  border-top: 1px solid rgba(0,0,0,0.1);
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
 }
 
 .price-split{
   display:flex;
   justify-content: space-between;
+  padding: 10px 0;
 }
 
 .distance {
