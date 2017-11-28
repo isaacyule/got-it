@@ -97,7 +97,6 @@ navigator.geolocation.getCurrentPosition(function(position) {
   userLng = position.coords.longitude;
   var userPos = {lat: userLat,  lng: userLng};
   listDistancesOfProducts();
-  updateDistance();
   setProductCount();
   resetVars();
   map.setCenter(userPos);
@@ -117,7 +116,7 @@ var getDistance = (product) => {
   return (distanceInKilometers.distanceCalculator(userLat, userLng, productLat, productLng));
 }
 
-updateDistance = () => {
+var updateDistance = () => {
 var matches = document.querySelectorAll(".distance");
 for (var i=0; i<matches.length; i++){
 
