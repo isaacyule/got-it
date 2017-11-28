@@ -107,7 +107,7 @@ var listDistancesOfProducts = () => {
   products.forEach(function(product) {
     distanceInKm.push(getDistance(product));
   });
-  // updateDistance();
+  updateDistance();
 };
 
 var getDistance = (product) => {
