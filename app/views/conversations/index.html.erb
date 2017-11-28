@@ -6,13 +6,24 @@
        <div class=”ui list”>
         <div class=”item”>
          <% @conversations.each do |conversation| %>
-         <% if conversation.sender_id == current_user.id ||      conversation.recipient_id == current_user.id %>
+         <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
           <% if conversation.sender_id == current_user.id %>
             <% recipient = User.find(conversation.recipient_id) %>
           <% else %>
             <% recipient = User.find(conversation.sender_id) %>
           <% end %>
-          <%= link_to recipient.first_name,   conversation_messages_path(conversation)%>
+          <div class="message-info">
+            <p>
+              <%= conversation.request.user.first_name %> has requested <%= conversation.request.product.name %> from <%= conversation.request.product.user.first_name %>
+            </p>
+            <p><strong>Dates</strong></p>
+            <p>
+              From <%= conversation.request.start_date %> until <%= conversation.request.end_date %> (<%= (conversation.request.end_date - conversation.request.start_date).to_i %> days)
+            </p>
+
+            <p>This transaction is currently <strong> <%= conversation.request.status.downcase %></strong>.</p>
+            <%= link_to "Message #{recipient.first_name}", conversation_messages_path(conversation), class: "btn btn-primary "%>
+          </div>
          <% end %>
         <% end %>
         </div>
