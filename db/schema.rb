@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124122642) do
+
+ActiveRecord::Schema.define(version: 20171128140808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +21,8 @@ ActiveRecord::Schema.define(version: 20171124122642) do
     t.integer "recipient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "request_id"
+    t.index ["request_id"], name: "index_conversations_on_request_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -33,10 +36,22 @@ ActiveRecord::Schema.define(version: 20171124122642) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "state"
+    t.string "product_sku"
+    t.integer "amount_pennies", default: 0, null: false
+    t.json "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "price_per_day"
     t.string "deposit"
     t.string "address"
     t.integer "handover_fee"
@@ -48,18 +63,20 @@ ActiveRecord::Schema.define(version: 20171124122642) do
     t.float "longitude"
     t.text "condition"
     t.float "rating", default: 0.0
+    t.string "sku"
+    t.integer "price_per_day_pennies", default: 0, null: false
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "product_id"
-    t.string "start_date"
-    t.string "end_date"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "Pending"
+    t.date "start_date"
+    t.date "end_date"
     t.index ["product_id"], name: "index_requests_on_product_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -74,6 +91,17 @@ ActiveRecord::Schema.define(version: 20171124122642) do
     t.string "photo"
     t.index ["request_id"], name: "index_reviews_on_request_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "ureviews", force: :cascade do |t|
+    t.text "content"
+    t.integer "rating"
+    t.bigint "user_id"
+    t.bigint "request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_ureviews_on_request_id"
+    t.index ["user_id"], name: "index_ureviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,15 +128,21 @@ ActiveRecord::Schema.define(version: 20171124122642) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.float "rating", default: 0.0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "conversations", "requests"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
+  add_foreign_key "orders", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
   add_foreign_key "requests", "products"
   add_foreign_key "requests", "users"
   add_foreign_key "reviews", "requests"
   add_foreign_key "reviews", "users"
+  add_foreign_key "ureviews", "requests"
+  add_foreign_key "ureviews", "users"
 end

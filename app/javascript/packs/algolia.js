@@ -117,9 +117,10 @@ var getDistance = (product) => {
   return (distanceInKilometers.distanceCalculator(userLat, userLng, productLat, productLng));
 }
 
-var updateDistance = () => {
-  var matches = document.querySelectorAll("span.distance");
-  for (var i=0; i<matches.length; i++){
+updateDistance = () => {
+var matches = document.querySelectorAll(".distance");
+for (var i=0; i<matches.length; i++){
+
     if (distanceInKm[i] === 0){
       matches[i].innerHTML = "";
     } else {

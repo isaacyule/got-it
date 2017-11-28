@@ -4,13 +4,20 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :products do
-    resources :requests, only: [:new, :create, :update, :index]
+    resources :requests, only: [:new, :create, :update, :index] do
+      resources :ureviews, only: [:new, :create]
+    end
     resources :reviews, only: [:new, :create]
   end
 
   resources :users, only: [:show, :edit, :update]
-  resources :conversations do
-  resources :messages
+  resources :conversations, only: [:index] do
+    resources :messages
+   end
+
+
+ resources :orders, only: [:show, :create] do
+  resources :payments, only: [:new, :create]
  end
 
   get '/acceptedrequests', to: 'users#accepted', as: 'user_ac-requests'

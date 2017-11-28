@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   has_many :requests
   has_many :reviews, through: :requests, dependent: :destroy
   validates :photo, presence: true
+  monetize :price_per_day_pennies
 
   # after_commit :index_in_algolia
 

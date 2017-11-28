@@ -4,12 +4,10 @@ class RequestsController < ApplicationController
 
   def new
     match_data = params[:daterange].match(/([\d\-]+) - ([\d\-]+)/)
-    @start = Date.parse(match_data[1])
-    @end = Date.parse(match_data[2])
-
-    @request = Request.new
+    @request = Request.new(start_date: Date.parse(match_data[1]), end_date: Date.parse(match_data[2]))
     @request.product = @product
     authorize(@request)
+
     @dates = []
     @product.requests.where(status: 'Accepted').each do |request|
       (Date.parse(request.start_date[0, 10])..Date.parse(request.end_date[0, 10])).each do |d|
@@ -23,7 +21,15 @@ class RequestsController < ApplicationController
     @request.user = current_user
     @request.product = Product.find(params[:product_id])
     authorize(@request)
+
     if @request.save
+      if Conversation.between(current_user, @request.product.user, @request).present?
+        @conversation = Conversation.between(current_user, @request.product.user, @request).last
+      else
+        @conversation = Conversation.create(sender: current_user, recipient: @request.product.user, request: @request)
+      end
+      @conversation.messages.create(body: @request.description, user: current_user, read: false)
+
       redirect_to product_path(@product)
     else
       render :new

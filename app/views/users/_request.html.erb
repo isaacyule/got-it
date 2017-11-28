@@ -15,9 +15,14 @@
     <p class="request-info"><strong><%= request.user.first_name %></strong> wants to rent <strong><%= link_to request.product.name, product_path(request.product) %></strong> </p>
     <p class="request-date">From <strong><%= request.start_date %></strong> until <strong><%= request.end_date %></strong></p>
     <p class="request-description">"<%= request.description %>"</p>
-    <p></p>
+    <%= request.user.first_name %> <%= link_to "Start a conversation", conversations_path(sender_id: current_user.id, recipient_id: request.user.id, request_id: request.id), method: 'post'%>
     <p class="request-earnings">You will earn: some money</p>
     <p>Status: <strong> <%= request.status %></strong></p>
+  </div>
+  <div class="request-details-2">
+    <% if request.status == "Accepted" %>
+      <%= link_to "Review this user!", new_product_request_ureview_path(request.product, request.id ) %>
+    <% end %>
   </div>
   <div class="request-confirm">
     <%= link_to "Accept", product_request_path(request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>

@@ -1,0 +1,22 @@
+.message-info {
+  background-color: rgba(0,0,0,0.03);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.conversation-main {
+  display: inline-block;
+}
+
+.conversation-info {
+  padding: 5px;
+}
+
+.recipient-photo {
+  height: 100px;
+  border-radius: 50%;
+  display: inline-block;
+}

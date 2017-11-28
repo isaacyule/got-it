@@ -1,45 +1,53 @@
-<% if @over_ten %>
- <%= link_to "Show Previous", '?m=all' %>
-<% end %>
-<div class="ui segment">
- <% @messages.each do |message| %>
-  <% if message.body %>
-   <% user = User.find(message.user_id) %>
-   <div class="item">
-    <div class="content" id="messages-container">
-     <div class="header"><strong><%= user.first_name %></strong>     <%= message.message_time %></div>
-      <div class="list">
-       <div class="item">
-        <i class="right triangle icon"></i>
-         <%= render 'messages', message: message %>
+<div class="container-messages">
+  <div class="messages">
+    <%= link_to "Accept", product_request_path(@conversation.request.product, @conversation.request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+        <%= link_to "Decline", product_request_path(@conversation.request.product, @conversation.request, status: "Declined"), method: :patch, class: "request-button decline" %>
+    <% if current_user == @conversation.request.product.user%>
+      <% if  @conversation.request.status == "pending"%>
+      <div class="request-confirm-messages">
+        <%= link_to "Accept", product_request_path(@conversation.request.product, request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+        <%= link_to "Decline", product_request_path(@conversation.request.product, request, status: "Declined"), method: :patch, class: "request-button decline" %>
       </div>
+      <% elsif @conversation.request.status == "Accepted"%>
+        <p>You accepted this request</p>
+      <% else %>
+        <p>You declined this request</p>
+      <% end %>
+    <% end %>
+    <div id="real-messages-container">
+      <% @messages.each do |message| %>
+        <%= render 'message', message: message, user_is_author: message.user == current_user %>
+      <% end %>
     </div>
-   </div>
- </div>
- <% end %>
-<% end %>
+    <%= form_for [@conversation, @message], html: {class: "ui reply form"}, remote: true do |f| %>
+     <div class="flex">
+       <%= f.text_area :body, class: "form-control chat-input" %>
+     <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+       <%= f.submit "Add Reply", class: "chat-btn ui blue labeled submit icon button" %>
+     </div>
+    <% end %>
+  </div>
+  <div class="request-summary">
+    <%= render "request_summary_messages" %>
+  </div>
 </div>
-<%= form_for [@conversation, @message], html: {class: "ui reply form"}, remote: true do |f| %>
- <div class="field">
-   <%= f.text_area :body, class: "form-control" %>
- </div>
- <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
- <div>
-   <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
- </div>
-<% end %>
+
+
 
 <% content_for :after_js do %>
   <script>
+    scrollLastMessageIntoView();
     App['conversation_<%= @conversation.id %>'] = App.cable.subscriptions.create(
       {
         channel: 'ConversationChannel',
         conversation_id: <%= @conversation.id %> },
       {
         received: (data) => {
-          let newMessage = document.createElement('p');
-          newMessage.innerText = data.message;
-          document.getElementById('messages-container').appendChild(newMessage);
+          if (data.current_user_id !== <%= current_user.id %>) {
+            const messagesContainer = document.querySelector('#real-messages-container');
+            messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);
+            scrollLastMessageIntoView();
+          }
         }
       }
     )

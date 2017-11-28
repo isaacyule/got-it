@@ -3,7 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :products
   has_many :reviews
+  has_many :ureviews
   has_many :requests
+  has_many :conversations
 
   mount_uploader :profile_photo, PhotoUploader
   # validates :first_name, :last_name, :email, :password, presence: true
