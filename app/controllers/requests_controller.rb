@@ -23,7 +23,15 @@ class RequestsController < ApplicationController
     @request.user = current_user
     @request.product = Product.find(params[:product_id])
     authorize(@request)
+
     if @request.save
+      if Conversation.between(current_user, @request.product.user).present?
+        @conversation = Conversation.between(current_user, @request.product.user).first
+      else
+        @conversation = Conversation.create(sender: current_user, recipient: @request.product.user)
+      end
+      @conversation.messages.create(body: @request.description, user: current_user, read: false)
+
       redirect_to product_path(@product)
     else
       render :new
