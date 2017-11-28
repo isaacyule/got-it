@@ -1,152 +1,139 @@
+<div class="container-show">
 
-<div class="wrapper">
+  <!-- PRODUC TINFO -->
+  <div class="product-info">
 
-  <div class="container-fluid kill-padding container-show">
-
-    <!-- PRODUC TINFO -->
-    <div class="product-info">
-
-      <div class="row">
-        <h1><%= @product.name %></h1>
-      </div>
-
-      <div class="row">
-        <div class="product-photos kill-padding">
-          <% if @product.photo? %>
-            <%= cl_image_tag @product.photo %>
-          <% else %>
-            <img src=<%= asset_path"no_image.png" %>>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="description">
-          <p class="title"><strong>Description</strong></p>
-          <p class="margin-bottom"><%= @product.description %></p>
-        </div>
-        <div class="condition">
-          <p class="title"><strong>Condition</strong></p>
-          <p class="margin-bottom"><%= @product.condition %></p>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div class="owner_card">
-          <p>Owned by <%= @product.user["first_name"] %>
-            <%= @product.user["last_name"] %></p>
-          <p class="profile-text"> <%= @product.user.profile_text %></p>
-          <%= cl_image_tag @product.user.profile_photo, :transformation=>[
-          {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
-          {:width=>100, :crop=>"scale"}
-          ], class: "owner_card_photo" %>
-        </div>
-
-        <!-- map -->
-        <div class="col-xs-12 kill-padding">
-          <div id="show-map" style="height: 400px"></div>
-        </div>
-
-        <!-- calendar -->
-        <div class="col-xs-12 kill-padding">
-          <% if policy(@product).destroy? || policy(@product).edit?%>
-            <div id="calendar"></div>
-          <% end %>
-        </div>
-
-        <!-- reviews -->
-        <div class="col-xs-12 kill-padding buffer">
-          <div class="product-reviews">
-            <h3>Reviews</h3>
-            <% if @product.rating.nan? %>
-              <h4>Overall Rating: Not yet rated</h4>
-            <% else %>
-              <h4>Overall Rating: <%= @product.rating %></h4>
-            <% end %>
-            <%= link_to "WIP review link", new_product_review_path(@product) %>
-            <div id="reviews-count">
-              <%= pluralize @product.reviews.size, "review" %>
-            </div>
-            <div id="reviews">
-              <% @product.reviews.order("id desc").each do |review| %>
-                <%= render 'reviews/show', review: review %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
+    <div class="row">
+      <h1><%= @product.name %></h1>
     </div>
 
-    <!-- PRODUC TINFO -->
-    <div class="fixed-side kill-padding">
-
-      <div class="request-form">
-
-        <div class="price-per-day">
-          <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong><span class="inline"> (per day)</span></h3>
-        </div>
-
-        <div class="stars border-bottom">
-          <% if @product.rating.nan? %>
-            <p>no ratings yet</p>
-          <% else %>
-            <% @product.rating.round.to_i.times do %>
-            <i class="fa fa-star grey-star yellow-stars" aria-hidden="true"></i>
-            <% end %> <span>(<%= @product.reviews.count %>)</span>
-          <% end %>
-        </div>
-
-        <!-- Daterantepicker -->
-        <%= form_tag new_product_request_path(@product), method: :get do %>
-
-          <input type="text" class="form-control" name="daterange" id="daterangepicker-requestform"/>
-
-          <!-- Cost-Split -->
-          <div class="border-bottom price-split">
-            <p>Rental fee (<span id="days"></span> days):</p> <p>£<span id="rental_fee"></span></p>
-          </div>
-          <div class="border-bottom price-split">
-            <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
-          </div>
-          <div class="border-bottom price-split">
-            <p>Service fee:</p> <p>£<span id="service_fee"></span></p>
-          </div>
-          <div class="price-split">
-            <p><strong>Total:</strong></p><p><strong>£<span id="total"></span></strong></p>
-          </div>
-          <div>
-            <% if policy(@request).create? %>
-              <input type="submit" class="btn btn-lg btn-primary" id="request-button" value="Request">
-              <p>You won't be charged yet</p>
-            <% else %>
-              <p class="own-product">This is your own product</p>
-            <% end %>
-          </div>
-
-          <div class="owner_links">
-            <% if policy(@product).destroy? || policy(@product).edit?%>
-              <p>As you are the owner you can...</p>
-            <% end %>
-            <% if policy(@product).edit? %>
-              <%= link_to "Edit", edit_product_path, class: 'btn btn-primary button' %>
-            <% end %>
-            <% if policy(@product).destroy? %>
-              <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-danger button'%>
-            <% end %>
-          </div>
-
+    <div class="row">
+      <div class="product-photos">
+        <% if @product.photo? %>
+          <%= cl_image_tag @product.photo %>
+        <% else %>
+          <img src=<%= asset_path"no_image.png" %>>
         <% end %>
-
       </div>
-
     </div>
 
+    <div class="row">
+      <div class="description">
+        <p class="title"><strong>Description</strong></p>
+        <p class="margin-bottom"><%= @product.description %></p>
+      </div>
+      <div class="condition">
+        <p class="title"><strong>Condition</strong></p>
+        <p class="margin-bottom"><%= @product.condition %></p>
+      </div>
+    </div>
 
+    <div class="row">
+    <p class="owner"><strong>Owner</strong></p>
+      <div class="owner_card">
+        <p><%= @product.user["first_name"] %>
+          <%= @product.user["last_name"] %></p>
+        <p class="profile-text"> <%= @product.user.profile_text %></p>
+        <%= cl_image_tag @product.user.profile_photo, :transformation=>[
+        {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
+        {:width=>100, :crop=>"scale"}
+        ], class: "owner_card_photo" %>
+      </div>
+
+      <!-- map -->
+      <div>
+        <div id="show-map" style="height: 400px"></div>
+      </div>
+
+      <!-- calendar -->
+      <div>
+        <% if policy(@product).destroy? || policy(@product).edit?%>
+          <div id="calendar"></div>
+        <% end %>
+      </div>
+
+      <!-- reviews -->
+        <div class="product-reviews">
+          <h3>Reviews</h3>
+          <% if @product.rating.nan? %>
+            <h4>Overall Rating: Not yet rated</h4>
+          <% else %>
+            <h4>Overall Rating: <%= @product.rating %></h4>
+          <% end %>
+          <%= link_to "WIP review link", new_product_review_path(@product) %>
+          <div id="reviews-count">
+            <%= pluralize @product.reviews.size, "review" %>
+          </div>
+          <div id="reviews">
+            <% @product.reviews.order("id desc").each do |review| %>
+              <%= render 'reviews/show', review: review %>
+            <% end %>
+          </div>
+        </div>
+
+    </div>
 
   </div>
+
+  <!-- Request Form -->
+
+  <div class="request-form">
+
+    <div class="price-per-day">
+      <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong><span class="inline"> (per day)</span></h3>
+    </div>
+
+    <div class="stars border-bottom">
+      <% if @product.rating.nan? %>
+        <p>no ratings yet</p>
+      <% else %>
+        <% @product.rating.round.to_i.times do %>
+        <i class="fa fa-star grey-star yellow-stars" aria-hidden="true"></i>
+        <% end %> <span>(<%= @product.reviews.count %>)</span>
+      <% end %>
+    </div>
+
+    <!-- Daterantepicker -->
+    <%= form_tag new_product_request_path(@product), method: :get do %>
+
+      <input type="text" class="form-control" name="daterange" id="daterangepicker-requestform"/>
+
+      <!-- Cost-Split -->
+      <div class="border-bottom price-split">
+        <p>Rental fee (<span id="days"></span> days):</p> <p>£<span id="rental_fee"></span></p>
+      </div>
+      <div class="border-bottom price-split">
+        <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
+      </div>
+      <div class="border-bottom price-split">
+        <p>Service fee:</p> <p>£<span id="service_fee"></span></p>
+      </div>
+      <div class="price-split">
+        <p><strong>Total:</strong></p><p><strong>£<span id="total"></span></strong></p>
+      </div>
+      <div>
+        <% if policy(@request).create? %>
+          <input type="submit" class="btn btn-lg btn-primary" id="request-button" value="Request">
+          <p>You won't be charged yet</p>
+        <% else %>
+          <p class="own-product">This is your own product</p>
+        <% end %>
+      </div>
+
+      <div class="owner_links">
+        <% if policy(@product).edit? %>
+          <%= link_to "Edit", edit_product_path, class: 'btn btn-primary button' %>
+        <% end %>
+        <% if policy(@product).destroy? %>
+          <%= link_to "Delete", product_path(@product), method: :delete, class: 'btn btn-danger button'%>
+        <% end %>
+      </div>
+
+    <% end %>
+
+  </div>
+  <!-- end request form -->
+
 </div>
 <!-- </div> -->
 
