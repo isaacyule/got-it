@@ -53,23 +53,23 @@
       </div>
 
       <!-- reviews -->
-        <div class="product-reviews">
-          <h3>Reviews</h3>
-          <% if @product.rating.nan? %>
-            <h4>Overall Rating: Not yet rated</h4>
-          <% else %>
-            <h4>Overall Rating: <%= @product.rating %></h4>
-          <% end %>
-          <%= link_to "WIP review link", new_product_review_path(@product) %>
-          <div id="reviews-count">
-            <%= pluralize @product.reviews.size, "review" %>
-          </div>
-          <div id="reviews">
-            <% @product.reviews.order("id desc").each do |review| %>
-              <%= render 'reviews/show', review: review %>
-            <% end %>
-          </div>
+      <div class="product-reviews">
+        <h3>Reviews</h3>
+        <% if @product.rating.nan? %>
+          <h4>Overall Rating: Not yet rated</h4>
+        <% else %>
+          <h4>Overall Rating: <%= @product.rating %></h4>
+        <% end %>
+        <%= link_to "WIP review link", new_product_review_path(@product) %>
+        <div id="reviews-count">
+          <%= pluralize @product.reviews.size, "review" %>
         </div>
+        <div id="reviews">
+          <% @product.reviews.order("id desc").each do |review| %>
+            <%= render 'reviews/show', review: review %>
+          <% end %>
+        </div>
+      </div>
 
     </div>
 
@@ -80,7 +80,7 @@
   <div class="request-form">
 
     <div class="price-per-day">
-      <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong><span class="inline"> (per day)</span></h3>
+      <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day %></span></strong><span class="inline"> (per day)</span></h3>
     </div>
 
     <div class="stars border-bottom">
@@ -133,6 +133,13 @@
 
   </div>
   <!-- end request form -->
+
+  <%= form_tag orders_path do %>
+    <%= hidden_field_tag 'product_id', @product.id %>
+    <%= hidden_field_tag 'total'  %>
+    <%= submit_tag 'Purchase', class: 'btn btn-primary' %>
+  <% end %>
+
 
 </div>
 

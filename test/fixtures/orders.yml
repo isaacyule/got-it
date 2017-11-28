@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  state: MyString
+  product_sku: MyString
+  amount: 
+  payment: 
+
+two:
+  state: MyString
+  product_sku: MyString
+  amount: 
+  payment: 
