@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20171128140808) do
 
   # These are extensions that must be enabled in order to support this database
@@ -35,10 +36,22 @@ ActiveRecord::Schema.define(version: 20171128140808) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "state"
+    t.string "product_sku"
+    t.integer "amount_pennies", default: 0, null: false
+    t.json "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "price_per_day"
     t.string "deposit"
     t.string "address"
     t.integer "handover_fee"
@@ -50,6 +63,8 @@ ActiveRecord::Schema.define(version: 20171128140808) do
     t.float "longitude"
     t.text "condition"
     t.float "rating", default: 0.0
+    t.string "sku"
+    t.integer "price_per_day_pennies", default: 0, null: false
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -121,6 +136,8 @@ ActiveRecord::Schema.define(version: 20171128140808) do
   add_foreign_key "conversations", "requests"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
+  add_foreign_key "orders", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
   add_foreign_key "requests", "products"
   add_foreign_key "requests", "users"
