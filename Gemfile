@@ -26,6 +26,8 @@ gem 'webpacker'
 gem 'devise'
 gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
+gem 'money-rails'
+gem 'stripe'
 
 gem 'geocoder'
 gem 'coffee-rails'
