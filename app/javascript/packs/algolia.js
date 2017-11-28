@@ -180,7 +180,7 @@ var mapSearchHits = instantsearch.widgets.hits({
                   </div>
                   <div class="right">
                     <div class="price-per-day price">
-                      £{{price_per_day}}<span>/day</span>
+                      £{{price_per_day_pennies}}<span>/day</span>
                     </div>
                     <div class="review-stars kill-padding">
                         {{average_rating}}

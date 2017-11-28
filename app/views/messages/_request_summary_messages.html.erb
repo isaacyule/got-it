@@ -18,19 +18,19 @@
   </div>
 
   <div class="price-per-day">
-    <h3> <strong>£<span id="price_per_day"><%= @conversation.request.product.price_per_day.to_i%></span></strong><span class="inline"> (per day)</span></h3>
+    <h3> <strong>£<span id="price_per_day"><%= (@conversation.request.product.price_per_day_pennies.to_i) / 100%></span></strong><span class="inline"> (per day)</span></h3>
   </div>
 
   <!-- Cost-Split -->
   <div class="border-bottom price-split">
-    <% rental_fee = (@conversation.request.product.price_per_day.to_i * days).round(2) %>
+    <% rental_fee = ((@conversation.request.product.price_per_day_pennies.to_i / 100) * days).round(2) %>
     <p>Rental fee (<span><%= days %></span> days):</p> <p>£<%=rental_fee%></p>
   </div>
   <div class="border-bottom price-split">
     <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @conversation.request.product.handover_fee.round(2)%></span></p>
   </div>
   <div class="border-bottom price-split">
-    <% service_fee = ((@conversation.request.product.price_per_day.to_i * days + @conversation.request.product.handover_fee) * 0.1).round(2) %>
+    <% service_fee = (((@conversation.request.product.price_per_day_pennies.to_i / 100) * days + @conversation.request.product.handover_fee) * 0.1).round(2) %>
     <p>Service fee:</p> <p>
     <%if current_user == @conversation.request.product.user %><span>-</span><% end %>£<%= service_fee %></p>
   </div>
