@@ -1,52 +1,54 @@
-<div class="container">
-  <div class="row">
-    <div class="request-page">
-      <div class="col-xs-9">
-        <h3>Request <%= @product.name %> from <%= @product.user.first_name %></h3>
-        <p>Introduce yourself, tell <%= @product.user.first_name %> what you want the product for, and how the handover could be arranged.</p>
-        <%= render 'form' %>
-      </div>
-      <!-- sidebar right -->
-      <% days = (@end - @start + 1 ).to_i%>
-      <div class="col-xs-12 col-lg-3 kill-padding fix-parent">
-        <div class="fixed-side kill-padding">
-          <div class="request-form">
-            <div class="price-per-day">
-              <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong><span class="inline"> (per day)</span></h3>
-            </div>
-            <div class="stars border-bottom">
-              <% if @product.rating.nan? %>
-                <p>no ratings yet</p>
-              <% else %>
-                <% @product.rating.round.to_i.times do %>
-                <!-- ToDo: Display products reviews and review-count -->
-                <i class="fa fa-star grey-star yellow-stars" aria-hidden="true"></i>
-                <span>(<%= @product.reviews.count %>)</span>
-                <% end %>
-              <% end %>
-            </div>
+<div class="container-new">
 
-            <!-- Cost-Split -->
-              <div class="border-bottom price-split">
-                <% rental_fee = (@product.price_per_day * days).round(2) %>
-                <p>Rental fee (<span> <%= days %></span> days):</p> <p>£<%=rental_fee%></p>
-              </div>
-              <div class="border-bottom price-split">
-                <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
-              </div>
-              <div class="border-bottom price-split">
-                <% service_fee = ((@product.price_per_day * days + @product.handover_fee) * 0.1).round(2) %>
-                <p>Service fee:</p> <p>£ <%= service_fee %></p>
-              </div>
-              <div class="price-split">
-                <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + @product.handover_fee + service_fee).round(2) %></strong></p>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- Request Messages -->
+  <div class="request-message">
+
+    <div class="row">
+      <h3>Request <%= @product.name %> from <%= @product.user.first_name %></h3>
+      <p>Introduce yourself, tell <%= @product.user.first_name %> what you want the product for, and how the handover could be arranged.</p>
+      <%= render 'form' %>
+    </div>
+
+  </div>
+
+  <!-- Request Form -->
+  <% days = (@end - @start + 1 ).to_i%>
+  <div class="order-summary">
+    <div class="product-info">
+      <!-- <div class="left"> -->
+      <h4><%= @product.name %></h4>
+      <!-- </div> -->
+      <div class="product-photo">
+        <% if @product.photo? %>
+          <%= cl_image_tag @product.photo %>
+        <% else %>
+          <img src=<%= asset_path"no_image.png" %>>
+        <% end %>
       </div>
     </div>
+
+    <div class="price-per-day">
+      <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day%></span></strong><span class="inline"> (per day)</span></h3>
+    </div>
+
+    <!-- Cost-Split -->
+    <div class="border-bottom price-split">
+      <% rental_fee = (@product.price_per_day * days).round(2) %>
+      <p>Rental fee (<span> <%= days %></span> days):</p> <p>£<%=rental_fee%></p>
+    </div>
+    <div class="border-bottom price-split">
+      <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
+    </div>
+    <div class="border-bottom price-split">
+      <% service_fee = ((@product.price_per_day * days + @product.handover_fee) * 0.1).round(2) %>
+      <p>Service fee:</p> <p>£ <%= service_fee %></p>
+    </div>
+    <div class="price-split">
+      <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + @product.handover_fee + service_fee).round(2) %></strong></p>
+    </div>
   </div>
+  <!-- end request form -->
+
 </div>
 
 <script type="text/javascript">

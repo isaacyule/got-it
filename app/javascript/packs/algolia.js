@@ -171,22 +171,23 @@ var mapSearchHits = instantsearch.widgets.hits({
                   </div>
                 </div>
                 <div class="card-footer">
-                  <div class="container footer-container">
-                    <div class="row footer-row">
-                      <div class="col-xs-12">
-                        <span class="description">{{name}}</span>
-                      </div>
-                      <div class="col-xs-12 col-md-4">
-                        <span class="review-stars kill-padding">
-                          {{average_rating}}<i class="fa fa-star gold-star" aria-hidden="true"></i><i class="fa fa-star gold-star" aria-hidden="true"></i><i class="fa fa-star gold-star" aria-hidden="true"></i><span class='black'></span>
-                        </span>
-                      </div>
-                      <div class="col-xs-12 col-md-4">
-                        <span class="distance">.</span>
-                      </div>
+                  <div class="left">
+                    <div class="name">
+                      {{name}}
                     </div>
-                    <div class="price-per-day">
-                      <span class="price">£{{price_per_day}}/day</span>
+                    <div class="distance">
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="price-per-day price">
+                      £{{price_per_day}}<span>/day</span>
+                    </div>
+                    <div class="review-stars kill-padding">
+                        {{average_rating}}
+                        <i class="fa fa-star gold-star" aria-hidden="true"></i>
+                        <i class="fa fa-star gold-star" aria-hidden="true"></i>
+                        <i class="fa fa-star gold-star" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -289,7 +290,7 @@ getDistance = (product) => {
 }
 
 updateDistance = () => {
-var matches = document.querySelectorAll("span.distance");
+var matches = document.querySelectorAll(".distance");
 for (i=0; i<matches.length; i++){
 
     if (distanceInKm[i] === 0){

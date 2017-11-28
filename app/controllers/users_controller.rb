@@ -65,4 +65,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email, :profile_text, :profile_photo, :address, :phone, :latitude, :longitude)
   end
 
+  def set_user_rating
+
+  end
+
 end
