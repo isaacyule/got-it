@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :edit, :update]
-  resources :conversations do
-  resources :messages
- end
+  resources :conversations, only: [:index] do
+    resources :messages
+   end
 
   get '/acceptedrequests', to: 'users#accepted', as: 'user_ac-requests'
   get '/pendingrequests', to: 'users#pending', as: 'user_pe-requests'
