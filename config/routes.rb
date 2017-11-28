@@ -16,6 +16,10 @@ Rails.application.routes.draw do
    end
 
 
+ resources :orders, only: [:show, :create] do
+  resources :payments, only: [:new, :create]
+ end
+
   get '/acceptedrequests', to: 'users#accepted', as: 'user_ac-requests'
   get '/pendingrequests', to: 'users#pending', as: 'user_pe-requests'
   get '/declinedrequests', to: 'users#declined', as: 'user_de-requests'
