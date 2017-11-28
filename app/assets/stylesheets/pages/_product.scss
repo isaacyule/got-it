@@ -1,49 +1,22 @@
-// -------- Request Form --------
-.wrapper {
-  background-color: white;
-  min-height: 100vh;
-  height: 100%;
-  margin: auto;
-}
-
-#show-map{
-  background-color: $light-gray;
-  margin: 15px 15px;
-  border-radius: 2px;
-}
-
-div {
-  padding: 0;
-}
-
-.container {
-  padding: 0;
-}
-
-.kill-padding {
-  padding: 0
-}
-
-.fix-parent {
-  position: relative;
-}
-
-.fixed-side{
-  position:fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  padding: 15px 0;
-}
-
+// // -------- Request Form --------
 .request-form {
-    flex: 0 0 300px;
+    position: absolute;
     padding: 16px 30px !important;
     text-align: center;
     width: 350px;
-    margin: 10px;
-    background-color: white;
     border-radius: 2px;
+    border: 1px solid #e4e4e4;
+    position: sticky;
+    height: 470px;
+    z-index: 2;
+    padding: 15px 0;
+    right: 0;
+    top: 120px;
+    margin: 10px;
+}
+
+.description, .condition {
+  padding: 5px 0;
 }
 
 .price-per-day {
@@ -77,16 +50,10 @@ div {
 }
 
 // -------- Others --------
-.product-layout{
-  padding: 30px;
-}
 
-.product-content, .product-infos, .product-photos, .product-description {
-  flex: 1 0 auto;
-}
-
-.product-infos {
-  padding-left: 0;
+#show-map{
+  background-color: $light-gray;
+  border-radius: 2px;
 }
 
 .margin-bottom {
@@ -95,17 +62,13 @@ div {
 
 .owner_card {
   width: 100%;
-  margin: 25px 0;
+  margin: 0 0 25px 0;
   padding: 15px;
   border-radius: 2px;
 }
 
-.request-form, .owner_card {
-    border: 1px solid #e4e4e4;
-}
-
 .product-photos {
-  padding: 25px 0;
+  padding: 10px 0 20px 0;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -115,18 +78,8 @@ div {
     height: 300px;
     object-fit: contain;
     object-position: center;
-  }
-}
-
-.image-selector {
-  height: 100px;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid $light-gray;
-  p {
-    margin: auto;
-    line-height: 100px;
-    color: $gray;
+    background-color: #F1F1F1;
+    padding: 10px;
   }
 }
 
@@ -140,10 +93,12 @@ div {
 }
 
 .owner_card {
-  height: 100px;
   background-position: center;
   position: relative;
-  padding: 10px;
+  padding: 0 0 0 75px;
+  p {
+    margin: 0px;
+  }
 }
 
 .profile-text {
@@ -152,24 +107,20 @@ div {
 
 .owner_card_photo {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 40px;
+  left: 0px;
+  top: 0px;
+  width: 60px;
   border-radius: 50%;
 }
 
 .own-product {
   color: red;
-  margin: 10px;
+  margin: 5px 10px 0px 10px;
 }
 
 .review:first-child {
   border-top: 1px solid rgba(0,0,0,0.1);
   border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.buffer {
-  padding: 0 15px;
 }
 
 .price-split{
@@ -194,91 +145,14 @@ p {
   color: #484848;
 }
 
-// @media screen and (min-width: 768px) and (max-width: 1024px) {
-//   .product-layout{
-//     justify-content: space-around;
-//   }
+.container-show {
+  max-width: 1020px;
+  padding: 20px 0;
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+}
 
-//   .product-infos {
-//   }
-
-//   .product-content {
-//     flex: 1 0 auto;
-//   }
-
-//   .request-form {
-//     position: fixed;
-//     top: 100px;
-//   }
-
-//   .product-description {
-//     max-width: 400px;
-//     min-height: 300px;
-//   }
-
-//   .product-photos {
-//     max-width: 400px
-//   }
-
-//   .fixed-side {
-//     flex: 0 0 350px;
-//     text-align: center;
-//     padding: 10px;
-//   }
-
-//   .request-form {
-//     width: 300px;
-//   }
-
-//   .owner_links {
-//     position: fixed;
-//     top: 400px;
-//     width: 300px;
-//     text-align: center;
-//     line-height: 10px
-//   }
-// }
-
-// @media screen and (min-width: 1024px) {
-//   .product-layout{
-//     justify-content: space-around;
-//   }
-
-//   .request-form {
-//     position: fixed;
-//     top: 100px;
-//   }
-
-//   .product-infos {
-//     justify-content: space-between;
-//     align-items: center;
-//   }
-
-//   .product-content {
-//     flex: 1 0 auto;
-//   }
-
-//   .request-form {
-//     flex: 0 0 350px;
-//   }
-
-//   .product-description {
-//     max-width: 400px;
-//     min-height: 300px;
-//   }
-
-//   .fixed-side {
-//     flex: 0 0 400px;
-//     text-align: center;
-//     padding: 10px;
-//     justify-content: space-around;
-//   }
-
-//   .owner_links {
-//     // position: fixed;
-//     // top: 400px;
-//     // width: 300px;
-//     text-align: center;
-//     line-height: 10px
-//   }
-// }
+.product-info {
+  width: 70%;
+}

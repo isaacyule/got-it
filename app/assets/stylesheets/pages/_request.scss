@@ -3,3 +3,16 @@
   justify-content: space-around;
   align-items: center;
 }
+
+.product-photo {
+  padding: 10px;
+  border-bottom: 1px solid #e4e4e4;
+  img {
+    size: cover;
+    max-width: 100%;
+  }
+}
+
+.order-summary {
+  top: 80px !important;
+}
