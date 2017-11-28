@@ -30,10 +30,10 @@
     <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
   </div>
   <div class="border-bottom price-split">
-    <% service_fee = ((@product.price_per_day * days + @product.handover_fee) * 0.1).round(2) %>
+    <% service_fee = ((@product.price_per_day.to_i * days + @product.handover_fee) * 0.1).round(2) %>
     <p>Service fee:</p> <p>£ <%= service_fee %></p>
   </div>
   <div class="price-split">
-    <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + @product.handover_fee + service_fee).round(2) %></strong></p>
+    <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee.to_i + @product.handover_fee + service_fee).round(2) %></strong></p>
   </div>
 </div>
