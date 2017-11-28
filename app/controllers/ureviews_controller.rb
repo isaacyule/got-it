@@ -19,7 +19,7 @@ class UreviewsController < ApplicationController
     @ureview.content = params[:ureview][:content]
     authorize(@ureview)
     if @ureview.save
-      redirect_to user_path(current_user)
+      redirect_to user_path(@reviewee)
     else
       render :new
     end

@@ -59,14 +59,19 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    ratings = []
+    count = 0
+    @user.requests.each do |request|
+      ratings << request.ureview.rating if request.ureview.present?
+    end
+    ratings.each { |rating| count += rating }
+    @user.rating = ( count.to_f / ratings.count )
+    @user.save
+
   end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :profile_text, :profile_photo, :address, :phone, :latitude, :longitude)
-  end
-
-  def set_user_rating
-
   end
 
 end
