@@ -24,7 +24,7 @@ class RequestsController < ApplicationController
 
     if @request.save
       if Conversation.between(current_user, @request.product.user, @request).present?
-        @conversation = Conversation.between(current_user, @request.product.user, @request).first
+        @conversation = Conversation.between(current_user, @request.product.user, @request).last
       else
         @conversation = Conversation.create(sender: current_user, recipient: @request.product.user, request: @request)
       end
