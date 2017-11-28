@@ -1,360 +1,47 @@
+// var map = require("./map.js");
+
+import { buildSearchParams } from './search_on_address';
+
+var distanceInKilometers = require("./distance_calculator.js");
+var card = require("./card_constructor.js");
+var googleMap = require("./map.js");
+
+var cardContainer = document.getElementById('hits');
 let userLat;
 let userLng;
 let productLat;
 let productLng;
+
+let markers = [];
 let products = [];
 let distanceInKm = [];
-let counter = 0;
 let defaultSearchRadius = 5000;
-let searchPrecision = {};
+let searchResultsCount = 'There are currently no';
+
 var client = algoliasearch("3QRXVE4VDT", "0448f9b83bca12989799aaf181b86677");
 var index = client.initIndex('Product');
-
-const searchRadius = document.getElementById('searchDistance')
-searchRadius.addEventListener('keyup', throttle(function(){
-  if (searchRadius.value == 0){
-    defaultSearchRadius = 5000;
-  }else {
-    defaultSearchRadius = searchRadius.value*1000;
-  }
-// mapSearch.addWidget(searchBox);
-// mapSearch.addWidget(mapSearchHits);
-// mapSearch.addWidget(customMapWidget);
-// mapSearch.start();
-// console.log(defaultSearchRadius);
-}));
-
-
-const mapStyle = [
-    {
-        "featureType": "administrative",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#444444"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.business",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#b4d4e1"
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    }
-];
-
-setProductCount = () => {
-  var counter = document.getElementById('counter');
-  counter.innerHTML = `${products.length} Search results in your area...`;
-}
-
-//calculates distance in km between locations
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-  if (typeof lat2 == 'undefined'){
-    return "";
-  }
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1);
-  var a =
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ;
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var d = R * c; // Distance in km
-  var rounded = Math.round( d * 10 ) / 10;
-  return rounded;
-};
-
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
-}
-
-const mapSearch = instantsearch({
-  appId: '3QRXVE4VDT',
-  apiKey: '0448f9b83bca12989799aaf181b86677',
-  indexName: 'Product',
-  urlSync: true,
-  searchParameters:
-    {
-      aroundLatLngViaIP: true,
-      aroundRadius: defaultSearchRadius
-    }
-});
-
-
-
-var mapSearchHits = instantsearch.widgets.hits({
-  container: document.querySelector('#hits'),
-  hitsPerPage: 100,
-  templates: {item:
-         `
-          <div class="col-xs-12 col-sm-6">
-            <div class="card">
-              <a class='link-to-product' href='https://got-it-wagon.herokuapp.com/products/{{objectID}}}/'>
-                <div class='card-body'>
-                  <div class='photo' style='background-image: url({{photo}})'>
-                    <div class='card-avatar' style='background-image: url({{owner_photo}})'></div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="container footer-container">
-                    <div class="row footer-row">
-                      <div class="col-xs-12">
-                        <span class="description">{{name}}</span>
-                      </div>
-                      <div class="col-xs-12 col-md-4">
-                        <span class="review-stars kill-padding">
-                          {{average_rating}}<i class="fa fa-star gold-star" aria-hidden="true"></i><i class="fa fa-star gold-star" aria-hidden="true"></i><i class="fa fa-star gold-star" aria-hidden="true"></i><span class='black'></span>
-                        </span>
-                      </div>
-                      <div class="col-xs-12 col-md-4">
-                        <span class="distance">.</span>
-                      </div>
-                    </div>
-                    <div class="price-per-day">
-                      <span class="price">£{{price_per_day}}/day</span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>`
-  }
-});
-
-var searchBox = instantsearch.widgets.searchBox({
-  container: document.querySelector('#searchBox'),
-  // placeholder: 'Search for products...',
-  searchOnEnterKeyPressOnly: false,
-  wrapInput: false
-});
-
-var customMapWidget = {
-  markers: [],
-  _mapContainer: document.querySelector('#map'),
-  _hitToMarker: function(hit) {
-
-    products.push(hit);
-    return new google.maps.Marker({
-      position: {lat: hit._geoloc.lat, lng: hit._geoloc.lng},
-      map: this._map,
-      title: hit.name
-    });
-  },
-  _handlePlaceChange: function(place) {
-    // https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
-    var place = this._autocomplete.getPlace();
-
-    if (place.geometry === undefined) {
-      // user did not select any place, see https://developers.google.com/maps/documentation/javascript/reference#Autocomplete
-      // events paragraph
-      if (place.name === '') {
-        // input was cleared
-        this._helper
-          .setQueryParameter('aroundLatLng')
-          .search();
-      }
-      return;
-    }
-    // see https://developers.google.com/maps/documentation/javascript/reference#PlaceResult
-    var latlng = place.geometry.location.toUrlValue();
-    // https://www.algolia.com/doc/guides/geo-search/geo-search-overview/#filter-and-sort-around-a-location
-    this._helper
-      .setQueryParameter('aroundLatLng', latlng)
-      .search();
-  },
-  init: function(params) {
-    this._map = new google.maps.Map(this._mapContainer, {zoom: 1, center: new google.maps.LatLng(0, 0), styles: mapStyle});
-    this._map.setOptions({ maxZoom: 15 });
-  },
-  render: function(params) {
-    // Clear Markers
-    this.markers.forEach(function (marker) {
-      marker.setMap(null)
-    });
-    // Transform hits to Google Maps markers
-    this.markers = params.results.hits.map(this._hitToMarker.bind(this));
-
-    var bounds = new google.maps.LatLngBounds();
-
-    // Make sure we display the good part of the maps
-    this.markers.forEach(function(marker) {
-      bounds.extend(marker.getPosition());
-    });
-
-    this._map.fitBounds(bounds, 20);
-  }
-};
-
-mapSearch.addWidget(searchBox);
-mapSearch.addWidget(mapSearchHits);
-mapSearch.addWidget(customMapWidget);
-mapSearch.start();
-
-// get user position via ip
-navigator.geolocation.getCurrentPosition(function(position) {
-  userLat = position.coords.latitude;
-  userLng = position.coords.longitude;
-  listDistancesOfProducts();
-  updateDistance();
-  setProductCount();
-});
-
-// get products distance and push to list of distances
-listDistancesOfProducts = () => {
-  products.forEach(function(product) {
-    distanceInKm.push(getDistance(product));
-  });
-  updateDistance();
-};
-
-getDistance = (product) => {
-  productLat = product._geoloc.lat;
-  productLng = product._geoloc.lng;
-  return (getDistanceFromLatLonInKm(userLat, userLng, productLat, productLng));
-}
-
-updateDistance = () => {
-var matches = document.querySelectorAll("span.distance");
-for (i=0; i<matches.length; i++){
-
-    if (distanceInKm[i] === 0){
-      matches[i].innerHTML = "";
-    } else {
-      matches[i].innerHTML = `${distanceInKm[i]}km away`;
-    }
-  }
-}
-
-//reset lists
-resetVars = () => {
-  products = [];
-  distanceInKm = [];
-}
-
-// -----------------------------------------------------------------------------
-// --- search box style script ---
-
+var searchBoxElement = document.getElementById('searchBoxElement');
 var addressSearch = document.getElementById('addressSearch')
-var geocoder = new google.maps.Geocoder();
-var address;
 
-AddressOverSearch = document.getElementById('address-over-search');
-AddressOverSearch.addEventListener('click', function(){
-  this.remove();
-  focusMethodAddress();
-});
-
-DistanceOverSearch = document.getElementById('distance-over-search');
-DistanceOverSearch.addEventListener('click', function(){
-  this.remove();
-  focusMethodDistance();
-});
-
-focusMethodAddress = function getFocus() {
-  addressSearch.focus();
+// gets search params from URL
+function getParams(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-focusMethodDistance = function getFocus() {
-  searchDistance.focus();
+var setProductCount = () => {
+  var counter = document.getElementById('counter');
+  counter.innerHTML = `${searchResultsCount} search results in your area...`;
 }
-
-// this is the geocoding for the search from address function
-addressSearch.addEventListener('keyup', throttle(function() {
-  getGeocodeLatLng();
-}));
-
-getGeocodeLatLng = () => {
-  searchPrecision = [];
-  address = addressSearch.value;
-  geocoder.geocode( { 'address': address}, function(results, status) {
-  if (status == google.maps.GeocoderStatus.OK) {
-      var latitude = results[0].geometry.location.lat();
-      var longitude = results[0].geometry.location.lng();
-      searchPrecision = {lat: latitude, lng: longitude};
-
-    }
-  });
-};
 
 // this slows down functions so that they catch up and don't call on keyups too quickly.
 function throttle(f, delay){
     var timer = null;
-
     return function(){
         var context = this, args = arguments;
         clearTimeout(timer);
@@ -365,23 +52,137 @@ function throttle(f, delay){
     };
 }
 
+var performSearch = (options, params) => {
+  cardContainer.innerHTML = '';
+  if (!options) options = {};
+  if (!params) params = searchBoxElement.value;
+  options['query'] = params;
 
-// sets default value for search box
-var searchBoxElement = document.querySelector('#searchBox > input');
-searchBoxElement.value = '';
-index.search({query: searchBoxElement.value}, function searchDone(err, content) {
-  console.log(content);
-});
-
-searchBoxElement.addEventListener('keyup', function() {
-  if (products.length === 0){
-
-  } else {
-
-    listDistancesOfProducts();
-    updateDistance();
+  index.search(options, function searchDone(err, content) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // set counter at top of page to the total number of search results
+    searchResultsCount = content.hits.length;
     setProductCount();
-    resetVars();
-  }
+    content.hits.forEach(function(hit) {
+      // for each result create a card
+      cardContainer.insertAdjacentHTML('afterbegin', card.constructCard(hit));
+      // push result to the array of product results
+      products.push(hit);
+    })
+    products.forEach(function(product){
+      var marker = new google.maps.Marker({
+        position: product._geoloc,
+        map: map
+      });
+    })
+  })
+};
+
+searchBoxElement.addEventListener('keyup', throttle(function() {
+  buildSearchParams(performSearch);
+}, 500));
+
+//----------------------------------------END ALGOLIA---------------------------
+
+addressSearch.addEventListener('keyup', throttle(function() {
+  buildSearchParams(performSearch);
+}));
+
+// get user position via ip
+navigator.geolocation.getCurrentPosition(function(position) {
+  userLat = position.coords.latitude;
+  userLng = position.coords.longitude;
+  var userPos = {lat: userLat,  lng: userLng};
+  listDistancesOfProducts();
+  updateDistance();
+  setProductCount();
+  resetVars();
+  map.setCenter(userPos);
 });
 
+// get products distance and push to list of distances
+var listDistancesOfProducts = () => {
+  products.forEach(function(product) {
+    distanceInKm.push(getDistance(product));
+  });
+  // updateDistance();
+};
+
+var getDistance = (product) => {
+  productLat = product._geoloc.lat;
+  productLng = product._geoloc.lng;
+  return (distanceInKilometers.distanceCalculator(userLat, userLng, productLat, productLng));
+}
+
+var updateDistance = () => {
+  var matches = document.querySelectorAll("span.distance");
+  for (var i=0; i<matches.length; i++){
+    if (distanceInKm[i] === 0){
+      matches[i].innerHTML = "";
+    } else {
+      matches[i].innerHTML = `${distanceInKm[i]}km away`;
+    }
+  }
+}
+
+//reset lists
+var resetVars = () => {
+  products = [];
+  distanceInKm = [];
+}
+
+
+// --- search box style script ---
+var geocoder = new google.maps.Geocoder();
+var address;
+
+var AddressOverSearch = document.getElementById('address-over-search');
+AddressOverSearch.addEventListener('click', function(){
+  this.remove();
+  focusMethodAddress();
+});
+
+var DistanceOverSearch = document.getElementById('distance-over-search');
+DistanceOverSearch.addEventListener('click', function(){
+  this.remove();
+  focusMethodDistance();
+});
+
+var focusMethodAddress = function getFocus() {
+  addressSearch.focus();
+}
+
+var focusMethodDistance = function getFocus() {
+  searchDistance.focus();
+}
+
+
+
+// maps - maps - maps - maps - maps - maps - maps - maps - maps - maps - maps - \\
+var mapStyle = require("./map_styles.js");
+var map;
+
+function initMap(lat, lng) {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: lat, lng: lng},
+    styles: mapStyle.styleMap(),
+    zoom: 12
+  });
+}
+
+// define search radius from specified or user location
+const searchRadius = document.getElementById('searchDistance')
+searchRadius.addEventListener('keyup', throttle(function(){
+  if (searchRadius.value == 0){
+    defaultSearchRadius = 5000;
+  } else {
+    defaultSearchRadius = searchRadius.value*1000;
+  }
+  buildSearchParams(performSearch);
+}));
+
+initMap(51.5074, 0.1278);
+performSearch({}, getParams('search'));
