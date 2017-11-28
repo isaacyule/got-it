@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :products do
-    resources :requests, only: [:new, :create, :update, :index]
+    resources :requests, only: [:new, :create, :update, :index] do
+      resources :ureviews, only: [:new, :create]
+    end
     resources :reviews, only: [:new, :create]
   end
 
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
   resources :conversations, only: [:index] do
     resources :messages
    end
+
 
   get '/acceptedrequests', to: 'users#accepted', as: 'user_ac-requests'
   get '/pendingrequests', to: 'users#pending', as: 'user_pe-requests'
