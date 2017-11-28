@@ -1,0 +1,15 @@
+<%= simple_form_for([product, request, ureview]) do |f| %>
+  <% if ureview.errors.any? %>
+      <div class="errors-container">
+        <ul>
+          <% ureview.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <%= f.input :content, required: true %>
+  <%= f.input :rating, collection: 1..5, required: true %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>

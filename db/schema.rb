@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128160721) do
+
+ActiveRecord::Schema.define(version: 20171128140808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,12 +71,12 @@ ActiveRecord::Schema.define(version: 20171128160721) do
   create_table "requests", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "product_id"
-    t.string "start_date"
-    t.string "end_date"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "Pending"
+    t.date "start_date"
+    t.date "end_date"
     t.index ["product_id"], name: "index_requests_on_product_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -90,6 +91,17 @@ ActiveRecord::Schema.define(version: 20171128160721) do
     t.string "photo"
     t.index ["request_id"], name: "index_reviews_on_request_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "ureviews", force: :cascade do |t|
+    t.text "content"
+    t.integer "rating"
+    t.bigint "user_id"
+    t.bigint "request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_ureviews_on_request_id"
+    t.index ["user_id"], name: "index_ureviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -131,4 +143,6 @@ ActiveRecord::Schema.define(version: 20171128160721) do
   add_foreign_key "requests", "users"
   add_foreign_key "reviews", "requests"
   add_foreign_key "reviews", "users"
+  add_foreign_key "ureviews", "requests"
+  add_foreign_key "ureviews", "users"
 end
