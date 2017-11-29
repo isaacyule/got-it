@@ -1,18 +1,4 @@
 <div class="container-payment">
-  <h1>Purchase of product <%= @order.product_sku %></h1>
-  <%= form_tag order_payments_path(@order) do %>
-    <div class="payment-btn">
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-      data-name="My Product"
-      data-email="<%= current_user.email %>"
-      data-description="Product <%= @order.product_sku %>"
-      data-amount="<%= @order.amount_pennies %>"
-      data-currency="<%= @order.amount.currency %>"></script>
-  <% end %>
-
-
-</div>
 <div class="table">
 <div class="order-summary">
   <div class="product-info">
@@ -54,6 +40,19 @@
     <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + @product.handover_fee + service_fee).round(2) %></strong></p>
   </div>
 </div>
+</div>
+
+  <div class="payment-btn">
+  <%= form_tag order_payments_path(@order) do %>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-name="My Product"
+      data-email="<%= current_user.email %>"
+      data-description="Product <%= @order.product_sku %>"
+      data-amount="<%= @order.amount_pennies %>"
+      data-currency="<%= @order.amount.currency %>"></script>
+  <% end %>
+
 </div>
 </div>
 
