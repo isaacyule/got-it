@@ -48,6 +48,7 @@
         conversation_id: <%= @conversation.id %> },
       {
         received: (data) => {
+          //I doubt it's necessary
           if (data.current_user_id !== <%= current_user.id %>) {
             messagesContainer = document.querySelector('#real-messages-container');
             messagesContainer.insertAdjacentHTML('beforeend', data.message_partial);

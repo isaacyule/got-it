@@ -30,6 +30,10 @@ class RequestsController < ApplicationController
       end
       @conversation.messages.create(body: @request.description, user: current_user, read: false)
 
+      # ActivityNotification::Notification.notify :users, @request, key: "request.description"
+      @request.notify :users, key: "request.description"
+
+
       redirect_to product_path(@product)
     else
       render :new
@@ -45,7 +49,7 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @request.update(status: params[:status])
     authorize(@request)
-    redirect_to user_path
+    redirect_to user_path(current_user)
   end
 
   private
