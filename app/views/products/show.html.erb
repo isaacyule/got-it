@@ -165,6 +165,7 @@
         },
         opens: "left",
         minDate: new Date(),
+        autoApply: true,
         isInvalidDate: function(date) {
           let unavailable_dates = []
           <% @unavailable_dates.each do |unavailable_date| %>
