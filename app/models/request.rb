@@ -11,12 +11,11 @@
   #   message: "already requested" }
 
   acts_as_notifiable :users, targets: -> (request, key) {
-    [request.product.user]
-  }, notifiable_path: :request_notifiable_path
-
+    [request.product.user, request.user]
+  }, notifiable_path: :request_notifiable_path,
+    tracked: { only: [:update] }
 
   def request_notifiable_path
-    # raise
     conversation_messages_path(self.conversation)
   end
 end
