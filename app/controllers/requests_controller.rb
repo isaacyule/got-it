@@ -32,7 +32,7 @@ class RequestsController < ApplicationController
       message.save
 
       # ActivityNotification::Notification.notify :users, @request, key: "request.description"
-      @request.notify :users, key: "request.description"
+      @request.notify :users, target_id: @request.product.user.id, key: "request.description"
 
 
       redirect_to product_path(@product)
