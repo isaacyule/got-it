@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
   before_action :set_requests, only: [:show, :pending, :declined, :accepted]
 
-
   def show
   end
 
@@ -67,7 +66,7 @@ class UsersController < ApplicationController
     ratings.each { |rating| count += rating }
     @user.rating = ( count.to_f / ratings.count )
     @user.save
-
+    @notifications = current_user.notifications
   end
 
   def user_params

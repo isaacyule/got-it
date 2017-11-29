@@ -4,7 +4,12 @@ class Message < ApplicationRecord
 
   after_create :broadcast_message
 
+  acts_as_notifiable :users, targets: -> (message, key) {
+    [message.conversation.recipient, message.conversation.sender] - [message.user]
+  }, notifiable_path: :message_notifiable_path
+
  validates_presence_of :body, :conversation_id, :user_id
+
  def message_time
   created_at.strftime("%m/%d/%y at %l:%M %p")
  end
@@ -19,6 +24,10 @@ class Message < ApplicationRecord
       ),
       current_user_id: user.id
     })
+ end
+
+ def message_notifiable_path
+   conversation_messages_path(self.conversation)
  end
 end
 

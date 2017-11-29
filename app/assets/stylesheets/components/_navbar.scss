@@ -80,3 +80,22 @@
   border-left: 1px solid #E6E6E6;
   border-top: 1px solid #E6E6E6;
 }
+
+.notifications-badge {
+  width: 25px;
+  height: 25px;
+  background-color: red;
+  position: absolute;
+  border-radius: 50%;
+  right: 40px;
+  top: 10px;
+  z-index: 1;
+}
+
+.notifications-badge-text {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  right: 8px;
+
+}
