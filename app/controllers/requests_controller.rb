@@ -33,7 +33,7 @@ class RequestsController < ApplicationController
       # redirect_to  new_order_payment_path(@product.order.id)
       order  = Order.create!(amount: params[:total_price].to_f, state: 'pending', user: current_user, product: @request.product)
       authorize(order)
-      redirect_to new_order_payment_path(order)
+      redirect_to new_order_payment_path(order, request: @request, product: @request.product)
     else
       render :new
     end

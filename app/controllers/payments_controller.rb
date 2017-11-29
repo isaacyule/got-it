@@ -3,6 +3,8 @@ class PaymentsController < ApplicationController
 
   def new
     authorize(@order)
+    @request = Request.find(params[:request])
+    @product = Product.find(params[:product])
   end
 
   def create
