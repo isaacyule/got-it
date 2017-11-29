@@ -179,6 +179,8 @@ var focusMethodDistance = function getFocus() {
   searchDistance.focus();
 }
 
+new google.maps.places.Autocomplete(addressSearch);
+
 const searchRadius = document.getElementById('searchDistance')
   searchRadius.addEventListener('keyup', throttle(function(){
     buildSearchParams(performSearch);

@@ -5,8 +5,8 @@ export const newMap = (lat, lng) =>{
     center: {lat: lat, lng: lng},
     styles: mapStyle.styleMap(),
     zoom: 13,
-    maxZoom: 15,
-    minZoom: 10
+    maxZoom: 15
+    // minZoom: 10
   });
   return map;
 }
@@ -32,10 +32,8 @@ const myMap = {
     }
   },
   fitToBounds: function(markers, map){
-    console.log('executing fitToBounds');
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < markers.length; i++) {
-      console.log('hello', markers[i].getPosition());
       bounds.extend(markers[i].getPosition());
     }
   map.fitBounds(bounds);
