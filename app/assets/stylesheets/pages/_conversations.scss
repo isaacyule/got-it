@@ -33,8 +33,17 @@
   display: flex;
   align-items: center;
   padding: 20px;
+  position: relative;
   border-bottom: 1px solid rgba(220,224,244,0.4);
+  h3 {
+    margin: 0px;
+  }
 }
+
+.message:hover {
+  background-color: rgb(248, 248, 248);
+}
+
 .message:last-child {
   border-bottom: none;
 }
@@ -43,7 +52,7 @@
 }
 .message-name {
   padding-left: 10px;
-  min-width: 100px;
+  min-width: 150px;
 }
 .message-name h3 {
   font-size: 13px;
@@ -77,6 +86,7 @@
 .message-status {
   font-size: 14px;
   font-weight: bold;
+  min-width: 70px;
 }
 .status.accepted {
   color: #04A366;
@@ -91,4 +101,24 @@
 .avatar-large {
   width: 50px;
   border-radius: 50%;
+}
+
+.status-accepted {
+  color: $green;
+}
+
+.status-declined {
+  color: red;
+}
+
+.status-pending {
+  color: lightgrey;
+}
+
+#link_to_message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
