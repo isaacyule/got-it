@@ -7,10 +7,15 @@
       <% elsif @conversation.request.status == "Accepted"%>
         <p>You accepted this request</p>
       <% else %>
-        <div class="request-confirm-messages">
-          <%= link_to "Accept", product_request_path(@conversation.request.product, @conversation.request, status: "Accepted") , class: "request-button accept", method: :patch  %>
-          <%= link_to "Decline", product_request_path(@conversation.request.product, @conversation.request, status: "Declined"), method: :patch, class: "request-button decline" %>
+        <div class="pending-request">
+          <p> <strong><%= @conversation.request.user.first_name%> requests your product.</strong></p>
+          <p>Let him know if he can borrow it.</p>
+          <div class="accept-decline-button">
+            <%= link_to "Accept", product_request_path(@conversation.request.product, @conversation.request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+            <%= link_to "Decline", product_request_path(@conversation.request.product, @conversation.request, status: "Declined"), method: :patch, class: "request-button decline" %>
+          </div>
         </div>
+
       <% end %>
     <% end %>
     <div id="real-messages-container">
