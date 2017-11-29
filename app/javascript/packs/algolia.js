@@ -56,6 +56,7 @@ function throttle(f, delay){
 
 var performSearch = (options, params) => {
   //remove markers from map -----???
+  var cardToMarker = {}
   myMap.deleteMarkers(markers)
   markers = [];
   // -------------------------------
@@ -77,7 +78,7 @@ var performSearch = (options, params) => {
     setProductCount();
     content.hits.forEach(function(hit) {
       // create a marker and push to markers array
-      markers.push(myMap.newMarker(hit._geoloc, map, hit.name));
+      markers.push(myMap.newMarker(hit._geoloc, map, hit.name, hit.objectID));
 
       // for each result create a card
       cardContainer.insertAdjacentHTML('afterbegin', card.constructCard(hit));
@@ -100,6 +101,21 @@ var performSearch = (options, params) => {
         myMap.setCenter(userPos, map);
       }
     }
+    for (var i=0; i<markers.length; i++) {
+      var marker = markers[i];
+      var id = markers[i].js_id.split('_');
+      var cardId = 'card_' + id[1];
+      console.log(marker);
+      console.log(cardId);
+      cardToMarker[cardId] = marker;
+      var cardHover = document.getElementById(cardId);
+      cardHover.addEventListener('mouseover', function(){
+        cardToMarker[this.id].setIcon('https://www.google.com/mapfiles/marker_green.png');
+      })
+      cardHover.addEventListener('mouseout', function() {
+          cardToMarker[this.id].setIcon();
+      });
+    };
   })
 };
 
@@ -123,7 +139,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
   listDistancesOfProducts();
   setProductCount();
   resetVars();
-  myMap.setCenter(userPos, map);
+  // myMap.setCenter(userPos, map);
 });
 
 // get products distance and push to list of distances
@@ -189,5 +205,12 @@ const searchRadius = document.getElementById('searchDistance')
   searchRadius.addEventListener('keyup', throttle(function(){
     buildSearchParams(performSearch);
   }));
+
+
+
+
+
+
+
 
 performSearch({aroundLatLngViaIP: true, aroundRadius: 5000}, getParams('search'))

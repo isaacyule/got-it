@@ -18,11 +18,12 @@ const myMap = {
   setZoom: function(zoom, map) {
     map.setZoom(zoom);
   },
-  newMarker: function(latLng, map, title){
+  newMarker: function(latLng, map, title, objectID){
     var marker = new google.maps.Marker({
       position: latLng,
       map: map,
-      title: title
+      title: title,
+      js_id: 'marker_' + objectID
     });
     return marker;
   },
