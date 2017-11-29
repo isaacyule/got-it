@@ -16,9 +16,11 @@ Rails.application.routes.draw do
    end
 
 
- resources :orders, only: [:show, :create] do
-  resources :payments, only: [:new, :create]
- end
+  resources :orders, only: [:show, :create] do
+    resources :payments, only: [:new, :create]
+  end
+
+  notify_to :users
 
   get '/acceptedrequests', to: 'users#accepted', as: 'user_ac-requests'
   get '/pendingrequests', to: 'users#pending', as: 'user_pe-requests'
