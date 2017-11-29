@@ -6,7 +6,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'pg'
 gem 'puma'
 gem 'rails', '5.1.4'
-gem 'redis'
+gem 'redis', '3.3'
 gem 'faker', :git => 'git://github.com/stympy/faker.git', :branch => 'master'
 
 # Datepicker and Calendar
