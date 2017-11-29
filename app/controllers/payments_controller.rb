@@ -20,7 +20,8 @@ class PaymentsController < ApplicationController
 
     @order.update(payment: charge.to_json, state: 'paid')
     authorize(@order)
-    redirect_to order_path(@order)
+    @product = Product.find(Order.find(params["order_id"].to_i)["product_id"])
+    redirect_to product_path(@product)
 
   rescue Stripe::CardError => e
     flash[:alert] = e.message
