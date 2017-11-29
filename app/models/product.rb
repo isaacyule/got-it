@@ -22,7 +22,7 @@ class Product < ApplicationRecord
 
   # --- Algolia Search ---
   algoliasearch do
-    attribute :name, :description, :price_per_day_pennies, :deposit, :address, :handover_fee, :user_id, :average_rating
+    attribute :name, :description, :price_per_day_pennies, :deposit, :address, :handover_fee, :user_id, :rating
     attribute :photo do
       self.algolia_photo
     end

@@ -83,7 +83,7 @@
   line-height: 24px;
 }
 
-.distance {
+.distance, .rating {
   font-size: 14px;
   color: #888;
   font-weight: lighter;
@@ -173,4 +173,14 @@ a.link-to-product {
 
 .black {
   color: $charcoal;
+}
+
+.no-results{
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  margin-top: 100px;
+  padding: 50px 0px;
+  opacity: 1;
+  font-weight: lighter;
 }

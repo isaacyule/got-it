@@ -2,7 +2,7 @@ module.exports = {
   distanceCalculator: function(lat1,lon1,lat2,lon2) {
     //calculates distance in km between locations
     function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-      console.log(lat1,lon1, lat2, lon2);
+      // console.log(lat1,lon1, lat2, lon2);
       if (lat2 === 0 || lon2 === 0 || lat1 === 0 || lon1 === 0){
         return "";
       }
@@ -23,7 +23,7 @@ module.exports = {
     function deg2rad(deg) {
       return deg * (Math.PI/180)
     }
-  console.log('distance = ', getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2));
+  // console.log('distance = ', getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2));
   return getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
   }
 }
