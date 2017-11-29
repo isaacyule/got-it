@@ -14,10 +14,9 @@
       <%= link_to "Lend", new_product_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%= link_to "Borrow", products_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%= link_to "Messages", conversations_path, class: "navbar-got-it-item navbar-got-it-link" %>
-      <%= link_to "Notifications", user_notifications_path(current_user), class: "navbar-got-it-item navbar-got-it-link" %>
       <%  unless current_user.notifications.unopened_only.count == 0  %>
         <div class="notifications-badge">
-          <p><%= current_user.notifications.unopened_only.count %></p>
+          <p class="notifications-badge-text"><%= current_user.notifications.unopened_only.count %></p>
         </div>
       <% end %>
       <!-- Avatar with dropdown menu -->
@@ -29,6 +28,11 @@
             <li>
               <%= link_to user_path(current_user) do %>
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to user_notifications_path(current_user) do %>
+                <i class="fa fa-user"></i> <%= t(".notifications", default: "Notifications") %>
               <% end %>
             </li>
             <li>
