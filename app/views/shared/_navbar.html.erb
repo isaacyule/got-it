@@ -15,11 +15,7 @@
       <%= link_to "Lend stuff", new_product_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%= link_to "Borrow stuff", products_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%= link_to "Messages", conversations_path, class: "navbar-got-it-item navbar-got-it-link" %>
-      <% notifications = current_user.notifications.unopened_only.to_a %>
-      <% notifications.keep_if { |n| n[:notifiable_type] == "Message"} %>
-
-
-      <%  unless notifications.count == 0  %>
+      <%  unless current_user.notifications.unopened_only.count == 0  %>
         <div class="notifications-badge">
           <p class="notifications-badge-text"><%= current_user.notifications.unopened_only.count %></p>
         </div>
