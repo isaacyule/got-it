@@ -30,6 +30,7 @@ class RequestsController < ApplicationController
       end
       message = Message.new(body: @request.description, user: current_user, read: false, conversation: @conversation)
       message.save
+      testvar = 'test'
 
       # ActivityNotification::Notification.notify :users, @request, key: "request.description"
       @request.notify :users, key: "request.description"
