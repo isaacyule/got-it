@@ -2,6 +2,15 @@ var buildSearchParams = (callback) => {
   var value = {};
   var defaultSearchRadius = 5000;
   var searchParams = { aroundLatLngViaIP: true, aroundRadius: defaultSearchRadius };
+
+  // define search radius from specified or user location
+  const searchRadius = document.getElementById('searchDistance')
+  if (searchRadius.value > 0){
+    searchParams['aroundRadius'] = (searchRadius.value * 1000);
+  }
+
+
+
   if (addressSearch.value.length === 0){
     if ('aroundLatLng' in searchParams) {
       delete searchCenter['aroundLatLng']
@@ -25,7 +34,7 @@ var buildSearchParams = (callback) => {
         searchPrecision[0] = latitude;
         searchPrecision[1] = longitude;
       } else {
-        alert('Couldn\'t find anything matching that address. Please refine your search.')
+        return;
       }
       searchParams['aroundLatLng'] = searchPrecision.join(', ')
       callback(searchParams);
