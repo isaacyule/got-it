@@ -28,6 +28,7 @@ gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
 gem 'money-rails'
 gem 'stripe'
+gem 'activity_notification'
 
 gem 'geocoder'
 gem 'coffee-rails'
