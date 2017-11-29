@@ -29,6 +29,7 @@ class RequestsController < ApplicationController
         @conversation = Conversation.create(sender: current_user, recipient: @request.product.user, request: @request)
       end
       Message.create!(body: @request.description, user: current_user, read: false, conversation: @conversation)
+      # test
 
       # ActivityNotification::Notification.notify :users, @request, key: "request.description"
       @request.notify :users, key: "request.description"
