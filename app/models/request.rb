@@ -8,6 +8,6 @@
 
   validates :user_id, :product_id, :start_date, :end_date, presence: true
 
-  validates_uniqueness_of :product_id, { scope: :user,
-    message: "already requested" }
+  # validates_uniqueness_of :product_id, { scope: :user,
+  #   message: "already requested" }
 end

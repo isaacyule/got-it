@@ -1,0 +1,13 @@
+<% if current_user == @conversation.request.product.user %>
+  <div class="borrower-card">
+      <p>Info about potential borrower:</p>
+      <p><%= @conversation.request.user.first_name%> <%=@conversation.request.user.last_name%></p>
+      <p> Rating: <%= @conversation.request.user.rating %></p>
+          <!-- ToDo: Add rating counter -->
+      <p> <%= @conversation.request.user.profile_text %></p>
+      <div>
+        <% avatar = @conversation.request.user.profile_photo? ? @conversation.request.user.profile_photo : asset_path('default_avatar.png') %>
+        <%= image_tag avatar, class: 'avatar-profile' %>
+      </div>
+  </div>
+<% end %>

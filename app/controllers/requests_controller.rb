@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
 
     @dates = []
     @product.requests.where(status: 'Accepted').each do |request|
-      (Date.parse(request.start_date[0, 10])..Date.parse(request.end_date[0, 10])).each do |d|
+      (request.start_date..request.end_date).each do |d|
         @dates << d
       end
     end
