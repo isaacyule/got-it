@@ -1,25 +1,63 @@
-<h1>Purchase of product <%= @order.product_sku %></h1>
-<%= form_tag order_payments_path(@order) do %>
-  <article>
-    <label class="amount">
-      <span>Amount: <%= humanized_money_with_symbol(@order.amount) %></span>
-    </label>
-  </article>
+<div class="container-payment">
+  <h1>Purchase of product <%= @order.product_sku %></h1>
+  <%= form_tag order_payments_path(@order) do %>
+    <div class="payment-btn">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-name="My Product"
+      data-email="<%= current_user.email %>"
+      data-description="Product <%= @order.product_sku %>"
+      data-amount="<%= @order.amount_pennies %>"
+      data-currency="<%= @order.amount.currency %>"></script>
+  <% end %>
 
-  <h1>Order</h1>
-  <ul>
-    <li>Status: <%= @order.state %></li>
-    <li>Amount: <%= humanized_money_with_symbol(@order.amount) %></li>
-  <ul>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-    data-name="My Product"
-    data-email="<%= current_user.email %>"
-    data-description="Product <%= @order.product_sku %>"
-    data-amount="<%= @order.amount_pennies %>"
-    data-currency="<%= @order.amount.currency %>"></script>
-<% end %>
+</div>
+<div class="table">
+<div class="order-summary">
+  <div class="product-info">
+    <!-- <div class="left"> -->
+    <h4><%= @product.name %></h4>
+    <!-- </div> -->
+    <div class="product-photo">
+      <% if @product.photo? %>
+        <%= cl_image_tag @product.photo %>
+      <% else %>
+        <img src=<%= asset_path"no_image.png" %>>
+      <% end %>
+    </div>
+  </div>
+
+<% days = (@request.end_date - @request.start_date + 1 ).to_i%>
+<% rental_fee = ((@product.price_per_day_pennies.to_i / 100) * days).round(2) %>
+<% service_fee = (((@product.price_per_day_pennies.to_i / 100) * days + @product.handover_fee) * 0.1).round(2) %>
+
+  <div class="dates fa fa-calendar">
+    <p><%= @request.start_date %> - <%= @request.end_date %></p>
+  </div>
+
+  <div class="price-per-day">
+    <h3> <strong>£<span id="price_per_day"><%= (@product.price_per_day_pennies.to_i / 100) %></span></strong><span class="inline"> (per day)</span></h3>
+  </div>
+
+  <!-- Cost-Split -->
+  <div class="border-bottom price-split">
+    <p>Rental fee (<span><%= days %></span> days):</p> <p>£<%=rental_fee%></p>
+  </div>
+  <div class="border-bottom price-split">
+    <p>Handover fee:</p> <p>£<span id="handover_fee"><%= @product.handover_fee.round(2)%></span></p>
+  </div>
+  <div class="border-bottom price-split">
+    <p>Service fee:</p> <p>£ <%= service_fee %></p>
+  </div>
+  <div class="price-split">
+    <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + @product.handover_fee + service_fee).round(2) %></strong></p>
+  </div>
+</div>
+</div>
+</div>
+
+
 
 
 

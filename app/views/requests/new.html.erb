@@ -1,3 +1,9 @@
+<% days = (@request.end_date - @request.start_date + 1 ).to_i%>
+<% rental_fee = ((@product.price_per_day_pennies.to_i / 100) * days).round(2) %>
+<% service_fee = (((@product.price_per_day_pennies.to_i / 100) * days + @product.handover_fee) * 0.1).round(2) %>
+
+
+
 <div class="container-new">
 
   <!-- Request Messages -->
@@ -6,12 +12,12 @@
     <div class="row">
       <h3>Request <%= @product.name %> from <%= @product.user.first_name %></h3>
       <p>Introduce yourself, tell <%= @product.user.first_name %> what you want the product for, and how the handover could be arranged.</p>
-      <%= render 'form' %>
+      <%= render 'form', rental_fee: rental_fee, service_fee: service_fee %>
     </div>
 
   </div>
 
-  <%= render 'request_summary' %>
+  <%= render 'request_summary', rental_fee: rental_fee, days: days, service_fee: service_fee %>
 
 </div>
 

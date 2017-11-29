@@ -133,11 +133,6 @@
 
   </div>
   <!-- end request form -->
-  <%= form_tag orders_path do %>
-    <%= hidden_field_tag 'product_id', @product.id %>
-    <input type="hidden" name="total_price" id="total_price" value=''>
-    <%= submit_tag 'Purchase', class: 'btn btn-primary' %>
-  <% end %>
 
 
 </div>
