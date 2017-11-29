@@ -83,7 +83,11 @@ var performSearch = (options, params) => {
       cardContainer.insertAdjacentHTML('afterbegin', card.constructCard(hit));
       // push result to the array of product results
       products.push(hit);
-    })
+    });
+    if (content.hits.length === 0){
+      cardContainer.innerHTML = `
+      <div class="no-results"><h3>We couldn't find any matching products within your search. Maybe you have found a niche ;)</h3></div>`
+    }
     if (markers.length > 0){
       myMap.fitToBounds(markers, map);
     } else {
