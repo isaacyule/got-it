@@ -13,7 +13,7 @@ class RequestsController < ApplicationController
       (request.start_date..request.end_date).each do |d|
         @dates << d
       end
-    endisaacyule
+    end
   end
 
   def create
