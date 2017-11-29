@@ -34,7 +34,7 @@
             </li>
             <li>
               <%= link_to user_notifications_path(current_user) do %>
-                <i class="fa fa-user"></i> <%= t(".notifications", default: "Notifications") %>
+                <i class="fa fa-user"></i> <%= t(".notifications", default: "Notifications (#{current_user.notifications.unopened_only.count})") %>
               <% end %>
             </li>
             <li>
