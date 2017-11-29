@@ -80,7 +80,7 @@
   <div class="request-form">
 
     <div class="price-per-day">
-      <h3> <strong>£<span id="price_per_day"><%= @product.price_per_day %></span></strong><span class="inline"> (per day)</span></h3>
+      <h3> <strong>£<span id="price_per_day"><%= (@product.price_per_day_pennies.to_i / 100) %></span></strong><span class="inline"> (per day)</span></h3>
     </div>
 
     <div class="stars border-bottom">

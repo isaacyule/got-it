@@ -1,5 +1,18 @@
 <div class="container-messages">
   <div class="messages">
+
+    <% if current_user == @conversation.request.product.user%>
+      <% if  @conversation.request.status == "Declined"%>
+        <p>You declined this request</p>
+      <% elsif @conversation.request.status == "Accepted"%>
+        <p>You accepted this request</p>
+      <% else %>
+        <div class="request-confirm-messages">
+          <%= link_to "Accept", product_request_path(@conversation.request.product, @conversation.request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+          <%= link_to "Decline", product_request_path(@conversation.request.product, @conversation.request, status: "Declined"), method: :patch, class: "request-button decline" %>
+        </div>
+      <% end %>
+    <% end %>
     <div id="real-messages-container">
       <% @messages.each do |message| %>
         <%= render 'message', message: message, user_is_author: message.user == current_user %>
@@ -14,7 +27,7 @@
     <% end %>
   </div>
   <div class="request-summary">
-    <%= render "request_summary_messages_lender" %>
+    <%= render "request_summary_messages" %>
   </div>
 </div>
 
