@@ -34,6 +34,6 @@
     <p>Service fee:</p> <p>£ <%= service_fee %></p>
   </div>
   <div class="price-split">
-    <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + @product.handover_fee + service_fee).round(2) %></strong></p>
+    <p><strong>Total:</strong></p><p><strong>£ <%= (rental_fee + conversation.request.product.handover_fee + service_fee).round(2) %></strong></p>
   </div>
 </div>
