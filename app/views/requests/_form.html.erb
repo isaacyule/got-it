@@ -15,8 +15,9 @@
     <%= form_tag orders_path do %>
     <%= hidden_field_tag 'product_id', @request.product.id %>
     <input type="hidden" name="total_price" id="total_price" value='<%= (rental_fee + @product.handover_fee + service_fee).round(2) %>'>
-    <%= f.submit "Send request", class: 'btn btn-primary'%>
+   <%= f.submit "Continue", class: 'btn btn-primary' %>
   <% end %>
 <% end %>
+
 
 

@@ -34,6 +34,9 @@ class RequestsController < ApplicationController
       order  = Order.create!(amount: params[:total_price].to_f, state: 'pending', user: current_user, product: @request.product)
       authorize(order)
       redirect_to new_order_payment_path(order, request: @request, product: @request.product)
+      # ActivityNotification::Notification.notify :users, @request, key: "request.description"
+      @request.notify :users, key: "request.description"
+
     else
       render :new
     end
@@ -48,7 +51,7 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @request.update(status: params[:status])
     authorize(@request)
-    redirect_to user_path
+    redirect_to user_path(current_user)
   end
 
   private

@@ -33,7 +33,7 @@ p {
 .popular-items-card {
   border: 1px solid #e4e4e4;
   margin: 10px;
-  width: 300px;
+  width: 250px;
   padding-bottom: 10px;
   h3 {
     color: $green;
@@ -86,6 +86,7 @@ p {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  padding-right: 20px;
 }
 
 .home-form {
@@ -94,4 +95,16 @@ p {
 
 .margin-top {
   margin-top: 6px;
+}
+
+.inspiration {
+  margin: 100px 0px;
+}
+
+#product-search {
+  margin: 30px;
+}
+
+.space-around {
+  justify-content: space-around;
 }

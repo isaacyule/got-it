@@ -60,13 +60,17 @@
   margin: 0 auto;
 }
 
-.request-confirm-messages {
-  width: 50%;
+.pending-request {
+  width: 70%;
   text-align: center;
   padding: 10px 30px;
   border: 1px solid #e4e4e4;
+}
+
+.accept-decline-button {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .borrower-card {

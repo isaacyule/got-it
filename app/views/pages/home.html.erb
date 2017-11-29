@@ -1,11 +1,10 @@
 <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('https://static.pexels.com/photos/618848/pexels-photo-618848.jpeg');">
    <div class="banner-content">
-     <h1>Don't buy it, don't miss it!</h1>
-     <h1>Get it on got it!
-     <p>Borrow things when and where you need them</p>
+     <h1>Need a tent, a camera or something else?</h1>
+     <p>Don't buy it, get it on "got it"!</p>
 
     <%= form_tag products_path, class: 'home-form', id: 'product-search', :method => 'get' do %>
-        <%= text_field_tag :search, params[:search], class: "form-control home-form-child margin-top", placeholder: 'Borrow something...' %>
+        <%= text_field_tag :search, params[:search], class: "form-control home-form-child input-lg", placeholder: 'What do you need?' %>
         <%= submit_tag "Search", :name => nil, class: 'btn btn-lg btn-primary home-form-child'%>
     <% end %>
    </div>
@@ -13,94 +12,98 @@
 
 <div class="container inspiration">
   <div class="row">
-    <div class="col-xs-12 col-lg-6">
-      <div class="recent-transactions">
-        <h1>Recent transactions</h1>
-        <div class="row">
-          <div class="transaction-card">
-            <%= image_tag "Face1.jpg", class: "avatar-person"%>
-            <%= image_tag "Projector2.jpg", class: "avatar-item"%>
-            <div class="vertical-middle">
-              <h4>Marcela borrowed Ricks projector for 10£.</h4>
-              <p>“I wanted to do a movies night at my place and invite some friends over. I could pick up the projector in my street. Super easy!”</p>
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="row">
+        <div class="col-xs-12 col-lg-6">
+          <div class="recent-transactions">
+            <h1>Recent transactions</h1>
+            <div class="row">
+              <div class="transaction-card">
+                <%= image_tag "Face1.jpg", class: "avatar-person"%>
+                <%= image_tag "Projector2.jpg", class: "avatar-item"%>
+                <div class="vertical-middle">
+                  <h4>Marcela borrowed Ricks projector for 10£.</h4>
+                  <p>“I wanted to do a movies night at my place and invite some friends over. I could pick up the projector in my street. Super easy!”</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="transaction-card">
-            <%= image_tag "Face2.jpg", class: "avatar-person"%>
-            <%= image_tag "raklett.jpg", class: "avatar-item"%>
-            <div class="vertical-middle">
-              <h4>Dan borrowed Lucas’ raclett for 7£.</h4>
-              <p>“I had friends coming over for dinner and wanted to do something different. We had a great time and the raclett set was amazing!”</p>
-            </div>
+            <div class="row">
+              <div class="transaction-card">
+                <%= image_tag "Face2.jpg", class: "avatar-person"%>
+                <%= image_tag "raklett.jpg", class: "avatar-item"%>
+                <div class="vertical-middle">
+                  <h4>Dan borrowed Lucas’ raclett for 7£.</h4>
+                  <p>“I had friends coming over for dinner and wanted to do something different. We had a great time and the raclett set was amazing!”</p>
+                </div>
 
-          </div>
-        </div>
-        <div class="row">
-          <div class="transaction-card">
-            <%= image_tag "Face3.jpg", class: "avatar-person"%>
-            <%= image_tag "Pram 2.jpg", class: "avatar-item"%>
-            <div class="vertical-middle">
-              <h4>Ed borrowed Sams pram  for 8£ per day</h4>
-              <p>“I borrowed Enriques pram when I visited my parents in Italy  and could not bring my own pram. Great flexibility! Thanks”</p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="transaction-card">
-            <%= image_tag "Profile1.jpg", class: "avatar-person"%>
-            <%= image_tag "BBQ.jpg", class: "avatar-item"%>
-            <div class="card-text">
-              <h4>Michael borrowed Steven's Pro-BBQ for £20</h4>
-              <p>“Great experience! I wanted to have a BBQ session with some friends but none of us has a really good one. Getting this one for the day made the BBQ evening perfect!”</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-lg-6">
-      <div class="popular-items">
-        <h1>Popular items</h1>
-        <div class="row">
-          <div class="space-around">
-            <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
-              <div class='popular-item-body'>
-                <%= image_tag "Projector.jpg"%>
-              </div>
-              <div class="popular-itme-footer">
-                <h3>Projectors</h3>
-                <p>From £10/day</p>
               </div>
             </div>
-            <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
-              <div class='popular-item-body'>
-                <%= image_tag "Tent-2.jpg"%>
+            <div class="row">
+              <div class="transaction-card">
+                <%= image_tag "Face3.jpg", class: "avatar-person"%>
+                <%= image_tag "Pram 2.jpg", class: "avatar-item"%>
+                <div class="vertical-middle">
+                  <h4>Ed borrowed Sams pram  for 8£ per day</h4>
+                  <p>“I borrowed Enriques pram when I visited my parents in Italy  and could not bring my own pram. Great flexibility! Thanks”</p>
+                </div>
               </div>
-              <div class="popular-itme-footer">
-                <h3>Tents</h3>
-                <p>From £8/day</p>
+            </div>
+            <div class="row">
+              <div class="transaction-card">
+                <%= image_tag "Profile1.jpg", class: "avatar-person"%>
+                <%= image_tag "BBQ.jpg", class: "avatar-item"%>
+                <div class="card-text">
+                  <h4>Michael borrowed Steven's Pro-BBQ for £20</h4>
+                  <p>“Great experience! I wanted to have a BBQ session with some friends but none of us has a really good one. Getting this one for the day made the BBQ evening perfect!”</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
-            <div class='popular-item-body'>
-              <%= image_tag "pram5.jpg"%>
+        <div class="col-xs-12 col-lg-6">
+          <div class="popular-items">
+            <h1>Popular items</h1>
+            <div class="row">
+              <div class="space-around">
+                <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
+                  <div class='popular-item-body'>
+                    <%= image_tag "Projector.jpg"%>
+                  </div>
+                  <div class="popular-itme-footer">
+                    <h3>Projectors</h3>
+                    <p>From £10/day</p>
+                  </div>
+                </div>
+                <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
+                  <div class='popular-item-body'>
+                    <%= image_tag "Tent-2.jpg"%>
+                  </div>
+                  <div class="popular-itme-footer">
+                    <h3>Tents</h3>
+                    <p>From £8/day</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="popular-itme-footer">
-              <h3>Prams</h3>
-              <p>From £10/day</p>
-            </div>
-          </div>
-          <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
-            <div class='popular-item-body'>
-              <%= image_tag "raklett.jpg", class: "fit-image" %>
-            </div>
-            <div class="popular-itme-footer">
-              <h3>Raklett</h3>
-              <p>From £5/day</p>
+            <div class="row">
+              <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
+                <div class='popular-item-body'>
+                  <%= image_tag "pram5.jpg"%>
+                </div>
+                <div class="popular-itme-footer">
+                  <h3>Prams</h3>
+                  <p>From £10/day</p>
+                </div>
+              </div>
+              <div class="popular-items-card col-md-3 col-sm-4 col-xs-6">
+                <div class='popular-item-body'>
+                  <%= image_tag "raklett.jpg", class: "fit-image" %>
+                </div>
+                <div class="popular-itme-footer">
+                  <h3>Raklett</h3>
+                  <p>From £5/day</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

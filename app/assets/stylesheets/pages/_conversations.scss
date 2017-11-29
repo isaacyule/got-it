@@ -20,3 +20,105 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+.container-conversations {
+  max-width: 1020px;
+  padding: 20px 0;
+  position: relative;
+  margin: 0 auto;
+}
+
+// from LeWagon Component Messages
+.message {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(220,224,244,0.4);
+  h3 {
+    margin: 0px;
+  }
+}
+
+.message:hover {
+  background-color: rgb(248, 248, 248);
+}
+
+.message:last-child {
+  border-bottom: none;
+}
+.message-body {
+  flex-grow: 1;
+}
+.message-name {
+  padding-left: 10px;
+  min-width: 150px;
+}
+.message-name h3 {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+.message-name p {
+  font-size: 13px;
+  font-weight: lighter;
+  opacity: 0.6;
+  margin-top: 5px;
+}
+.message-body {
+  padding-left: 10px;
+  font-size: 13px;
+  color: rgba(0,0,0,0.7);
+}
+.message-body {
+  padding-left: 20px;
+  color: rgba(0,0,0,0.4);
+}
+.message-body strong{
+  color: rgba(0,0,0,0.9);
+  color: rgba(0,0,0,0.9);
+}
+.message-body p {
+  margin: 6px 0;
+}
+.message-link {
+  padding-right: 20px;
+}
+.message-status {
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 70px;
+}
+.status.accepted {
+  color: #04A366;
+}
+.status.declined {
+  color: red;
+}
+.status.pending {
+  color: lightgrey;
+}
+
+.avatar-large {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.status-accepted {
+  color: $green;
+}
+
+.status-declined {
+  color: red;
+}
+
+.status-pending {
+  color: lightgrey;
+}
+
+#link_to_message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
