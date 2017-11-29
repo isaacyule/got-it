@@ -26,7 +26,7 @@
                   <p><%= conversation.messages.last.created_at.strftime("%b %e, %l:%M %p") %></p>
                 </div>
                 <div class="message-body">
-                  <p><strong>Borrowing <%= conversation.request.product.name %></strong></p>
+                  <p><strong>Chat history with <%= recipient.first_name %> - borrowing "<%= conversation.request.product.name %>"</strong></p>
                   <p><%= conversation.messages.last.body %></p>
                 </div>
                 <div class="message-link">
