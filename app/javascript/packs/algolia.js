@@ -1,16 +1,18 @@
 // var map = require("./map.js");
 
 import { buildSearchParams } from './search_on_address';
+import myMap from './map';
+import { newMap } from './map';
 
 var distanceInKilometers = require("./distance_calculator.js");
 var card = require("./card_constructor.js");
-var googleMap = require("./map.js");
 
 var cardContainer = document.getElementById('hits');
 let userLat;
 let userLng;
 let productLat;
 let productLng;
+var userPos;
 
 let markers = [];
 let products = [];
@@ -48,15 +50,22 @@ function throttle(f, delay){
         timer = window.setTimeout(function(){
             f.apply(context, args);
         },
-        delay || 500);
+        delay || 300);
     };
 }
 
 var performSearch = (options, params) => {
+  //remove markers from map -----???
+  myMap.deleteMarkers(markers)
+  markers = [];
+  // -------------------------------
   cardContainer.innerHTML = '';
   if (!options) options = {};
+  if (params) searchBoxElement.value = params;
   if (!params) params = searchBoxElement.value;
   options['query'] = params;
+
+  // handle map center
 
   index.search(options, function searchDone(err, content) {
     if (err) {
@@ -67,25 +76,36 @@ var performSearch = (options, params) => {
     searchResultsCount = content.hits.length;
     setProductCount();
     content.hits.forEach(function(hit) {
+      // create a marker and push to markers array
+      markers.push(myMap.newMarker(hit._geoloc, map, hit.name));
+
       // for each result create a card
       cardContainer.insertAdjacentHTML('afterbegin', card.constructCard(hit));
       // push result to the array of product results
       products.push(hit);
     })
-    products.forEach(function(product){
-      var marker = new google.maps.Marker({
-        position: product._geoloc,
-        map: map
-      });
-    })
+    if (markers.length > 0){
+      myMap.fitToBounds(markers, map);
+    } else {
+      if ('aroundLatLng' in options){
+        var locationLiteral = options['aroundLatLng'].split(', ');
+        var lat = parseFloat(locationLiteral[0]);
+        var lng = parseFloat(locationLiteral[1]);
+        myMap.setCenter({lat: lat, lng: lng}, map);
+      } else {
+        myMap.setCenter(userPos, map);
+      }
+    }
   })
 };
 
 searchBoxElement.addEventListener('keyup', throttle(function() {
   buildSearchParams(performSearch);
-}, 500));
+}, 300));
 
 //----------------------------------------END ALGOLIA---------------------------
+
+const map = newMap(51.5074, 0.1278);
 
 addressSearch.addEventListener('keyup', throttle(function() {
   buildSearchParams(performSearch);
@@ -95,11 +115,11 @@ addressSearch.addEventListener('keyup', throttle(function() {
 navigator.geolocation.getCurrentPosition(function(position) {
   userLat = position.coords.latitude;
   userLng = position.coords.longitude;
-  var userPos = {lat: userLat,  lng: userLng};
+  userPos = {lat: userLat,  lng: userLng};
   listDistancesOfProducts();
   setProductCount();
   resetVars();
-  map.setCenter(userPos);
+  myMap.setCenter(userPos, map);
 });
 
 // get products distance and push to list of distances
@@ -159,30 +179,9 @@ var focusMethodDistance = function getFocus() {
   searchDistance.focus();
 }
 
-
-
-// maps - maps - maps - maps - maps - maps - maps - maps - maps - maps - maps - \\
-var mapStyle = require("./map_styles.js");
-var map;
-
-function initMap(lat, lng) {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: lat, lng: lng},
-    styles: mapStyle.styleMap(),
-    zoom: 12
-  });
-}
-
-// define search radius from specified or user location
 const searchRadius = document.getElementById('searchDistance')
-searchRadius.addEventListener('keyup', throttle(function(){
-  if (searchRadius.value == 0){
-    defaultSearchRadius = 5000;
-  } else {
-    defaultSearchRadius = searchRadius.value*1000;
-  }
-  buildSearchParams(performSearch);
-}));
+  searchRadius.addEventListener('keyup', throttle(function(){
+    buildSearchParams(performSearch);
+  }));
 
-initMap(51.5074, 0.1278);
-performSearch({}, getParams('search'));
+performSearch({aroundLatLngViaIP: true, aroundRadius: 5000}, getParams('search'))
