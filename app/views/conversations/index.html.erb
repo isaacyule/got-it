@@ -38,7 +38,7 @@
             <% else %>
               <% recipient = User.find(conversation.sender_id) %>
             <% end %>
-            <div class="col-xs-5 col-offset-xs-3">
+<!--             <div class="col-xs-5 col-offset-xs-3">
               <div class="message-info">
                 <div class="recipient-info">
                   <% avatar = recipient.profile_photo? ? recipient.profile_photo : asset_path('default_avatar.png') %>
@@ -61,6 +61,28 @@
                   </p>
                 </div>
                 <%= link_to "Message #{recipient.first_name}", conversation_messages_path(conversation), class: "btn btn-primary "%>
+              </div>
+            </div> -->
+            <div class="message">
+              <img class="avatar-large" src="https://kitt.lewagon.com/placeholder/users/gabriel-dehan">
+              <% if recipient.profile_photo? %>
+                    <%= image_tag recipient.profile_photo, class: "avatar-large" %>
+                  <% else %>
+                    <%= image_tag avatar, class: "avatar-large" %>
+                  <% end %>
+              <div class="message-name">
+                <h3><%= recipient.first_name recipient.last_name %></h3>
+                <p><%= conversation.messages.last.created_at %></p>
+              </div>
+              <div class="message-body">
+                <p><strong>Borrowing <%= conversation.request.product.name %></strong></p>
+                <p>
+                  <%= conversation.messages.last.body %>
+                </p>
+              </div>
+              <div class="message-status">
+                <p class="status pending">Pending</p>
+                <p class="price">€345</p>
               </div>
             </div>
            <% end %>
