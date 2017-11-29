@@ -55,7 +55,7 @@
   min-width: 150px;
 }
 .message-name h3 {
-  font-size: 13px;
+  font-size: 17px;
   margin-bottom: 0px;
 }
 .message-name p {
@@ -66,7 +66,7 @@
 }
 .message-body {
   padding-left: 10px;
-  font-size: 13px;
+  font-size: 17px;
   color: rgba(0,0,0,0.7);
 }
 .message-body {
@@ -84,22 +84,15 @@
   padding-right: 20px;
 }
 .message-status {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: bold;
-  min-width: 70px;
-}
-.status.accepted {
-  color: #04A366;
-}
-.status.declined {
-  color: red;
-}
-.status.pending {
-  color: lightgrey;
+  min-width: 80px;
+
 }
 
 .avatar-large {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 
@@ -121,4 +114,9 @@
   left: 0;
   bottom: 0;
   right: 0;
+}
+
+.request-id {
+  font-size: 13px;
+  font-weight: lighter;
 }
