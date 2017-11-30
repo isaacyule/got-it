@@ -187,11 +187,4 @@ const searchRadius = document.getElementById('searchDistance')
     buildSearchParams(performSearch);
   }));
 
-
-
-
-
-
-
-
 performSearch({aroundLatLngViaIP: true, aroundRadius: 5000}, getParams('search'))
