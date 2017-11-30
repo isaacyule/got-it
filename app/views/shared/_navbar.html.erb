@@ -1,4 +1,4 @@
-<div class="navbar-got-it">
+<div class="navbar-got-it <%= yield(:navbar_class) %>">
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-got-it-brand" do %>
     <%= image_tag "logo.png" %>
