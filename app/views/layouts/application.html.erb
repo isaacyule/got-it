@@ -16,7 +16,7 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <div class="fullscreen">
+    <div class="fullscreen <%= "fullscreen-home" if params[:action] == 'home' %>">
       <%= yield %>
     </div>
 

@@ -1,4 +1,4 @@
-<div class="navbar-got-it">
+<div class="navbar-got-it <%= yield(:navbar_class) %>">
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-got-it-brand" do %>
     <%= image_tag "logo.png" %>
@@ -12,8 +12,8 @@
       <!-- Links when logged in -->
 
 
-      <%= link_to "Lend stuff", new_product_path, class: "navbar-got-it-item navbar-got-it-link" %>
-      <%= link_to "Borrow stuff", products_path, class: "navbar-got-it-item navbar-got-it-link" %>
+      <%= link_to "Lend", new_product_path, class: "navbar-got-it-item navbar-got-it-link" %>
+      <%= link_to "Borrow", products_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%= link_to "Messages", conversations_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%  unless current_user.notifications.unopened_only.count == 0  %>
         <div class="notifications-badge">
