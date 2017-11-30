@@ -16,7 +16,7 @@
         <%= f.input :description, required: true %>
         <%= f.input :photo, required: true %>
         <%= f.input :condition, required: true %>
-        <%= f.input :price_per_day_pennies, required: true %>
+        <%= f.input :price_per_day_pennies, label: 'Price per day', required: true %>
         <%= f.input :deposit, required: true, input_html: {value: 0}%>
         <%= f.input :handover_fee, required: true %>
         <%= f.input :address, input_html: {value: f.object.address || current_user.address } %>

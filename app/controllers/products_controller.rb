@@ -32,6 +32,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.price_per_day_pennies = params[:product][:price_per_day_pennies].to_i * 100
     @product.user_id = current_user.id
     authorize(@product)
     if @product.save
