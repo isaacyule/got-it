@@ -14,7 +14,7 @@
 
       <%= link_to "Lend", new_product_path, class: "navbar-got-it-item navbar-got-it-link" %>
       <%= link_to "Borrow", products_path, class: "navbar-got-it-item navbar-got-it-link" %>
-      <%= link_to "Messages", conversations_path, class: "navbar-got-it-item navbar-got-it-link" %>
+      <%= link_to "", conversations_path, class: "navbar-got-it-item navbar-got-it-link fa fa-envelope" %>
       <%  unless current_user.notifications.unopened_only.count == 0  %>
         <div class="notifications-badge">
           <p class="notifications-badge-text"><%= current_user.notifications.unopened_only.count %></p>
@@ -24,8 +24,13 @@
       <!-- Avatar with dropdown menu -->
       <div class="navbar-got-it-item">
         <div class="dropdown">
-          <% avatar = current_user.profile_photo? ? current_user.profile_photo : asset_path('default_avatar.png') %>
-          <%= image_tag avatar, class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
+          <% if current_user.profile_photo %>
+            <%= cl_image_tag current_user.profile_photo, :transformation=>[
+            {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+            {:width=>100, :crop=>"fill"}], class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
+          <% else %>
+            <%= image_tag asset_path('default_avatar.png'), class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
+          <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-got-it-dropdown-menu">
             <li>
               <%= link_to user_path(current_user) do %>
