@@ -2,7 +2,7 @@ module.exports = {
   constructCard: function(hit) {
     var starsContainer = document.getElementById('stars');
     var avgRating;
-    if (typeof hit.rating === 'undefined' || typeof hit.rating === null){
+    if (typeof hit.rating === 'undefined' || typeof hit.rating === null || hit.rating === 0) {
       avgRating = "Not yet rated";
     } else {
       avgRating = "";
