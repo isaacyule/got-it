@@ -62,6 +62,7 @@ var performSearch = (options, params) => {
   // -------------------------------
   cardContainer.innerHTML = '';
   if (!options) options = {};
+  console.log(params);
   if (params) searchBoxElement.value = params;
   if (!params) params = searchBoxElement.value;
   options['query'] = params;
@@ -178,26 +179,6 @@ var resetVars = () => {
 // --- search box style script ---
 var geocoder = new google.maps.Geocoder();
 var address;
-
-var AddressOverSearch = document.getElementById('address-over-search');
-AddressOverSearch.addEventListener('click', function(){
-  this.remove();
-  focusMethodAddress();
-});
-
-var DistanceOverSearch = document.getElementById('distance-over-search');
-DistanceOverSearch.addEventListener('click', function(){
-  this.remove();
-  focusMethodDistance();
-});
-
-var focusMethodAddress = function getFocus() {
-  addressSearch.focus();
-}
-
-var focusMethodDistance = function getFocus() {
-  searchDistance.focus();
-}
 
 new google.maps.places.Autocomplete(addressSearch);
 
