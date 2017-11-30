@@ -33,10 +33,10 @@
       <div class="owner_card">
         <p><%= @product.user["first_name"] %>
           <%= @product.user["last_name"] %></p>
-        <p class="profile-text"> <%= @product.user.profile_text %></p>
+        <p class="profile-text">"<%= @product.user.profile_text %>"</p>
         <%= cl_image_tag @product.user.profile_photo, :transformation=>[
-        {:width=>200, :height=>200, :gravity=>"face", :radius=>"max", :crop=>"crop"},
-        {:width=>100, :crop=>"scale"}
+        {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+        {:width=>100, :crop=>"fill"}
         ], class: "owner_card_photo" %>
       </div>
 
