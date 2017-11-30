@@ -11,10 +11,12 @@
 
   <%= f.input :content, required: true %>
   <div class="review-slider-box">
-    <p id="review-slider-value">3</p>
-    <%= f.input :overall, input_html: { type: "range", min: "1", max: "5", value: "3", id: "review-slider" } %>
+    <div class="review-slider-scale">
+      <p>1</p>
+      <%= f.input :overall, input_html: { type: "range", min: "1", max: "5", value: "3", id: "review-slider" } %>
+      <p>5</p>
+    </div>
   </div>
-  <%= f.input :photo %>
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>
 

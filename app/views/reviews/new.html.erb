@@ -1,10 +1,8 @@
-<div class="container">
+<div class="container-show">
   <div class="row">
     <div class="col-xs-12">
-      <div class="review-form-wrapper">
-        <h2>Leave a review for <%= @product.name %></h2>
-        <%= render "form", product: @product, review: @review %>
-      </div>
+      <h2>Leave a review for <%= @product.name %></h2>
+      <%= render "form", product: @product, review: @review %>
     </div>
   </div>
 </div>
