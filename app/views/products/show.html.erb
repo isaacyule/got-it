@@ -60,7 +60,7 @@
         <% else %>
           <h4>Overall Rating: <%= @product.rating %></h4>
         <% end %>
-        <%= link_to "Leave a review", new_product_review_path(@product) %>
+        <%= link_to "", new_product_review_path(@product) %>
         <div id="reviews-count">
           <%= pluralize @product.reviews.size, "review" %>
         </div>
