@@ -24,12 +24,12 @@
       <!-- Avatar with dropdown menu -->
       <div class="navbar-got-it-item">
         <div class="dropdown">
-          <% if current_user.profile_photo %>
+          <% if current_user.profile_photo? %>
             <%= cl_image_tag current_user.profile_photo, :transformation=>[
             {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
             {:width=>100, :crop=>"fill"}], class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
           <% else %>
-            <%= image_tag asset_path('default_avatar.png'), class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
+            <%= image_tag "default_avatar.png", class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
           <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-got-it-dropdown-menu">
             <li>
