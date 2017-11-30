@@ -59,6 +59,7 @@
   position: relative;
   display: flex;
   margin: 0 auto;
+  height: 100vh;
 }
 
 .pending-request {
@@ -78,6 +79,12 @@
   border: 1px solid #e4e4e4;
   padding: 15px;
   margin: 10px;
+  width: 350px;
+}
+
+.request-summary {
+  height: 100vh;
+  position: sticky;
 }
 
 .message-bubble {
