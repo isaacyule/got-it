@@ -1,6 +1,6 @@
+<div class="flex">
 <div class="container-messages">
   <div class="messages">
-
     <% if current_user == @conversation.request.product.user%>
       <% if  @conversation.request.status == "Declined"%>
         <p>You declined this request</p>
@@ -31,12 +31,14 @@
      </div>
     <% end %>
   </div>
+</div>
+
   <div class="request-summary">
     <%= render "request_summary_messages" %>
     <%= render "borrower_card" %>
   </div>
-</div>
 
+</div>
 
 
 <% content_for :after_js do %>

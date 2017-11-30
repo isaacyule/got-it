@@ -24,19 +24,21 @@
 }
 
 .order-summary {
-  position: absolute;
   padding: 16px 30px !important;
   text-align: center;
   width: 350px;
   border-radius: 2px;
   border: 1px solid #e4e4e4;
-  position: sticky;
   height: auto;
   z-index: 2;
   padding: 15px 0;
   right: 0;
   top: 120px;
   margin: 10px;
+}
+
+.request-summary {
+  position: sticky;
 }
 
 #new_request {

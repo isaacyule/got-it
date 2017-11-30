@@ -49,6 +49,7 @@
   overflow: scroll;
   padding: 25px;
   height: 70vh;
+  width: 819px;
 }
 
 
@@ -77,4 +78,17 @@
   border: 1px solid #e4e4e4;
   padding: 15px;
   margin: 10px;
+}
+
+.message-bubble {
+  max-width:250px;
+  p {
+    word-wrap: break-word;
+    width: 100%;
+  }
+}
+
+.message-body p {
+  word-wrap: break-word;
+  width: 600px;
 }
