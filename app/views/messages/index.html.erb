@@ -25,9 +25,9 @@
     </div>
     <%= form_for [@conversation, @message], html: {class: "ui reply form"}, remote: true do |f| %>
      <div class="flex">
-       <%= f.text_area :body, class: "form-control chat-input" %>
+       <%= f.text_area :body, class: "form-control chat-input", id: "text-box" %>
      <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-       <%= f.submit "Add Reply", class: "chat-btn ui blue labeled submit icon button" %>
+       <%= f.submit "Add Reply", class: "chat-btn btn btn-primary ui blue labeled submit icon button", id: 'message-form'%>
      </div>
     <% end %>
   </div>
@@ -41,6 +41,14 @@
 
 <% content_for :after_js do %>
   <script>
+    textBox = document.getElementById('text-box');
+    textBox.addEventListener('keydown', function(event){
+      if (event.key === "Enter" && event.shiftKey === false){
+        var formSubmit = document.getElementById('message-form');
+        formSubmit.click();
+      }
+    });
+
     scrollLastMessageIntoView();
     App['conversation_<%= @conversation.id %>'] = App.cable.subscriptions.create(
       {
