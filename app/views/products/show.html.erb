@@ -133,11 +133,6 @@
 
   </div>
   <!-- end request form -->
-  <%= form_tag orders_path do %>
-    <%= hidden_field_tag 'product_id', @product.id %>
-    <input type="hidden" name="total_price" id="total_price" value=''>
-    <%= submit_tag 'Purchase', class: 'btn btn-primary' %>
-  <% end %>
 
 
 </div>
@@ -170,6 +165,7 @@
         },
         opens: "left",
         minDate: new Date(),
+        autoApply: true,
         isInvalidDate: function(date) {
           let unavailable_dates = []
           <% @unavailable_dates.each do |unavailable_date| %>
@@ -210,8 +206,8 @@
     var total = (rental_fee + handover_fee + service_fee)
     $("#total").text(total);
 
-    var total_price = document.querySelector("#total_price")
-    total_price.value = total
+    // var total_price = document.querySelector("#total_price")
+    // total_price.value = total
 
   }
 

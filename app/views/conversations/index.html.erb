@@ -1,13 +1,23 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
+<div class="container-conversations">
       <div class=”ui segment”>
        <h3>Messages</h3>
        <div class=”ui list”>
         <div class=”item”>
           <div class="row">
             <div class="container-conversations">
-            <% @conversations.each do |conversation| %>
+            <% @conversations.reverse_each do |conversation| %>
+
+            <!-- background calculations for total -->
+            <% days = (conversation.request.end_date - conversation.request.start_date + 1 ).to_i%>
+            <% rental_fee = ((conversation.request.product.price_per_day_pennies.to_i / 100) * days).round(2) %>
+            <% service_fee = ((rental_fee.to_i + conversation.request.product.handover_fee) * 0.1) %>
+            <% if current_user == conversation.request.product.user %>
+              <% total = (rental_fee.to_i + conversation.request.product.handover_fee - service_fee) %>
+            <% else %>
+              <% total = (rental_fee.to_i + conversation.request.product.handover_fee + service_fee) %>
+            <% end %>
+            <!-- end calculations for total -->
+
             <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
               <% if conversation.sender_id == current_user.id %>
                 <% recipient = User.find(conversation.recipient_id) %>
@@ -15,6 +25,7 @@
                 <% recipient = User.find(conversation.sender_id) %>
               <% end %>
               <div class="message">
+                <%= link_to "", conversation_messages_path(conversation), id: "link_to_message"%>
                 <% avatar = recipient.profile_photo? ? recipient.profile_photo : asset_path('default_avatar.png') %>
                 <% if recipient.profile_photo? %>
                   <%= image_tag recipient.profile_photo, class: "avatar-large" %>
@@ -26,15 +37,18 @@
                   <p><%= conversation.messages.last.created_at.strftime("%b %e, %l:%M %p") %></p>
                 </div>
                 <div class="message-body">
-                  <p><strong>Chat history with <%= recipient.first_name %> - borrowing "<%= conversation.request.product.name %>"</strong></p>
+                  <p><strong><%= conversation.request.product.name %></strong> <span class="request-id">(Request ID <%= conversation.request_id %>)</span></p>
                   <p><%= conversation.messages.last.body %></p>
                 </div>
-                <div class="message-link">
-                  <%= link_to "Message", conversation_messages_path(conversation), class: "btn btn-primary" %>
-                </div>
                 <div class="message-status">
-                  <p class="status"><%= conversation.request.status %></p>
-                  <p class="price">TBD</p>
+                  <% if conversation.request.status == "Accepted" %>
+                    <p class="status-accepted">Accepted</p>
+                  <% elsif conversation.request.status == "Declined"%>
+                    <p class="status-declined">Declined</p>
+                  <% else %>
+                    <p class="status-pending">Pending</p>
+                  <% end %>
+                  <p> £<%= total %> </p>
                 </div>
               </div>
             <% end %>
@@ -44,6 +58,4 @@
         </div>
        </div>
       </div>
-    </div>
-  </div>
 </div>

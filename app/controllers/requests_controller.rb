@@ -28,13 +28,15 @@ class RequestsController < ApplicationController
       else
         @conversation = Conversation.create(sender: current_user, recipient: @request.product.user, request: @request)
       end
-      @conversation.messages.create!(body: @request.description, user: current_user, read: false)
-
+      @conversation.messages.create(body: @request.description, user: current_user, read: false)
+      # redirect_to product_path(@product)
+      # redirect_to  new_order_payment_path(@product.order.id)
+      order  = Order.create!(amount: params[:total_price].to_f, state: 'pending', user: current_user, product: @request.product)
+      authorize(order)
+      redirect_to new_order_payment_path(order, request: @request, product: @request.product)
       # ActivityNotification::Notification.notify :users, @request, key: "request.description"
       @request.notify :users, key: "request.description"
 
-
-      redirect_to product_path(@product)
     else
       render :new
     end

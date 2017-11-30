@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
 
-  notify_to :users
+  notify_to :users, with_devise: :users
 
   get '/acceptedrequests', to: 'users#accepted', as: 'user_ac-requests'
   get '/pendingrequests', to: 'users#pending', as: 'user_pe-requests'

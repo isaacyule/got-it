@@ -4,21 +4,25 @@
       <div class="row" id='card-row'>
         <div class="col-xs-4">
           <!-- <div id="searchBox" class="form-control" placeholder='Borrow something...'> -->
+            <label for="what?">What?</label>
             <input type="text" placeholder="What do you need?" class="form-control" id="searchBoxElement">
           <!-- </div> -->
         </div>
         <div class="col-xs-4">
-          <div class="form-container">
-            <div class="btn-search-bundle">
-              <input id="searchDistance" class="form-control relative" placeholder='enter a range in kilometers...'>
-            </div>
+          <div class="btn-search-bundle">
+            <label for="Where?">Where?</label>
+            <input id="addressSearch" class="form-control relative" placeholder='...current location'>
           </div>
         </div>
         <div class="col-xs-4">
-          <div class="btn-search-bundle">
-            <input id="addressSearch" class="form-control relative" placeholder='enter an town or postcode...'>
+          <div class="form-container">
+            <div class="btn-search-bundle">
+              <label for="range">Range (in km)</label>
+              <input id="searchDistance" class="form-control relative" placeholder='5'>
+            </div>
           </div>
         </div>
+
         <div class="col-xs-12">
           <h6 id='counter'> . </h6>
         </div>

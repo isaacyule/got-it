@@ -62,6 +62,7 @@ var performSearch = (options, params) => {
   // -------------------------------
   cardContainer.innerHTML = '';
   if (!options) options = {};
+  console.log(params);
   if (params) searchBoxElement.value = params;
   if (!params) params = searchBoxElement.value;
   options['query'] = params;
