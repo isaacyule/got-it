@@ -2,7 +2,7 @@
 <div class="order-summary">
   <div class="product-info">
     <!-- <div class="left"> -->
-    <h4><%= @conversation.request.product.name %></h4>
+    <h4><%= link_to @conversation.request.product.name, product_path(@conversation.request.product) %></h4>
     <!-- </div> -->
     <div class="product-photo">
       <% if @conversation.request.product.photo? %>
@@ -11,6 +11,7 @@
         <img src=<%= asset_path"no_image.png" %>>
       <% end %>
     </div>
+    <p><%= link_to "Review this product", new_product_review_path(@conversation.request.product) %></p>
   </div>
 
   <div class="dates fa fa-calendar">
