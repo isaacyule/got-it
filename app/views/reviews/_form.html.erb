@@ -10,7 +10,21 @@
     <% end %>
 
   <%= f.input :content, required: true %>
-  <%= f.input :overall, collection: 1..5 %>
-  <%= f.input :photo %>
+  <div class="review-slider-box">
+    <div class="review-slider-scale">
+      <p>1</p>
+      <%= f.input :overall, input_html: { type: "range", min: "1", max: "5", value: "3", id: "review-slider" } %>
+      <p>5</p>
+    </div>
+  </div>
   <%= f.submit class: 'btn btn-primary' %>
+<% end %>
+
+<% content_for(:after_js) do %>
+  <script>
+    const slider = document.getElementById("review-slider");
+    slider.addEventListener("change", event=> {
+      document.getElementById("review-slider-value").innerHTML = event.target.value
+    });
+  </script>
 <% end %>
