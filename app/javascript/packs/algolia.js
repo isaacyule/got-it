@@ -179,26 +179,6 @@ var resetVars = () => {
 var geocoder = new google.maps.Geocoder();
 var address;
 
-var AddressOverSearch = document.getElementById('address-over-search');
-AddressOverSearch.addEventListener('click', function(){
-  this.remove();
-  focusMethodAddress();
-});
-
-var DistanceOverSearch = document.getElementById('distance-over-search');
-DistanceOverSearch.addEventListener('click', function(){
-  this.remove();
-  focusMethodDistance();
-});
-
-var focusMethodAddress = function getFocus() {
-  addressSearch.focus();
-}
-
-var focusMethodDistance = function getFocus() {
-  searchDistance.focus();
-}
-
 new google.maps.places.Autocomplete(addressSearch);
 
 const searchRadius = document.getElementById('searchDistance')
