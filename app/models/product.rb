@@ -27,7 +27,9 @@ class Product < ApplicationRecord
       self.algolia_photo
     end
     attribute :owner_photo do
-      self.algolia_owner_photo.split("/").insert(6, 'c_fill,g_face,h_350,w_350').join('/')
+      if self.algolia_owner_photo
+        self.algolia_owner_photo.split("/").insert(6, 'c_fill,g_face,h_350,w_350').join('/')
+      end
     end
 
     attribute :rating_count do
