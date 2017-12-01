@@ -11,16 +11,21 @@
         <img src=<%= asset_path"no_image.png" %>>
       <% end %>
     </div>
-    <p><%= link_to "Review this product", new_product_review_path(@conversation.request.product) %></p>
+    <% if current_user != @conversation.request.product.user %>
+      <p><%= link_to "Review this product", new_product_review_path(@conversation.request.product) %></p>
+    <% end %>
   </div>
 
   <div class="dates fa fa-calendar">
     <p><%= @conversation.request.start_date %> - <%= @conversation.request.end_date %></p>
   </div>
 
-  <div class="price-per-day">
-    <h3> <strong>£<span id="price_per_day"><%= (@conversation.request.product.price_per_day_pennies.to_i) / 100%></span></strong><span class="inline"> (per day)</span></h3>
-  </div>
+  <% if current_user != @conversation.request.product.user %>
+    <div class="price-per-day">
+      <h3> <strong>£<span id="price_per_day"><%= (@conversation.request.product.price_per_day_pennies.to_i) / 100%></span></strong><span class="inline"> (per day)</span></h3>
+    </div>
+  <% end %>
+
 
   <!-- Cost-Split -->
   <div class="border-bottom price-split">

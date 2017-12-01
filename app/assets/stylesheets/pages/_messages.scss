@@ -10,6 +10,8 @@
 .flex {
   display: flex;
   align-items: center;
+  max-width: 1020px;
+  margin: 0 auto;
 }
 
 .right-side {
@@ -47,9 +49,10 @@
 
 #real-messages-container {
   overflow: scroll;
-  padding: 25px;
-  height: 70vh;
+  padding: 10px 10px 25px 10px;
+  height: 60vh;
   width: 819px;
+  border-top: 1px solid #e4e4e4;
 }
 
 
@@ -65,8 +68,6 @@
 .pending-request {
   width: 70%;
   text-align: center;
-  padding: 10px 30px;
-  border: 1px solid #e4e4e4;
 }
 
 .accept-decline-button {
@@ -98,4 +99,26 @@
 .message-body p {
   word-wrap: break-word;
   width: 600px;
+}
+
+.status {
+  padding: 15px 25px 25px 25px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.accepted {
+  color: $green;
+  font-weight: bold;
+}
+
+.declined {
+  color: red;
+  font-weight: bold;
+}
+
+.declined {
+  color: light-grey;
+  font-weight: bold;
 }

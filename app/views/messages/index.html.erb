@@ -1,37 +1,46 @@
 <div class="flex">
-<div class="container-messages">
-  <div class="messages">
-    <% if current_user == @conversation.request.product.user%>
-      <% if  @conversation.request.status == "Declined"%>
-        <p>You declined this request</p>
-      <% elsif @conversation.request.status == "Accepted"%>
-        <p>You accepted this request</p>
-      <% else %>
-        <div class="pending-request">
-          <p> <strong><%= @conversation.request.user.first_name%> requests your product.</strong></p>
-          <p>Let him know if he can borrow it.</p>
-          <div class="accept-decline-button">
-            <%= link_to "Accept", product_request_path(@conversation.request.product, @conversation.request, status: "Accepted") , class: "request-button accept", method: :patch  %>
-            <%= link_to "Decline", product_request_path(@conversation.request.product, @conversation.request, status: "Declined"), method: :patch, class: "request-button decline" %>
+  <div class="container-messages">
+    <div class="messages">
+      <div class="status">
+        <% if current_user == @conversation.request.product.user%>
+        <% if  @conversation.request.status == "Declined"%>
+          <p><span class="declined">Declined:</span> You declined this request</p>
+        <% elsif @conversation.request.status == "Accepted"%>
+          <p><span class="accepted">Accepted:</span> You accepted this request</p>
+        <% else %>
+          <div class="pending-request">
+            <p> <strong><%= @conversation.request.user.first_name%> requests your product.</strong></p>
+            <p>Let him know if he can borrow it.</p>
+            <div class="accept-decline-button">
+              <%= link_to "Accept", product_request_path(@conversation.request.product, @conversation.request, status: "Accepted") , class: "request-button accept", method: :patch  %>
+              <%= link_to "Decline", product_request_path(@conversation.request.product, @conversation.request, status: "Declined"), method: :patch, class: "request-button decline" %>
+            </div>
           </div>
-        </div>
-
+        <% end %>
+      <% else %>
+         <% if  @conversation.request.status == "Declined"%>
+          <p><span class="declined">Declined:</span> Sorry, <%= @conversation.request.product.user.first_name %> declined your request. Request another product!</p>
+        <% elsif @conversation.request.status == "Accepted"%>
+          <p><span class="accepted">Accepted:</span> Yayyyy, <%= @conversation.request.product.user.first_name %> accepted your request. Enjoy your experience with the product!</p>
+        <% else %>
+          <p><span class="pending">Pending:</span> Have some patience. <%= @conversation.request.product.user.first_name %> still has not decided to accept or decline your request yet. </p>
+        <% end %>
       <% end %>
-    <% end %>
-    <div id="real-messages-container">
-      <% @messages.each do |message| %>
-        <%= render 'message', message: message, user_is_author: message.user == current_user %>
+      </div>
+      <div id="real-messages-container">
+        <% @messages.each do |message| %>
+          <%= render 'message', message: message, user_is_author: message.user == current_user %>
+        <% end %>
+      </div>
+      <%= form_for [@conversation, @message], html: {class: "ui reply form"}, remote: true do |f| %>
+       <div class="flex">
+         <%= f.text_area :body, class: "form-control chat-input", id: "text-box" %>
+       <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+         <%= f.submit "Add Reply", class: "chat-btn btn btn-primary ui blue labeled submit icon button", id: 'message-form'%>
+       </div>
       <% end %>
     </div>
-    <%= form_for [@conversation, @message], html: {class: "ui reply form"}, remote: true do |f| %>
-     <div class="flex">
-       <%= f.text_area :body, class: "form-control chat-input", id: "text-box" %>
-     <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
-       <%= f.submit "Add Reply", class: "chat-btn btn btn-primary ui blue labeled submit icon button", id: 'message-form'%>
-     </div>
-    <% end %>
   </div>
-</div>
 
   <div class="request-summary">
     <%= render "request_summary_messages" %>
