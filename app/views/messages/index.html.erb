@@ -23,7 +23,7 @@
         <% elsif @conversation.request.status == "Accepted"%>
           <p><span class="accepted">Accepted:</span> Yayyyy, <%= @conversation.request.product.user.first_name %> accepted your request. Enjoy your experience with the product!</p>
         <% else %>
-          <p><span class="pending">Pending:</span> Have some patience. <%= @conversation.request.product.user.first_name %> still has not decided to accept or decline your request yet. </p>
+          <p><span class="pending">Pending:</span> Have some patience. <%= @conversation.request.product.user.first_name %> still has to accept or decline your request. </p>
         <% end %>
       <% end %>
       </div>
