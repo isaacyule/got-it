@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)|(notifications)/
   end
 
-  def default_url_options
-    { host: ENV["HOST"] || "localhost:3000" }
-  end
+  # def default_url_options
+  #   { host: ENV["www.getitongotit.com"] || "localhost:3000" }
+  # end
 end
