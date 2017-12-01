@@ -1,8 +1,23 @@
 <div class="messages flex <%= user_is_author ? 'right-side' : 'left-side' %>">
-  <% avatar = message.user.profile_photo? ? message.user.profile_photo : asset_path('default_avatar.png') %>
-  <%= image_tag avatar, class: 'avatar-profile' if !user_is_author %>
-  <div class="message-bubble">
-    <p><%= message.body %></p>
-  </div>
-  <%= image_tag avatar, class: 'avatar-profile' if user_is_author %>
+
+    <div class="message-bubble">
+      <p><%= message.body %></p>
+    </div>
+    <% if !user_is_author %>
+      <% if message.user.profile_photo? %>
+        <%= cl_image_tag message.user.profile_photo, :transformation=>[
+        {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+        {:width=>100, :crop=>"fill"}], class: 'avatar-profile' %>
+      <% else %>
+        <%= image_tag "default_avatar.png", class: 'avatar-profile' %>
+      <% end %>
+    <% else user_is_author %>
+      <% if message.user.profile_photo? %>
+        <%= cl_image_tag message.user.profile_photo, :transformation=>[
+        {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+        {:width=>100, :crop=>"fill"}], class: 'avatar-profile' %>
+    <% else %>
+      <%= image_tag "default_avatar.png", class: 'avatar-profile' %>
+    <% end %>
+  <% end %>
 </div>

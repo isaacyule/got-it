@@ -26,11 +26,13 @@
               <% end %>
               <div class="message">
                 <%= link_to "", conversation_messages_path(conversation), id: "link_to_message"%>
-                <% avatar = recipient.profile_photo? ? recipient.profile_photo : asset_path('default_avatar.png') %>
+
                 <% if recipient.profile_photo? %>
-                  <%= image_tag recipient.profile_photo, class: "avatar-large" %>
+                  <%= cl_image_tag recipient.profile_photo, :transformation=>[
+                  {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+                  {:width=>100, :crop=>"fill"}], class: "avatar-large" %>
                 <% else %>
-                  <%= image_tag avatar, class: "avatar-large" %>
+                  <%= image_tag "default_avatar.png", class: "avatar-large" %>
                 <% end %>
                 <div class="message-name">
                   <h3><%= recipient.first_name%> <%= recipient.last_name %></h3>
