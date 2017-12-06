@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-
     set_rating
     @request = Request.new
     @request.product = @product
