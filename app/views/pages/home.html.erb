@@ -44,8 +44,10 @@
             </div>
             <div class="row">
               <div class="transaction-card">
-                <%= image_tag "Face3.jpg", class: "avatar-person"%>
-                <%= image_tag "pram_2.jpg", class: "avatar-item"%>
+                <div class="transaction-card-left">
+                  <%= image_tag "Face3.jpg", class: "avatar-person"%>
+                  <%= image_tag "pram_2.jpg", class: "avatar-item"%>
+                </div>
                 <div class="vertical-middle">
                   <h4>Ed borrowed Sams pram  for 8£ per day</h4>
                   <p>“I borrowed Enriques pram when I visited my parents in Italy  and could not bring my own pram. Great flexibility! Thanks”</p>
@@ -56,7 +58,7 @@
               <div class="transaction-card">
                 <%= image_tag "Profile1.jpg", class: "avatar-person"%>
                 <%= image_tag "BBQ.jpg", class: "avatar-item"%>
-                <div class="card-text">
+                <div class="vertical-middle">
                   <h4>Michael borrowed Steven's Pro-BBQ for £20</h4>
                   <p>“Great experience! I wanted to have a BBQ session with some friends but none of us has a really good one. Getting this one for the day made the BBQ evening perfect!”</p>
                 </div>
@@ -136,8 +138,6 @@
    });
     }
 });
-
 </script>
-
 
 <% end %>
