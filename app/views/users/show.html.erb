@@ -90,5 +90,29 @@
         <%= link_to "Requests you've made: #{@user.requests.count}", product_requests_path(@user), class: "btn btn-primary button"  %>
       </div>
     </div>
+    <div id="calendar"></div>
   </div>
 </div>
+
+
+
+<% content_for(:after_js) do %>
+<% array_product_ids = current_user.products.all.ids %>
+
+  <script>
+
+  // calendar with all lending times for all products
+    var array_product_ids_js = <%= escape_javascript array_product_ids.to_json %>
+     var product_links = []
+
+    array_product_ids_js.forEach(function (value) {
+        product_links.push('/products/' + value + '.json');
+    })
+
+    $('#calendar').fullCalendar({
+      eventSources: product_links
+    });
+
+  </script>
+
+<% end %>
