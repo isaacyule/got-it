@@ -70,6 +70,7 @@ class ProductsController < ApplicationController
   end
 
 
+
   private
 
   def set_product
@@ -80,6 +81,8 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :description, :price_per_day_pennies, :condition, :deposit, :handover_fee, :photo, :address)
   end
+
+  public
 
   def set_rating
     p_counter = 0
