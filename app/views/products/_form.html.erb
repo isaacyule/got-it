@@ -12,10 +12,10 @@
             </div>
           <% end %>
 
-        <%= f.input :name, required: true %>
-        <%= f.input :description, required: true %>
+        <%= f.input :name, required: true, input_html: { maxlength: 25 } %>
+        <%= f.input :description, required: true, input_html: { maxlength: 1000 } %>
         <%= f.input :photo, required: true %>
-        <%= f.input :condition, required: true %>
+        <%= f.input :condition, required: true, input_html: { maxlength: 1000 } %>
         <%= f.input :price_per_day_pennies, label: 'Price per day (£)', required: true %>
         <%= f.input :deposit, required: true, label: 'Deposit (£)', input_html: {value: 0}%>
         <%= f.input :handover_fee, label: 'Handover Fee (£)', required: true %>

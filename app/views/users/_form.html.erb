@@ -12,12 +12,12 @@
           </div>
         <% end %>
 
-        <%= f.input :first_name, required: true %>
-        <%= f.input :last_name, required: true %>
+        <%= f.input :first_name, required: true, input_html: { maxlength: 100 } %>
+        <%= f.input :last_name, required: true, input_html: { maxlength: 100 }  %>
         <%= f.input :email, required: true %>
         <%= f.input :profile_text %>
         <%= f.input :profile_photo %>
-        <%= f.input :phone %>
+        <%= f.input :phone, input_html: { maxlength: 20 }  %>
         <%= f.input :address, required: true %>
         <%= f.submit class: 'btn btn-primary' %>
       <% end %>
