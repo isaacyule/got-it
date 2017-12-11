@@ -89,5 +89,6 @@ class ProductsController < ApplicationController
     @product.reviews.each { |review| p_counter += review.overall }
     rating = p_counter.to_f / @product.reviews.count.to_f
     @product.rating = rating.round(2)
+    @product.save
   end
 end
