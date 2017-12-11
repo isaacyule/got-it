@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       format.js
     end
-    @message.notify :users, key: "message.body"
+    @message.notify :users, key: @message.conversation.id
    end
   end
 

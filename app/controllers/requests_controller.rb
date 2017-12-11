@@ -35,7 +35,7 @@ class RequestsController < ApplicationController
       authorize(order)
       redirect_to new_order_payment_path(order, request: @request, product: @request.product)
       # ActivityNotification::Notification.notify :users, @request, key: "request.description"
-      @request.notify :users, key: "request.description"
+      @request.notify :users, key: @conversation.id
 
     else
       render :new
