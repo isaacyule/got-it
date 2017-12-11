@@ -17,6 +17,7 @@
           <% @target.notifications.each do |notification| %>
             <% conversation_id_array << notification.key.to_i %>
             <% conversation_id_array.uniq! %>
+          <% end %>
             <% conversation_array = conversation_id_array.map { |id| Conversation.find(id) } %>
             <% conversation_array.each do |conversation| %>
               <!-- Background calculations for total -->
@@ -36,7 +37,7 @@
                 <% recipient = User.find(conversation.sender_id) %>
               <% end %>
               <div class="message">
-                <%= link_to "", open_notification_path_for(notification, move: true), method: :post, id: "link_to_message" %>
+                <%= link_to "", open_notification_path_for(current_user.notifications.where(key: conversation.id).first, move: true), method: :post, id: "link_to_message" %>
                 <% if recipient.profile_photo? %>
                   <%= cl_image_tag recipient.profile_photo, :transformation=>[
                   {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
@@ -65,7 +66,6 @@
               </div>
             <% end %>
 
-            <% end %>
           <% end %>
         </div>
       </div>
