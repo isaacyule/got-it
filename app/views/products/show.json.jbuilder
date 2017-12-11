@@ -1,7 +1,7 @@
-json.array!(@product.requests.where(status: 'Accepted')) do |booking|
-  json.extract! booking, :user_id, :product_id, :description, :status
-  json.start booking.start_date
-  json.end booking.end_date
-  json.url product_url(booking, format: :html)
-  json.title booking.user.email
+json.array!(@product.requests.where(status: 'Accepted')) do |product_request|
+  json.extract! product_request, :user_id, :product_id, :description, :status
+  json.start product_request.start_date
+  json.end product_request.end_date
+  json.url "/conversations/" + product_request.conversation.id.to_s + "/messages"
+  json.title product_request.product.name
 end
