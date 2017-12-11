@@ -53,7 +53,7 @@ class RequestsController < ApplicationController
     @request.update(status: params[:status])
     @message = @conversation.messages.create(body: "This request has been accepted", user: current_user, read: false)
     @message.save
-    @request.notify :users, key: @conversation.id
+    @message.notify :users, key: @message.conversation.id
     authorize(@request)
     redirect_to root_path
   end

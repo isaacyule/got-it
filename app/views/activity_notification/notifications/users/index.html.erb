@@ -1,12 +1,3 @@
-<div class="notification_wrapper">
-  <div class="notification_header">
-    <h1>Notifications to <%= @target.printable_target_name %> <%= link_to open_all_notifications_path_for(@target, @index_options), method: :post, remote: true do %><span class="notification_count"><span class="<%= 'unopened' if @target.has_unopened_notifications?(@index_options) %>"><%= @target.unopened_notification_count(@index_options) %></span></span><% end %></h1>
-  </div>
-  <div class="notifications">
-      <%= render_notification @notifications, fallback: :default %>
-  </div>
-</div>
-
 <div class="container-conversations">
   <div class="ui segment">
     <h3>Messages</h3>
@@ -37,7 +28,7 @@
                 <% recipient = User.find(conversation.sender_id) %>
               <% end %>
               <div class="message">
-                <%= link_to "", open_notification_path_for(current_user.notifications.where(key: conversation.id).first, move: true), method: :post, id: "link_to_message" %>
+                <%= link_to "", open_notification_path_for(current_user.notifications.where(key: conversation.id).last, move: true), method: :post, id: "link_to_message" %>
                 <% if recipient.profile_photo? %>
                   <%= cl_image_tag recipient.profile_photo, :transformation=>[
                   {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
