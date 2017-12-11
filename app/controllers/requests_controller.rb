@@ -28,7 +28,7 @@ class RequestsController < ApplicationController
       else
         @conversation = Conversation.create(sender: current_user, recipient: @request.product.user, request: @request)
       end
-      @conversation.messages.create(body: @request.description, user: current_user, read: false)
+      @message = @conversation.messages.create(body: @request.description, user: current_user, read: false)
       # redirect_to product_path(@product)
       # redirect_to  new_order_payment_path(@product.order.id)
       order  = Order.create!(amount: params[:total_price].to_f, state: 'pending', user: current_user, product: @request.product)
@@ -51,7 +51,7 @@ class RequestsController < ApplicationController
     @request = Request.find(params[:id])
     @conversation = Conversation.where(request: @request).first
     @request.update(status: params[:status])
-    @message = @conversation.messages.create(body: "This request has been accepted", user: current_user, read: false)
+    @message = @conversation.messages.create(body: "***This request has been #{@request.status.downcase}***", user: current_user, read: false)
     @message.save
     @message.notify :users, key: @message.conversation.id
     authorize(@request)
