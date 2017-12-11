@@ -13,9 +13,7 @@
   acts_as_notifiable :users, targets: -> (request, key) {
     [request.set_notification_target]
   }, notifiable_path: :request_notifiable_path,
-     key: :set_key,
-
-    tracked: { only: [:update] }
+     key: :set_key
 
   def request_notifiable_path
     conversation_messages_path(self.conversation)

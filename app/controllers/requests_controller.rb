@@ -49,7 +49,11 @@ class RequestsController < ApplicationController
 
   def update
     @request = Request.find(params[:id])
+    @conversation = Conversation.where(request: @request).first
     @request.update(status: params[:status])
+    @message = @conversation.messages.create(body: "This request has been accepted", user: current_user, read: false)
+    @message.save
+    @request.notify :users, key: @conversation.id
     authorize(@request)
     redirect_to root_path
   end
