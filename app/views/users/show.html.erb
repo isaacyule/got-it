@@ -45,7 +45,7 @@
     <% @user.products.each do |product| %>
       <div class="col-xs-12 col-sm-4">
         <div class="card" id="card_${hit.objectID}">
-          <a class='link-to-product' href='https://got-it-wagon.herokuapp.com/products/<%= product.id %>/'>
+          <a class='link-to-product' href='/products/<%= product.id %>/'>
             <div class='card-body'>
               <div class='photo' style='background-image: url(<%= product.photo %>)'>
                 <div class='card-avatar' style='background-image: url(<%= product.user.profile_photo %>)'></div>

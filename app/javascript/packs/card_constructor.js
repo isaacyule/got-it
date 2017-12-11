@@ -15,7 +15,7 @@ module.exports = {
     `
     <div class="col-xs-12 col-sm-6">
       <div class="card" id="card_${hit.objectID}">
-        <a class='link-to-product' href='http://www.getitongotit.com/products/${hit.objectID}/'>
+        <a class='link-to-product' href='/products/${hit.objectID}/'>
           <div class='card-body'>
             <div class='photo' style='background-image: url(${hit.photo})'>
               <div class='card-avatar' style='background-image: url(${hit.owner_photo})'></div>
