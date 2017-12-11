@@ -1,14 +1,66 @@
-<div class="notification_wrapper">
-  <div class="notification_header">
-    <h1>Notifications to <%= @target.printable_target_name %> <%= link_to open_all_notifications_path_for(@target, @index_options), method: :post, remote: true do %><span class="notification_count"><span class="<%= 'unopened' if @target.has_unopened_notifications?(@index_options) %>"><%= @target.unopened_notification_count(@index_options) %></span></span><% end %></h1>
-  </div>
-  <div class="notifications">
-    <% if @index_options[:with_group_members] %>
-      <%= render_notification @notifications, fallback: :default_without_grouping, with_group_members: true %>
-    <% else %>
-      <%= render_notification @notifications, fallback: :default %>
-      <%#= render_notification @notifications, fallback: :text %>
-    <% end %>
+<div class="container-conversations">
+  <div class="ui segment">
+    <h3>Messages</h3>
+    <div class="ui list">
+      <div class="item">
+        <div class="container-conversations">
+          <% conversation_id_array = [] %>
+          <% @target.notifications.each do |notification| %>
+            <% conversation_id_array << notification.key.to_i %>
+            <% conversation_id_array.uniq! %>
+          <% end %>
+            <% conversation_array = conversation_id_array.map { |id| Conversation.find(id) } %>
+            <% conversation_array.each do |conversation| %>
+              <!-- Background calculations for total -->
+              <% days = (conversation.request.end_date - conversation.request.start_date + 1 ).to_i%>
+              <% rental_fee = ((conversation.request.product.price_per_day_pennies.to_i / 100) * days).round(2) %>
+              <% service_fee = ((rental_fee.to_i + conversation.request.product.handover_fee) * 0.1) %>
+              <% if current_user == conversation.request.product.user %>
+              <% total = (rental_fee.to_i + conversation.request.product.handover_fee - service_fee) %>
+              <% else %>
+              <% total = (rental_fee.to_i + conversation.request.product.handover_fee + service_fee) %>
+              <% end %>
+              <!-- end calculations for total -->
+              <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+              <% if conversation.sender_id == current_user.id %>
+                <% recipient = User.find(conversation.recipient_id) %>
+              <% else %>
+                <% recipient = User.find(conversation.sender_id) %>
+              <% end %>
+              <div class="message">
+                <%= link_to "", open_notification_path_for(current_user.notifications.where(key: conversation.id).last, move: true), method: :post, id: "link_to_message" %>
+                <% if recipient.profile_photo? %>
+                  <%= cl_image_tag recipient.profile_photo, :transformation=>[
+                  {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+                  {:width=>100, :crop=>"fill"}], class: "avatar-large" %>
+                <% else %>
+                  <%= image_tag "default_avatar.png", class: "avatar-large" %>
+                <% end %>
+                <div class="message-name">
+                  <h3><%= recipient.first_name%> <%= recipient.last_name %></h3>
+                  <p><%= conversation.messages.last.created_at.strftime("%b %e, %l:%M %p") %></p>
+                </div>
+                <div class="message-body">
+                  <p><strong><%= conversation.request.product.name %></strong> <span class="request-id">(Request ID <%= conversation.request_id %>)</span></p>
+                  <p><%= conversation.messages.last.body %></p>
+                </div>
+                <div class="message-status">
+                  <% if conversation.request.status == "Accepted" %>
+                    <p class="status-accepted">Accepted</p>
+                  <% elsif conversation.request.status == "Declined"%>
+                    <p class="status-declined">Declined</p>
+                  <% else %>
+                    <p class="status-pending">Pending</p>
+                  <% end %>
+                  <p> £<%= total %> </p>
+                </div>
+              </div>
+            <% end %>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
