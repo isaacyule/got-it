@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  devise_for :users
+  devise_for :users,
+  controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :products do
     resources :requests, only: [:new, :create, :update, :index] do
       resources :ureviews, only: [:new, :create]

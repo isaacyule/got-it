@@ -29,6 +29,8 @@
             {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
             {:width=>100, :crop=>"fill"}], class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
           <% else %>
+            <% avatar_url = current_user.facebook_picture_url || "default_avatar.png" %>
+              <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
             <%= image_tag "default_avatar.png", class: "avatar dropdown-toggle", id: "navbar-got-it-menu", "data-toggle" => "dropdown" %>
           <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-got-it-dropdown-menu">

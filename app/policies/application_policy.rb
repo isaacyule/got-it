@@ -42,6 +42,10 @@ class ApplicationPolicy
     false
   end
 
+  def facebook?
+    true
+  end
+
   class Scope
     attr_reader :user, :scope
 
