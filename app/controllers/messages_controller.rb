@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
         format.js
       end
     end
-    unless @conversation.messages[-2].user == current_user && Time.now - @conversation.messages[-2].created_at < 300
+    unless @conversation.messages[-2].user == current_user && Time.now - @conversation.messages[-2].created_at < 600
       @message.notify :users, key: @message.conversation.id
     end
   end
