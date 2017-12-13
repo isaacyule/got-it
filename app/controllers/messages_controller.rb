@@ -20,14 +20,16 @@ class MessagesController < ApplicationController
   end
 
   def create
-   @message = @conversation.messages.new(message_params)
-   authorize(@message)
-   if @message.save
-    respond_to do |format|
-      format.js
+    @message = @conversation.messages.new(message_params)
+    authorize(@message)
+    if @message.save
+      respond_to do |format|
+        format.js
+      end
     end
-    @message.notify :users, key: @message.conversation.id
-   end
+    unless @conversation.messages[-2].user == current_user && Time.now - @conversation.messages[-2].created_at < 600
+      @message.notify :users, key: @message.conversation.id
+    end
   end
 
 private
