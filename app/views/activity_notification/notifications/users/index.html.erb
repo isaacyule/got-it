@@ -42,7 +42,12 @@
                 </div>
                 <div class="message-body">
                   <p><strong><%= conversation.request.product.name %></strong> <span class="request-id">(Request ID <%= conversation.request_id %>)</span></p>
+                <% if conversation.messages.last.user_id != current_user.id && conversation.messages.last.read != true %>
+                  <p><b><%= conversation.messages.last.body %></b></p>
+                  <p>(unread messages)</p>
+                <% else %>
                   <p><%= conversation.messages.last.body %></p>
+                <% end %>
                 </div>
                 <div class="message-status">
                   <% if conversation.request.status == "Accepted" %>
