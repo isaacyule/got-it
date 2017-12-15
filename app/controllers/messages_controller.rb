@@ -4,19 +4,18 @@ class MessagesController < ApplicationController
   end
 
   def index
-   @messages = policy_scope(Message)
-   @messages = @conversation.messages.order(:created_at)
-   if @messages.last
-    if @messages.last.user_id != current_user.id
-     @messages.last.read = true;
+    @messages = policy_scope(Message)
+    @messages = @conversation.messages.order(:created_at)
+    if @conversation.messages.last.user_id != current_user.id
+      last_message = @conversation.messages.last
+      # set_message_to_read(last_message)
     end
-   end
     @message = Message.new
-   end
+  end
 
   def new
-   authorize(@message)
-   @message = @conversation.messages.new
+    authorize(@message)
+    @message = @conversation.messages.new
   end
 
   def create
@@ -33,8 +32,14 @@ class MessagesController < ApplicationController
   end
 
 private
- def message_params
-  params.require(:message).permit(:body, :user_id)
- end
+
+  def message_params
+    params.require(:message).permit(:body, :user_id)
+  end
+
+  def set_message_to_read(message)
+    message.read = true
+    message.save
+  end
 end
 
