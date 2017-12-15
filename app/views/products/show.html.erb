@@ -39,10 +39,14 @@
         <p><%= @product.user["first_name"] %>
           <%= @product.user["last_name"] %></p>
         <p class="profile-text">"<%= @product.user.profile_text %>"</p>
-        <%= cl_image_tag @product.user.profile_photo, :transformation=>[
-        {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
-        {:width=>100, :crop=>"fill"}
-        ], class: "owner_card_photo" %>
+        <% if @product.user.profile_photo? %>
+          <%= cl_image_tag @product.user.profile_photo, :transformation=>[
+          {:width=>350, :height=>350, :gravity=>"face", :radius=>"max", :crop=>"fill"},
+          {:width=>100, :crop=>"fill"}
+          ], class: "owner_card_photo" %>
+        <% else %>
+          <%= image_tag "default_avatar.png", class: 'avatar-profile' %>
+        <% end %>
       </div>
 
       <!-- map -->
@@ -77,6 +81,9 @@
       </div>
 
     </div>
+
+    <!-- fb-share button -->
+    <div class="fb-share-button" data-href="http://getitongotit.com" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fgetitongotit.com%2F&amp;src=sdkpreparse">Share</a></div>
 
   </div>
 
@@ -138,8 +145,6 @@
 
   </div>
   <!-- end request form -->
-  <div class="fb-share-button" data-href="http://getitongotit.com" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fgetitongotit.com%2F&amp;src=sdkpreparse">Share</a></div>
-
 </div>
 
 <% content_for(:after_js) do %>
@@ -225,8 +230,6 @@
     // total_price.value = total
 
   }
-
-
   </script>
 
 <% end %>
