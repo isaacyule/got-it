@@ -2,10 +2,10 @@ class ConversationsController < ApplicationController
  before_action :authenticate_user!
 
   def index
-   @conversations= policy_scope(Conversation)
-   @users = User.all
-   @conversations = Conversation.all.where(:sender_id == :recipient_id)
-   end
+    @conversations= policy_scope(Conversation)
+    @users = User.all
+    @conversations = Conversation.all.where(:sender_id == :recipient_id)
+  end
 
   # def create
   #  if Conversation.between(params[:sender_id], params[:recipient_id])
@@ -20,7 +20,8 @@ class ConversationsController < ApplicationController
   # end
 
   private
-   def conversation_params
+
+  def conversation_params
     params.permit(:sender_id, :recipient_id, :request_id)
-   end
+  end
 end
